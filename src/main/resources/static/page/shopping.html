@@ -73,7 +73,7 @@
             form = layui.form,
             table = layui.table;
 
-        table.render({
+        shopping.render({
             elem: '#currentTableId',
             url: '/api/table.json',
             toolbar: '#toolbarDemo',
@@ -109,7 +109,7 @@
             });
 
             //执行搜索重载
-            table.reload('currentTableId', {
+            shopping.reload('currentTableId', {
                 page: {
                     curr: 1
                 }
@@ -124,7 +124,7 @@
         /**
          * toolbar监听事件
          */
-        table.on('toolbar(currentTableFilter)', function (obj) {
+        shopping.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
                     title: '添加用户',
@@ -139,18 +139,18 @@
                     layer.full(index);
                 });
             } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
+                var checkStatus = shopping.checkStatus('currentTableId')
                     , data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
             }
         });
 
         //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
+        shopping.on('checkbox(currentTableFilter)', function (obj) {
             console.log(obj)
         });
 
-        table.on('tool(currentTableFilter)', function (obj) {
+        shopping.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
 

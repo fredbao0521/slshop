@@ -68,25 +68,25 @@
         },
         {
           "title": "购物管理",
-          "href": "/page/table.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
           "target": "_self",
           "child": [
             {
-              "title": "商品信息",
-              "href": "/page/table.html",
+              "title": "报单购货",
+              "href": "/page/shoppingManage/buyVip.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
-              "title": "商品套餐",
+              "title": "确认激活",
               "href": "a7.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
             ,
             {
-              "title": "会员购买",
+              "title": "购货管理",
               "href": "a8.html",
               "icon": "fa fa-tachometer",
               "target": "_self"

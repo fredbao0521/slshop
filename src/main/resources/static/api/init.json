@@ -80,20 +80,20 @@
             },
             {
               "title": "确认激活",
-              "href": "a7.html",
+              "href": "/page/shoppingManage/confirm.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
             ,
             {
               "title": "购货管理",
-              "href": "a8.html",
+              "href": "/page/shoppingManage/goods.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "购物车",
-              "href": "a9.html",
+              "href": "/page/shoppingManage/shoppingCar.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -101,7 +101,7 @@
             ,
             {
               "title": "订单明细",
-              "href": "a10.html",
+              "href": "/page/shoppingManage/ordersInfo.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

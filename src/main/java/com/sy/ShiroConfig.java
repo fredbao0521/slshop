@@ -1,4 +1,4 @@
-package com.sy.bmq;
+package com.sy;
 
 import com.sy.bmq.realm.CasRealm;
 import io.buji.pac4j.filter.CallbackFilter;

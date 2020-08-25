@@ -1,4 +1,4 @@
-package com.sy.bmq;
+package com.sy;
 
 
 import io.buji.pac4j.context.ShiroSessionStore;

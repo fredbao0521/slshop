@@ -1,4 +1,4 @@
-package com.sy.bmq;
+package com.sy;
 
 import org.springframework.context.annotation.Configuration;
 

@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -63,15 +64,17 @@ public class GoodsInfo implements Serializable {
     /**
     * 创建时间
     */
-    private Date createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
     /**
     * 最后更新时间
     */
-    private Date lastupdatetime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastUpdateTime;
     /**
     * 创建人
     */
-    private String createdby;
+    private String createdBy;
 
 
     public Integer getId() {
@@ -155,35 +158,35 @@ public class GoodsInfo implements Serializable {
         this.unit = unit;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getLastupdatetime() {
-        return lastupdatetime;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
-    public void setLastupdatetime(Date lastupdatetime) {
-        this.lastupdatetime = lastupdatetime;
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
-    public String getCreatedby() {
-        return createdby;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override
     public String toString() {
         return "GoodsInfo{" +
                 "id=" + id +
-                ", goodsSn='" + goodsSN + '\'' +
+                ", goodsSN='" + goodsSN + '\'' +
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsFormat='" + goodsFormat + '\'' +
                 ", marketPrice=" + marketPrice +
@@ -192,9 +195,9 @@ public class GoodsInfo implements Serializable {
                 ", note='" + note + '\'' +
                 ", num=" + num +
                 ", unit='" + unit + '\'' +
-                ", createtime=" + createtime +
-                ", lastupdatetime=" + lastupdatetime +
-                ", createdby='" + createdby + '\'' +
+                ", createTime=" + createTime +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", createdBy='" + createdBy + '\'' +
                 '}';
     }
 }

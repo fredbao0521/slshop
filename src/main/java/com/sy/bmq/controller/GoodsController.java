@@ -30,9 +30,11 @@ public class GoodsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("page"+page);
         result.setPage(page);
         result.setLimit(limit);
+        for (int i = 0; i < allGoods.size(); i++) {
+            System.out.println(allGoods.get(i).toString());
+        }
         result.setData(allGoods);
         result.setCode(BaseResult.CODE_SUCCESS);
         return result;

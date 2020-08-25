@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/public.css" media="all">
+    <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 </head>
 <body>
 <div class="layuimini-container">
@@ -38,7 +39,7 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <button type="button" id="qy" class="layui-btn layui-btn-primary" lay-submit
+                            <button type="button" id="qy" class="layui-btn layui-btn-primary"
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
                             </button>
                         </div>
@@ -47,14 +48,13 @@
             </div>
         </fieldset>
 
-        <table class="layui-hide" id="test" lay-filter="test"></table>
+        <table class="layui-hide layui-table"  id="test" lay-filter="test"></table>
 
     </div>
 
 </div>
-<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form', 'table'], function () {
+    layui.use(['layer','form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table;
@@ -72,13 +72,73 @@
                 {field: 'note', title: '说明'},
                 {field: 'marketPrice', title: '售价(元)', sort: true},
                 {field: 'num', title: '库存数量', sort: true},
-                {title: '操作',toolbar: '#barDemo', align: "center"}
+                {title: '操作', toolbar: '#barDemo', align: "center"}
             ]],
             limits: [5, 10, 15, 20, 50],
             limit: 5,
             page: true,
             skin: 'line'
         });
+        /**
+         * toolbar监听事件
+         */
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            console.log(data.id);
+            if (obj.event === 'edit') {
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/page/table/edit.html'
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
+                    var id = data.id;
+                    $.ajax({
+                        url: "/goods/deletegood.do",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            "id": id
+                        },
+                        xhrFields: {
+                            // 发送 AJAX 请求时带上 cookie
+                            withCredentials: true
+                        },
+                        success: function (rec) {
+                            if (rec.code === 0) {
+                                alert(rec.msg);
+                            }
+                        }
+                    });
+                    // obj.del();
+                    layer.close(index);
+                });
+                return false;
+            } else if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '新增商品',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/page/table/add.html'
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            }
+        });
+
 
         // 监听搜索操作
         $("#qy").on("click", function () {
@@ -96,69 +156,6 @@
                 }
             })
         });
-
-        /**
-         * toolbar监听事件
-         */
-        table.on('tool(test)', function (obj) {
-            // var data = obj.data;
-            // console.log(obj);
-            var checkStatus = table.checkStatus("id");
-            console.log(checkStatus.id);
-            if (obj.event === 'edit') {
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    alert(data.id);
-                    $.ajax({
-                        url:"/goods/deletegood.do",
-                        type: "post",
-                        dataType: "json",
-                        data:{
-                            "id":id
-                        },
-                        xhrFields: {
-                            // 发送 AJAX 请求时带上 cookie
-                            withCredentials: true
-                        },
-                        success: function(rec) {
-                            if (rec.code===0){
-                                alert(rec.msg);
-                            }
-                        }
-                    });
-                    // obj.del();
-                    layer.close(index);
-                });
-            }else if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '新增商品',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/page/table/add.html'
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            }
-        });
-
     });
 </script>
 <script type="text/html" id="toolbarDemo">
@@ -168,9 +165,9 @@
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <input type="button" class="layui-btn layui-btn-xs data-count-view" lay-event="view" value="查看" />
-    <input type="button" class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit" value="编辑"/>
-    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete" value="删除"/>
+    <input type="button" class="layui-btn layui-btn-xs " lay-event="detial" value="查看"/>
+    <input type="button" class="layui-btn layui-btn-normal layui-btn-xs " lay-event="edit" value="编辑"/>
+    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger " lay-event="delete" value="删除"/>
 </script>
 </body>
 </html>

@@ -215,7 +215,7 @@
           ,
             {
               "title": "商品管理",
-              "href": "/page/backGroundManage/goodsList.html",
+              "href": "http://localhost:9998/page/backGroundManage/table.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

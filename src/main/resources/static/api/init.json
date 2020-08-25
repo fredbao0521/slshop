@@ -101,7 +101,7 @@
             ,
             {
               "title": "订单明细",
-              "href": "/page/shoppingManage/ordersInfo.html",
+              "href": "/page/shoppingManage/orders.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -109,7 +109,7 @@
         },
         {
           "title": "电子银行",
-          "href": "e.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
           "target": "_self",
           "child": [
@@ -150,7 +150,7 @@
         },
         {
           "title": "咨讯管理",
-          "href": "f.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
           "target": "_self",
           "child": [
@@ -183,7 +183,7 @@
         },
         {
           "title": "后台管理",
-          "href": "/page/table.html",
+          "href": "",
           "icon": "fa fa-cogs",
           "target": "_self",
           "child": [
@@ -195,7 +195,7 @@
             },
             {
               "title": "权限管理",
-              "href": "page/menu.html",
+              "href": "/page/menu.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -209,6 +209,13 @@
             {
               "title": "报表管理",
               "href": "a54.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ,
+            {
+              "title": "商品管理",
+              "href": "/page/backGroundManage/goodsList.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

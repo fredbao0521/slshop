@@ -23,27 +23,27 @@ public class GoodsInfo implements Serializable {
     */
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 商品编码
     */
-    private String goodssn;
+    private String goodsSN;
     /**
     * 商品名称
     */
-    private String goodsname;
+    private String goodsName;
     /**
     * 商品规格
     */
-    private String goodsformat;
+    private String goodsFormat;
     /**
     * 市场价
     */
-    private Object marketprice;
+    private Double marketPrice;
     /**
     * 优惠价格
     */
-    private Object realprice;
+    private Double realPrice;
     /**
     * 状态（1、上架、2、下架）
     */
@@ -74,52 +74,53 @@ public class GoodsInfo implements Serializable {
     private String createdby;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getGoodssn() {
-        return goodssn;
+    public String getGoodsSN() {
+        return goodsSN;
     }
 
-    public void setGoodssn(String goodssn) {
-        this.goodssn = goodssn;
+    public void setGoodsSN(String goodsSN) {
+        this.goodsSN = goodsSN;
     }
 
-    public String getGoodsname() {
-        return goodsname;
+
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setGoodsname(String goodsname) {
-        this.goodsname = goodsname;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public String getGoodsformat() {
-        return goodsformat;
+    public String getGoodsFormat() {
+        return goodsFormat;
     }
 
-    public void setGoodsformat(String goodsformat) {
-        this.goodsformat = goodsformat;
+    public void setGoodsFormat(String goodsFormat) {
+        this.goodsFormat = goodsFormat;
     }
 
-    public Object getMarketprice() {
-        return marketprice;
+    public Double getMarketPrice() {
+        return marketPrice;
     }
 
-    public void setMarketprice(Object marketprice) {
-        this.marketprice = marketprice;
+    public void setMarketPrice(Double marketPrice) {
+        this.marketPrice = marketPrice;
     }
 
-    public Object getRealprice() {
-        return realprice;
+    public Double getRealPrice() {
+        return realPrice;
     }
 
-    public void setRealprice(Object realprice) {
-        this.realprice = realprice;
+    public void setRealPrice(Double realPrice) {
+        this.realPrice = realPrice;
     }
 
     public Integer getState() {
@@ -178,4 +179,22 @@ public class GoodsInfo implements Serializable {
         this.createdby = createdby;
     }
 
+    @Override
+    public String toString() {
+        return "GoodsInfo{" +
+                "id=" + id +
+                ", goodsSn='" + goodsSN + '\'' +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsFormat='" + goodsFormat + '\'' +
+                ", marketPrice=" + marketPrice +
+                ", realPrice=" + realPrice +
+                ", state=" + state +
+                ", note='" + note + '\'' +
+                ", num=" + num +
+                ", unit='" + unit + '\'' +
+                ", createtime=" + createtime +
+                ", lastupdatetime=" + lastupdatetime +
+                ", createdby='" + createdby + '\'' +
+                '}';
+    }
 }

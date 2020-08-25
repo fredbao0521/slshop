@@ -47,22 +47,10 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 加入购物车</button>
-                <!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">  </button>-->
-            </div>
-        </script>
-
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-
-
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
+        <table class="layui-hide" id="test" lay-filter="test"></table>
 
     </div>
+
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
@@ -70,12 +58,12 @@
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table;
-
         table.render({
-            elem: '#currentTableId',
+            elem: '#test',
             url: '/goods/listgoods.do',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter'],
+            text: {none: '无数据'},
             cols: [[
                 {type: "checkbox", width: 100},
                 {field: 'id', title: 'ID', sort: true},
@@ -84,12 +72,7 @@
                 {field: 'note', title: '说明'},
                 {field: 'marketPrice', title: '售价(元)', sort: true},
                 {field: 'num', title: '库存数量', sort: true},
-                {
-                    field: 'classify',
-                    edit: 'text',
-                    title: '数量',
-                    style: 'outline: 1px solid #e6e6e6;outline-offset: -5px;'
-                }
+                {title: '操作',toolbar: '#barDemo', align: "center"}
             ]],
             limits: [5, 10, 15, 20, 50],
             limit: 5,
@@ -98,33 +81,6 @@
         });
 
         // 监听搜索操作
-
-        // form.on('submit(data-search-btn)', function (data) {
-        //     // var result = JSON.stringify(data.field);
-        //     // layer.alert(result, {
-        //     //     title: '最终的搜索信息'
-        //     // });
-        //     // var id=$("#id").val();
-        //     // var goodsName=$("#goodsName").val();
-        //     // var goodsSN=$("#goodsSN").val();
-        //     // var note=$("#note").val();
-        //     //执行搜索重载
-        //     alert(data.id)
-        //     table.reload('currentTableId', {
-        //         // method:"post",
-        //         page: {
-        //             curr: 1
-        //         }
-        //         , where: {
-        //             id: data.id,
-        //             goodsName:data.goodsName,
-        //             goodsSN:data.goodsSN,
-        //             note:data.note
-        //         }
-        //     });
-        //
-        //     return false;
-        // });
         $("#qy").on("click", function () {
             var goodsName = $("#goodsName").val();
             var goodsSN = $("#goodsSN").val();
@@ -144,34 +100,11 @@
         /**
          * toolbar监听事件
          */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '加入购物车',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/page/table/add.html'
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
+        table.on('tool(test)', function (obj) {
+            // var data = obj.data;
+            // console.log(obj);
+            var checkStatus = table.checkStatus("id");
+            console.log(checkStatus.id);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
@@ -189,14 +122,55 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
-                    obj.del();
+                    alert(data.id);
+                    $.ajax({
+                        url:"/goods/deletegood.do",
+                        type: "post",
+                        dataType: "json",
+                        data:{
+                            "id":id
+                        },
+                        xhrFields: {
+                            // 发送 AJAX 请求时带上 cookie
+                            withCredentials: true
+                        },
+                        success: function(rec) {
+                            if (rec.code===0){
+                                alert(rec.msg);
+                            }
+                        }
+                    });
+                    // obj.del();
                     layer.close(index);
+                });
+            }else if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '新增商品',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/page/table/add.html'
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
                 });
             }
         });
 
     });
 </script>
-
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新增商品</button>
+        <!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">  </button>-->
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <input type="button" class="layui-btn layui-btn-xs data-count-view" lay-event="view" value="查看" />
+    <input type="button" class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit" value="编辑"/>
+    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete" value="删除"/>
+</script>
 </body>
 </html>

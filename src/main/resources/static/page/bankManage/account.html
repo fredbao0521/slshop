@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>系统设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+
+    <style>
+        .layui-form-label {
+            text-align: start;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form layui-form-pane" action="">
+
+
+    <div class="layui-form-item">
+
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="date1" id="date1" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+
+        </div>
+
+
+        <label class="layui-form-label">to </label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" name="date2" id="date2" placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off">
+
+        </div>
+        <button type="button" id="search" class="layui-btn layui-btn-primary" lay-submit
+                lay-filter="data-search-btn"><i class="layui-icon"></i> 查询
+        </button>
+    </div>
+
+    </div>
+
+
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+
+</form>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script>
+
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+//常规用法
+        laydate.render({
+            elem: '#date1'
+            , type: 'datetime',
+            format: 'yyyy-MM-dd HH:mm:ss' //指定时间格式
+        });
+        laydate.render({
+            elem: '#date2'
+            , type: 'datetime',
+            format: 'yyyy-MM-dd HH:mm:ss' //指定时间格式
+        });
+
+    })
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            id: 'userAccount',
+            elem: '#currentTableId',
+            url: '/ad/list.do',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'id', title: 'ID', sort: true},
+                {field: 'accountDate', title: '日期'},
+                {
+                    field: 'type', title: '摘要', templet: function (d) {
+                        if (d.state === 0) {
+                            return '充值'
+                        } else if (d.state === 1){
+                            return '提现'
+                        }else if (d.state === 2){
+                            return '消费'
+                        }else{
+                            return '收益'
+                        }
+                    }
+                },
+                {field: 'moneyIn', title: '入账金额(元)'},
+                {field: 'moneyOut', title: '出账金额(元)'},
+                {field: 'balance', title: '余额(元)', sort: true},
+
+
+            ]],
+            limits: [2, 4, 6, 8, 10],
+            limit: 2,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        $(document).on(`click`, `#search`, function () {
+            // 搜索条件
+            var beginTime = $(`input[name="date1"]`).val();
+            var endTime = $(`input[name="date2"]`).val();
+            table.reload('userAccount', {
+                method: 'get'
+                , where: {
+                    beginTime: beginTime,
+                    endTime: endTime
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+        });
+
+
+    });
+</script>
+</body>
+</html>

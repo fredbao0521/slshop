@@ -26,6 +26,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public GoodsInfo selectById(Integer id) throws Exception {
+        return goodsMapper.selectById(id);
+    }
+
+    @Override
     public List<GoodsInfo> findAllGoods(int pageNum, int pageSize,String goodsSN,String goodsName,String note, BaseResult result) throws Exception {
         List<GoodsInfo> goodsInfos = goodsMapper.selectWithWhere(goodsName,goodsSN,note);
         result.setCount(goodsInfos.size());

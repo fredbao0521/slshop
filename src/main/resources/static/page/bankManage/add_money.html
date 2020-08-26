@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>系统设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+
+    <!-- <style>
+         .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+     </style>-->
+</head>
+<body>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">创建时间:</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" name="date" id="createtime" placeholder="yyyy-MM-dd HH:mm:ss">
+        </div>
+    </div>
+    </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">汇款金额:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="money" id="money" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">(CNY)</label>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">摘要:</label>
+                <div class="layui-input-inline">
+                    <select id="type" name="type" lay-verify="required" lay-filter="industry" >
+                        <option value="0">充值</option>
+                        <option value="1">提现</option>
+                        <option value="2">消费</option>
+                        <option value="3">收益</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+        <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">提交</button>
+                </div>
+
+    </div>
+</form>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+
+//常规用法
+        laydate.render({
+            elem: '#createtime'
+            ,type: 'datetime'
+        });
+
+    })
+
+    layui.use(['form'], function () {
+        var $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+
+
+
+        //监听提交
+        form.on('submit(setting)', function (data) {
+            var date = $("input[name='date']").val();
+            var money = $("input[name='money']").val();
+            var type = $("#type option:selected").val();
+            alert(type)
+            $.ajax({
+                url:"/ua/modify.do",
+                data:{
+                    balance:money,
+                    createTime:date,
+                    content:type,
+                },
+                type:"get",
+                async:false,
+                dataType:"json",
+                success:function (rec) {
+                    if(rec.code===0){
+                        alert("汇款成功")
+                    }else {
+                        alert("汇款失败")
+                    }
+
+                }
+            })
+
+        });
+        });
+
+
+</script>
+</body>
+</html>

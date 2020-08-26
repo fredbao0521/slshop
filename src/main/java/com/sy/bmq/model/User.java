@@ -40,7 +40,7 @@ public class User implements Serializable {
     /**
     * 用户真实姓名
     */
-    private String realname;
+    private String realName;
     /**
     * 性别
     */
@@ -54,16 +54,16 @@ public class User implements Serializable {
     * 证件类型id,来源于数据字典表 data_dictionary 中
 typeCode =’CARD_TYPE’的 valueId
     */
-    private String cardtype;
+    private String cardType;
     /**
     * 证件类型名称,来源于数据字典表 data_dictionary 中
 typeCode =’CARD_TYPE’的 valueName
     */
-    private String cardtypename;
+    private String cardTypeName;
     /**
     * 证件号码
     */
-    private String idcard;
+    private String idCard;
     /**
     * 收货国家
     */
@@ -79,7 +79,7 @@ typeCode =’CARD_TYPE’的 valueName
     /**
     * 收获地址
     */
-    private String useraddress;
+    private String userAddress;
     /**
     * 邮编
     */
@@ -88,57 +88,57 @@ typeCode =’CARD_TYPE’的 valueName
     * 注册时间
     */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createtime;
+    private Date createTime;
     /**
     * 推荐人id（默认为当前登录用户id）
     */
-    private Integer referid;
+    private Integer referId;
     /**
     * 推荐人编码（默认为当前登录用户loginCode）
     */
-    private String refercode;
+    private String referCode;
     /**
     * 所属角色ID
     */
-    private Integer roleid;
+    private Integer roleId;
     /**
     * 所属角色名称
     */
-    private String rolename;
+    private String roleName;
     /**
     * 是否启用（1、启用2、未启用）
     */
-    private Integer isstart;
+    private Integer isStart;
     /**
     * 最新更新时间
     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date lastupdatetime;
+    private Date lastUpdateTime;
     /**
     * 最后登录时间
     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date lastlogintime;
+    private Date lastLoginTime;
     /**
     * 开户卡号
     */
-    private String bankaccount;
+    private String bankAccount;
     /**
     * 开户行
     */
-    private String bankname;
+    private String bankName;
     /**
     * 开户人
     */
-    private String accountholder;
+    private String accountHolder;
     /**
     * 身份证照片存放路径
     */
-    private String idcardpicpath;
+    private String idCardPicPath;
     /**
     * 银行卡照片存放路径
     */
-    private String bankpicpath;
+    private String bankPicPath;
 
 
     public Integer getId() {
@@ -173,12 +173,12 @@ typeCode =’CARD_TYPE’的 valueName
         this.password2 = password2;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getSex() {
@@ -197,28 +197,28 @@ typeCode =’CARD_TYPE’的 valueName
         this.birthday = birthday;
     }
 
-    public String getCardtype() {
-        return cardtype;
+    public String getCardType() {
+        return cardType;
     }
 
-    public void setCardtype(String cardtype) {
-        this.cardtype = cardtype;
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 
-    public String getCardtypename() {
-        return cardtypename;
+    public String getCardTypeName() {
+        return cardTypeName;
     }
 
-    public void setCardtypename(String cardtypename) {
-        this.cardtypename = cardtypename;
+    public void setCardTypeName(String cardTypeName) {
+        this.cardTypeName = cardTypeName;
     }
 
-    public String getIdcard() {
-        return idcard;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setIdcard(String idcard) {
-        this.idcard = idcard;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
     public String getCountry() {
@@ -245,12 +245,12 @@ typeCode =’CARD_TYPE’的 valueName
         this.email = email;
     }
 
-    public String getUseraddress() {
-        return useraddress;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setUseraddress(String useraddress) {
-        this.useraddress = useraddress;
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public String getPostcode() {
@@ -261,108 +261,107 @@ typeCode =’CARD_TYPE’的 valueName
         this.postcode = postcode;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Integer getReferid() {
-        return referid;
+    public Integer getReferId() {
+        return referId;
     }
 
-    public void setReferid(Integer referid) {
-        this.referid = referid;
+    public void setReferId(Integer referId) {
+        this.referId = referId;
     }
 
-    public String getRefercode() {
-        return refercode;
+    public String getReferCode() {
+        return referCode;
     }
 
-    public void setRefercode(String refercode) {
-        this.refercode = refercode;
+    public void setReferCode(String referCode) {
+        this.referCode = referCode;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Integer getIsstart() {
-        return isstart;
+    public Integer getIsStart() {
+        return isStart;
     }
 
-    public void setIsstart(Integer isstart) {
-        this.isstart = isstart;
+    public void setIsStart(Integer isStart) {
+        this.isStart = isStart;
     }
 
-    public Date getLastupdatetime() {
-        return lastupdatetime;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
-    public void setLastupdatetime(Date lastupdatetime) {
-        this.lastupdatetime = lastupdatetime;
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
-    public Date getLastlogintime() {
-        return lastlogintime;
+    public Date getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setLastlogintime(Date lastlogintime) {
-        this.lastlogintime = lastlogintime;
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
-    public String getBankaccount() {
-        return bankaccount;
+    public String getBankAccount() {
+        return bankAccount;
     }
 
-    public void setBankaccount(String bankaccount) {
-        this.bankaccount = bankaccount;
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
-    public String getBankname() {
-        return bankname;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setBankname(String bankname) {
-        this.bankname = bankname;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
-    public String getAccountholder() {
-        return accountholder;
+    public String getAccountHolder() {
+        return accountHolder;
     }
 
-    public void setAccountholder(String accountholder) {
-        this.accountholder = accountholder;
+    public void setAccountHolder(String accountHolder) {
+        this.accountHolder = accountHolder;
     }
 
-    public String getIdcardpicpath() {
-        return idcardpicpath;
+    public String getIdCardPicPath() {
+        return idCardPicPath;
     }
 
-    public void setIdcardpicpath(String idcardpicpath) {
-        this.idcardpicpath = idcardpicpath;
+    public void setIdCardPicPath(String idCardPicPath) {
+        this.idCardPicPath = idCardPicPath;
     }
 
-    public String getBankpicpath() {
-        return bankpicpath;
+    public String getBankPicPath() {
+        return bankPicPath;
     }
 
-    public void setBankpicpath(String bankpicpath) {
-        this.bankpicpath = bankpicpath;
+    public void setBankPicPath(String bankPicPath) {
+        this.bankPicPath = bankPicPath;
     }
-
 }

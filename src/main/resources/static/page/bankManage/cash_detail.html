@@ -2,34 +2,46 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layui</title>
+    <title>系统设置</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/public.css" media="all">
+
+   <style>
+       .layui-form-label {
+           text-align:start;
+       }
+     </style>
 </head>
 <body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
+<form class="layui-form">
 
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
-            </div>
-        </script>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+            <div class="layui-form-item">
+                <label class="layui-form-label">日期</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="date" lay-verify="data" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label" style="margin-left: 20px">to</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="date" lay-verify="data" autocomplete="off" class="layui-input">
+                </div>
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">查询</button>
+        </div>
 
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
+
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">提交</button>
+                </div>
 
     </div>
-</div>
-<script src="/lib/layui/layui.js" charset="utf-8"></script>
+</form>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
@@ -40,7 +52,11 @@
             elem: '#currentTableId',
             url: '/api/table.json',
             toolbar: '#toolbarDemo',
-            defaultToolbar: ['filter'],
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
@@ -92,7 +108,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/add.html',
+                    content: '/page/table/add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -120,7 +136,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
+                    content: '/page/table/edit.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -136,6 +152,5 @@
 
     });
 </script>
-
 </body>
 </html>

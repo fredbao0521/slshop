@@ -36,10 +36,9 @@
           
           ]
         },
-        
         {
           "title": "用户管理",
-          "href": "/page/vip_form.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
           "target": "_self",
            "child": [
@@ -113,20 +112,20 @@
           "child": [
             {
               "title": "汇款充值",
-              "href": "a11.html",
+              "href": "/page/bankManage/add_money.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "汇款名细",
-              "href": "a12.html",
+              "href": "/page/bankManage/cash_detail.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
             ,
             {
               "title": "申请提现",
-              "href": "a14.html",
+              "href": "/page/bankManage/cash_out.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -140,7 +139,7 @@
             ,
             {
               "title": "账户查看",
-              "href": "a16.html",
+              "href": "/page/bankManage/account.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -213,7 +212,7 @@
           ,
             {
               "title": "商品管理",
-              "href": "/page/backGroundManage/goodsList.html",
+              "href": "/page/backGroundManage/goodsmanage/goodsList.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface GoodsService {
 
+    GoodsInfo selectById(Integer id) throws Exception;
+
     PageInfo findByPage() throws Exception;
 
     List<GoodsInfo> findAllGoods(int pageNum, int pageSize, String goodsSN, String goodsName, String note, BaseResult result) throws Exception;

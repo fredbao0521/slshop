@@ -11,6 +11,9 @@ public interface GoodsMapper extends Mapper<GoodsInfo> {
     @Select("SELECT * FROM goods_info order by id asc")
     List<GoodsInfo> selectAllGoods() throws Exception;
 
+    @Select("SELECT * FROM goods_info where id = #{id}")
+    GoodsInfo selectById(Integer id) throws Exception;
+
     @Select({"<script>" +
             "SELECT " +
             " * " +
@@ -52,4 +55,10 @@ public interface GoodsMapper extends Mapper<GoodsInfo> {
             "where id = #{id}")
     int updateGood(GoodsInfo goodsInfo) throws Exception;
 
+
+    @Update("update goods_info set "+
+            "num = num - #{num}," +
+            "lastUpdateTime=now()" +
+            "where id = #{id}")
+    int updateGoodNum(Integer num, Integer id) throws Exception;
 }

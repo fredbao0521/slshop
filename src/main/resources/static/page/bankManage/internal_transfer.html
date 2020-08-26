@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>系统设置</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+
+    <!-- <style>
+         .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+     </style>-->
+</head>
+<body>
+<form class="layui-form">
+
+      <div class="layui-form-item">
+        <label class="layui-form-label" style="line-height: 5px">当前余额:</label>
+        <div class="layui-input-inline">
+            <span style="color: red" id="money">3800.00</span>(元)
+        </div>
+
+       </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">目标会员:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="vip" autocomplete="off" class="layui-input">
+                </div>
+                <span style="color: red ;font-size: 12px;line-height: 3">接收转帐的会员用户名必须填写正确，不能给註册会员转帐。</span>
+        </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">转账金额:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="money" autocomplete="off" class="layui-input">
+                </div>
+                <a href="#" style="color: #00b7ee;line-height: 3">余额不足,马上去汇款充值</a>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">二级密码:</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" autocomplete="off" class="layui-input">
+                </div>
+
+            </div>
+
+
+
+    </div>
+        <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">提交</button>
+                </div>
+
+    </div>
+</form>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+        var $ = layui.jquery;
+        $.ajax({
+            url:"/ua/findMoney.do",
+            type:"get",
+            async:false,
+            dataType:"json",
+            success:function (rec) {
+                if(rec.code===0){
+                $("#money").html(rec.data.balance);
+                form.render()
+                }else {
+                    alert("汇款失败")
+                }
+
+            }
+        })
+
+        form.on('submit(setting)', function (data) {
+            var username = $("input[name='vip']").val();
+            var money = $("input[name='money']").val();
+            var password = $("input[name='password']").val();
+
+            $.ajax({
+                url:"/ua/modifyOut.do",
+                data:{
+                    balance:money,
+                    username:username,
+                    password:password,
+                },
+                type:"get",
+                async:false,
+                dataType:"json",
+                success:function (rec) {
+                    if(rec.code===0){
+                        alert("汇款成功")
+                    }else {
+                        alert(rec.msg)
+                    }
+
+                }
+            })
+
+        });
+
+    });
+</script>
+</body>
+</html>

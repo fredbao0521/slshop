@@ -97,14 +97,14 @@
             var data = obj.data;
             if (obj.event === 'detail') {
                 var index = layer.open({
-                    title: '修改商品信息',
+                    title: '查看商品信息',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     btn: ['返回'],//弹出层按钮
                     shadeClose: true,
-                    area: ['80%', '80%'],
-                    content: '/page/backGroundManage/goodsinfo2.html',
+                    area: ['80%', '50%'],
+                    content: '/page/backGroundManage/goodsmanage/goodsinfo2.html',
                     success: function (layero, index) {//弹出层打开后的回调函数
                         var body = layer.getChildFrame('body', index);//获取弹出层的dom元素
                         body.find("#goodsSN").val(data.goodsSN);
@@ -113,7 +113,13 @@
                         body.find("#goodsFormat").val(data.goodsFormat);
                         body.find("#marketPrice").val(data.marketPrice);
                         body.find("#realPrice").val(data.realPrice);
-                        body.find("#state").val(data.id);
+                        if (data.id===1){
+                            body.find("#state").val("上架").css("color","green").css("font-size","18px");
+                        } else {
+                            body.find("#state").val("下架").css("color","red").css("font-size","18px");
+                        }
+
+
                         body.find("#note").val(data.note);
                         body.find("#num").val(data.num);
                         body.find("#unit").val(data.unit);
@@ -128,7 +134,7 @@
                          });
                          data = JSON.stringify(data);
                          var content = {'novelJson': data};
-                         $.post('/goods/updategood.do', content, function (rec) {//得到数据提交到后端进行更新
+                         $.post('/goodsmanage/updategood.do', content, function (rec) {//得到数据提交到后端进行更新
                              if (rec.code === 0) {
                                  layer.alert(rec.msg, {icon: 6}, function (index) {
                                      layer.close(index);
@@ -136,7 +142,7 @@
                                  layui.use('table', function () {
                                      var table = layui.table;
                                      table.reload('test', {
-                                         url: '/goods/listgoods.do' //数据接口，更新成功后刷新数据表格
+                                         url: '/goodsmanage/listgoods.do' //数据接口，更新成功后刷新数据表格
                                      });
                                  });
                              } else {
@@ -163,7 +169,7 @@
                     // btn: ['保存', '返回'],//弹出层按钮
                     shadeClose: true,
                     area: ['80%', '80%'],
-                    content: '/page/backGroundManage/goodsedit.html',
+                    content: '/page/backGroundManage/goodsmanage/goodsedit.html',
                     success: function (layero, index) {//弹出层打开后的回调函数
                         var body = layer.getChildFrame('body', index);//获取弹出层的dom元素
                         body.find("#goodsSN").val(data.goodsSN);
@@ -172,11 +178,10 @@
                         body.find("#goodsFormat").val(data.goodsFormat);
                         body.find("#marketPrice").val(data.marketPrice);
                         body.find("#realPrice").val(data.realPrice);
-                        // body.find("#state").attr("checked", data.state === 1 ? true : false);
                         if (data.state === 1) {
-                            body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true");
+                            body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true").css("color","green");
                         } else {
-                            body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true");
+                            body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true").css("color","red");
                         }
                         form.render();
                         body.find("#note").val(data.note);
@@ -192,7 +197,7 @@
                          });
                          data = JSON.stringify(data);
                          var content = {'novelJson': data};
-                         $.post('/goods/updategood.do', content, function (rec) {//得到数据提交到后端进行更新
+                         $.post('/goodsmanage/updategood.do', content, function (rec) {//得到数据提交到后端进行更新
                              if (rec.code === 0) {
                                  layer.alert(rec.msg, {icon: 6}, function (index) {
                                      layer.close(index);
@@ -200,7 +205,7 @@
                                  layui.use('table', function () {
                                      var table = layui.table;
                                      table.reload('test', {
-                                         url: '/goods/listgoods.do' //数据接口，更新成功后刷新数据表格
+                                         url: '/goodsmanage/listgoods.do' //数据接口，更新成功后刷新数据表格
                                      });
                                  });
                              } else {
@@ -291,7 +296,7 @@
                 maxmin: true,
                 shadeClose: true,
                 area: ['100%', '100%'],
-                content: '/page/backGroundManage/addGoods.html'
+                content: '/page/backGroundManage/goodsmanage/addGoods.html'
             });
             $(window).on("resize", function () {
                 layer.full(index);
@@ -307,7 +312,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/backGroundManage/addGoods.html'
+                    content: '/page/backGroundManage/goodsmanage/addGoods.html'
                 });
                 $(window).on("resize", function () {
                     layer.full(index);

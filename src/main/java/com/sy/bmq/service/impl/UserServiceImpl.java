@@ -26,4 +26,8 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public User selectByUsername(String username) throws Exception {
+        return mapper.selectByUsername(username);
+    }
 }

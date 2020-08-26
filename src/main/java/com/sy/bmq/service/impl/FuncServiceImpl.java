@@ -28,7 +28,7 @@ public class FuncServiceImpl implements FuncService {
     public Integer save(Func func, User admin) throws Exception {
         int insert = mapper.insert(func);
         //授权给管理员
-        Integer integer = mapper.insertFuncByRoleId(admin.getRoleid(), func.getId(), new Date(), admin.getUsername());
+        Integer integer = mapper.insertFuncByRoleId(admin.getRoleId(), func.getId(), new Date(), admin.getUsername());
 
         return insert+integer;
     }

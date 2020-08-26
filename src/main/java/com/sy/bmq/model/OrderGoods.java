@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -21,111 +22,127 @@ public class OrderGoods implements Serializable {
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 商品编号,关联商品表
     */
-    private Long goodsid;
+    private Integer goodsId;
     /**
     * 商品名字
     */
-    private String goodsname;
+    private String goodsName;
     /**
     * 商品价格
     */
-    private Object goodsprice;
+    private Double goodsPrice;
     /**
     * 商品数量
     */
-    private Integer goodsnum;
+    private Integer goodsNum;
     /**
     * 创建人
     */
-    private String createby;
+    private String createBy;
     /**
     * 创建时间
     */
-    private Date createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
     /**
     * 修改时间
     */
-    private Date lastupdatetime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastUpdateTime;
     /**
     * 关联订单表
     */
-    private Long orderinfoid;
+    private Long orderInfoId;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getGoodsid() {
-        return goodsid;
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodsid(Long goodsid) {
-        this.goodsid = goodsid;
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public String getGoodsname() {
-        return goodsname;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setGoodsname(String goodsname) {
-        this.goodsname = goodsname;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public Object getGoodsprice() {
-        return goodsprice;
+    public Double getGoodsPrice() {
+        return goodsPrice;
     }
 
-    public void setGoodsprice(Object goodsprice) {
-        this.goodsprice = goodsprice;
+    public void setGoodsPrice(Double goodsPrice) {
+        this.goodsPrice = goodsPrice;
     }
 
-    public Integer getGoodsnum() {
-        return goodsnum;
+    public Integer getGoodsNum() {
+        return goodsNum;
     }
 
-    public void setGoodsnum(Integer goodsnum) {
-        this.goodsnum = goodsnum;
+    public void setGoodsNum(Integer goodsNum) {
+        this.goodsNum = goodsNum;
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getLastupdatetime() {
-        return lastupdatetime;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
-    public void setLastupdatetime(Date lastupdatetime) {
-        this.lastupdatetime = lastupdatetime;
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
-    public Long getOrderinfoid() {
-        return orderinfoid;
+    public Long getOrderInfoId() {
+        return orderInfoId;
     }
 
-    public void setOrderinfoid(Long orderinfoid) {
-        this.orderinfoid = orderinfoid;
+    public void setOrderInfoId(Long orderInfoId) {
+        this.orderInfoId = orderInfoId;
     }
 
+    @Override
+    public String toString() {
+        return "OrderGoods{" +
+                "id=" + id +
+                ", goodsId=" + goodsId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsPrice=" + goodsPrice +
+                ", goodsNum=" + goodsNum +
+                ", createBy='" + createBy + '\'' +
+                ", createTime=" + createTime +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", orderInfoId=" + orderInfoId +
+                '}';
+    }
 }

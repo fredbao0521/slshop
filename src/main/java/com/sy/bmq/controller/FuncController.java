@@ -19,7 +19,7 @@ public class FuncController {
     @Autowired
     private FuncService service;
 
-    @RequiresPermissions("/func/find.do")
+//    @RequiresPermissions("/func/find.do")
     @RequestMapping("/find.do")
     public BaseResult findFunc(Integer id)throws Exception{
 
@@ -33,7 +33,7 @@ public class FuncController {
 
 
     @RequestMapping("/add.do")
-    @RequiresPermissions("/func/add.do")
+//    @RequiresPermissions("/func/add.do")
     public BaseResult addFunc(Func func, HttpSession session) throws Exception{
         func.setCreationtime(new Date());
         Integer save = service.save(func,(User)session.getAttribute("sessionUser"));

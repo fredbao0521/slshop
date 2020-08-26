@@ -20,7 +20,7 @@ public class MenuController {
     private MenuService service;
 
     //需要管理员权限
-    @RequiresPermissions("/menu/find.do")
+//    @RequiresPermissions("/menu/find.do")
     @RequestMapping("/find.do")
     public BaseResult findMenus(Integer roleId) throws Exception{
         List<Menu> list = service.findByRoleId(roleId);
@@ -32,7 +32,7 @@ public class MenuController {
     }
 
     //更新角色对应权限
-    @RequiresPermissions("/menu/modify.do")
+//    @RequiresPermissions("/menu/modify.do")
     @RequestMapping("/modify.do")
     public BaseResult modifyMenus(Integer roleId, Integer[] funcId) throws Exception{
         String username = SecurityUtils.getSubject().getPrincipal().toString();

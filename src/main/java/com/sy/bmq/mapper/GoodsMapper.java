@@ -1,9 +1,7 @@
 package com.sy.bmq.mapper;
 
 import com.sy.bmq.model.GoodsInfo;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -36,5 +34,22 @@ public interface GoodsMapper extends Mapper<GoodsInfo> {
 
     @Delete("Delete FROM goods_info where id = #{id}")
     int deleteGood(Integer id) throws Exception;
+
+    @Insert("INSERT INTO goods_info(goodsSN,goodsName,goodsFormat,marketPrice,realPrice,state,note,num,unit,createTime,lastUpdateTime,createdBy) " +
+            "VALUES(#{goodsSN},#{goodsName},#{goodsFormat},#{marketPrice},#{realPrice},#{state},#{note},#{num},#{unit},now(),now(),#{createdBy})")
+    int addGood(GoodsInfo goodsInfo) throws Exception;
+
+    @Update("update goods_info set goodsSN=#{goodsSN}," +
+                                            "goodsName=#{goodsName}," +
+                                            "goodsFormat=#{goodsFormat}," +
+                                            "marketPrice=#{marketPrice}," +
+                                            "realPrice=#{realPrice}," +
+                                            "state=#{state}," +
+                                            "note=#{note}," +
+                                            "num=#{num}," +
+                                            "unit=#{unit}," +
+                                            "lastUpdateTime=now()" +
+            "where id = #{id}")
+    int updateGood(GoodsInfo goodsInfo) throws Exception;
 
 }

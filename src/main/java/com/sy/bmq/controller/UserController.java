@@ -20,9 +20,7 @@ public class UserController {
     @RequestMapping("/login.do")
     public BaseResult findSessionUser(HttpServletRequest request){
         BaseResult baseResult = new BaseResult();
-//        User sessionUser = (User)session.getAttribute("sessionUser");
         String remoteUser = request.getRemoteUser();
-        System.out.println("xxxxx"+remoteUser);
         if(remoteUser==null||remoteUser.equals("")){
             baseResult.setMsg("请登录");
             baseResult.setCode(BaseResult.CODE_FAILED);

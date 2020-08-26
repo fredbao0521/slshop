@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,6 @@ public class GoodsController {
 
     @RequestMapping("/listgoods.do")
     public BaseResult findAllGoods(int limit, int page, String goodsSN,String goodsName,String note, BaseResult result){
-        System.out.println(goodsSN+","+goodsName+","+note);
         List<GoodsInfo> allGoods = null;
         try {
             allGoods = goodsService.findAllGoods(page, limit,goodsSN,goodsName,note, result);
@@ -32,9 +32,6 @@ public class GoodsController {
         }
         result.setPage(page);
         result.setLimit(limit);
-        for (int i = 0; i < allGoods.size(); i++) {
-            System.out.println(allGoods.get(i).toString());
-        }
         result.setData(allGoods);
         result.setCode(BaseResult.CODE_SUCCESS);
         return result;
@@ -51,6 +48,45 @@ public class GoodsController {
             }else {
                 result.setCode(BaseResult.CODE_FAILED);
                 result.setMsg("删除失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("/addgood.do")
+    public BaseResult addGood(GoodsInfo goodsInfo, HttpServletRequest request){
+        String remoteUser = request.getRemoteUser();
+        goodsInfo.setCreatedBy(remoteUser);
+        System.out.println(goodsInfo.toString());
+        BaseResult result = new BaseResult();
+        try {
+            int i = goodsService.addGood(goodsInfo);
+            if (i>0){
+                result.setCode(BaseResult.CODE_SUCCESS);
+                result.setMsg("新增成功");
+            }else {
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("新增失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("/updategood.do")
+    public BaseResult updateGood(GoodsInfo goodsInfo){
+        BaseResult result = new BaseResult();
+        try {
+            int i = goodsService.updateGood(goodsInfo);
+            if (i>0){
+                result.setCode(BaseResult.CODE_SUCCESS);
+                result.setMsg("修改成功");
+            }else {
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("修改失败");
             }
         } catch (Exception e) {
             e.printStackTrace();

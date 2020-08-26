@@ -38,4 +38,16 @@ public class GoodsServiceImpl implements GoodsService {
     public int removeGood(Integer id) throws Exception {
         return goodsMapper.deleteGood(id);
     }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public int addGood(GoodsInfo goodsInfo) throws Exception {
+        return goodsMapper.addGood(goodsInfo);
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public int updateGood(GoodsInfo goodsInfo) throws Exception {
+        return goodsMapper.updateGood(goodsInfo);
+    }
 }

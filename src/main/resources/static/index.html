@@ -191,22 +191,26 @@
 				});
 
 				$('.login-out').on("click", function() {
-					$.ajax({
-					url: "/logout.do",
-					type: "get",
-					dataType: "json",
-					xhrFields: {
-						// 发送 AJAX 请求时带上 cookie
-						withCredentials: true
-					},
-					success: function(rec) {						
-						if(rec.code==0){
-							layer.msg('退出登录成功', function() {
-								window.location = 'login.html';
-							});
-						}
-					}
-				});
+					layer.msg('退出登录成功', function() {
+						window.location = 'http://localhost:8080/cas/logout';
+									});
+
+				// 	$.ajax({
+				// 	url: "http://localhost:8080/cas/logout",
+				// 	type: "post",
+				// 	dataType: "json",
+				// 	xhrFields: {
+				// 		// 发送 AJAX 请求时带上 cookie
+				// 		withCredentials: true
+				// 	},
+				// 	success: function(rec) {
+				// 		if(rec.code==0){
+				// 			layer.msg('退出登录成功', function() {
+				// 				// window.location = 'index.html';
+				// 			});
+				// 		}
+				// 	}
+				// });
 					
 				});
 			});

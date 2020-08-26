@@ -17,7 +17,7 @@ public class RoleController {
 
     @Autowired
     private RoleService service;
-    @RequiresPermissions("/role/page.do")
+//    @RequiresPermissions("/role/page.do")
     @RequestMapping("/page.do")
     public BaseResult showRoleList() throws Exception{
         PageInfo byPage = service.findByPage();

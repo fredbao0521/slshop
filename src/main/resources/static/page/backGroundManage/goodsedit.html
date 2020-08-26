@@ -12,63 +12,74 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form" action="">
+        <form class="layui-form" action="" id="novelUpdate">
+
+
             <div class="layui-form-item">
                 <label class="layui-form-label">商品名称：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="goodsName" id="goodsName" lay-verify="required" lay-reqtext="商品名称必填项，岂能为空？" placeholder="请输入"
                            autocomplete="off" class="layui-input">
                 </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">商品编号：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="goodsSN" id="goodsSN" lay-verify="required" lay-reqtext="商品编号必填项，岂能为空？" placeholder="请输入"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+
+            <div class="layui-form-item" style="display: none">
+                <label class="layui-form-label">id：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="goodsid" id="goodsid">
+                </div>
+            </div>
+
+
             <div class="layui-form-item">
                 <label class="layui-form-label">市场价：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="marketPrice" id="marketPrice" lay-verify="required" lay-reqtext="市场价必填项，岂能为空？"
                            placeholder="请输入" autocomplete="off" class="layui-input">
                 </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">优惠价：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="realPrice" id="realPrice" lay-verify="required" lay-reqtext="优惠价必填项，岂能为空？" placeholder="请输入"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+
+
+
             <div class="layui-form-item">
                 <label class="layui-form-label">库存：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="num" id="num" lay-verify="required" lay-reqtext="库存必填项，岂能为空？" placeholder="请输入"
                            autocomplete="off" class="layui-input">
                 </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">单位：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="unit" id="unit" lay-verify="required" lay-reqtext="单位必填项，岂能为空？" placeholder="请输入"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+
+
+
             <div class="layui-form-item">
                 <label class="layui-form-label">状态：</label>
                 <div class="layui-input-inline" id="state">
                     <input type="radio" name="state" value="1" title="上架" checked="">
                     <input type="radio" name="state" value="2" title="下架">
                 </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">商品规格：</label>
                 <div class="layui-input-inline">
                     <input type="text" name="goodsFormat" id="goodsFormat" lay-verify="required" lay-reqtext="商品规格必填项，岂能为空？" placeholder="请输入"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+
+
             <div class="layui-form-item">
                 <label class="layui-form-label">商品说明：</label>
                 <div class="layui-input-block">
@@ -102,12 +113,20 @@
             height: 100 //设置编辑器高度
         });
 
+
+        function closelayer(){
+            window.parent.location.reload();//刷新父页面
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
         //监听提交
         form.on('submit(saveGood)', function (data) {
+            closelayer();
             $.ajax({
-                url:"/goods/addgood.do",
+                url:"/goods/updategood.do",
                 dataType:"json",
                 data:{
+                    "id":$("#goodsid").val(),
                     "goodsSN":$("#goodsSN").val(),
                     "goodsName":$("#goodsName").val(),
                     "goodsFormat":$("#goodsFormat").val(),

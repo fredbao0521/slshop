@@ -15,8 +15,6 @@
       "href": "",
       "target": "_self",
       "child": [
-      
-      
         {
           "title": "代理商管理",
           "href": "c.html",
@@ -215,7 +213,7 @@
           ,
             {
               "title": "商品管理",
-              "href": "http://localhost:9998/page/backGroundManage/table.html",
+              "href": "/page/backGroundManage/goodsList.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

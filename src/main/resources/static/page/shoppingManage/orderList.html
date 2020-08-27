@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="" lay-filter="UpdateEnquiry">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">商品名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="goodsName" id="goodsName" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">商品编码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="goodsSN" id="goodsSN" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">商品说明</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="note" id="note" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button" id="qy" class="layui-btn layui-btn-primary"
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <table class="layui-hide layui-table" id="test" lay-filter="test"></table>
+
+    </div>
+
+</div>
+<script>
+    layui.use(['layer', 'form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            layedit = layui.layedit,
+            table = layui.table;
+        table.render({
+            elem: '#test',
+            url: '/goods/listgoods.do',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter'],
+            text: {none: '无数据'},
+            cols: [[
+                {type: "checkbox", width: 100},
+                {field: 'id', title: 'ID', sort: true},
+                {field: 'goodsSN', title: '产品编号'},
+                {field: 'goodsName', title: '产品名称'},
+                {field: 'note', title: '说明'},
+                {
+                    field: 'state', title: '状态', templet: function (d) {
+                        if (d.state === 1) {
+                            return '上架'
+                        } else {
+                            return '下架'
+                        }
+                    }
+                },
+                {field: 'marketPrice', title: '售价(元)', sort: true},
+                {field: 'num', title: '库存数量', sort: true},
+                {title: '操作', toolbar: '#barDemo', align: "center"}
+            ]],
+            limits: [5, 10, 15, 20, 50],
+            limit: 5,
+            page: true,
+            skin: 'line'
+        });
+        /**
+         * toolbar监听事件
+         */
+
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                var index = layer.open({
+                    title: '查看商品信息',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    btn: ['返回'],//弹出层按钮
+                    shadeClose: true,
+                    area: ['80%', '50%'],
+                    content: '/page/backGroundManage/goodsmanage/goodsinfo2.html',
+                    success: function (layero, index) {//弹出层打开后的回调函数
+                        var body = layer.getChildFrame('body', index);//获取弹出层的dom元素
+                        body.find("#goodsSN").val(data.goodsSN);
+                        body.find("#goodsid").val(data.id);
+                        body.find("#goodsName").val(data.goodsName);
+                        body.find("#goodsFormat").val(data.goodsFormat);
+                        body.find("#marketPrice").val(data.marketPrice);
+                        body.find("#realPrice").val(data.realPrice);
+                        if (data.id===1){
+                            body.find("#state").val("上架").css("color","green").css("font-size","18px");
+                        } else {
+                            body.find("#state").val("下架").css("color","red").css("font-size","18px");
+                        }
+
+
+                        body.find("#note").val(data.note);
+                        body.find("#num").val(data.num);
+                        body.find("#unit").val(data.unit);
+                        form.render();
+                    }
+                    /* , yes: function (index, layero) {//点击“确认”按钮后触发的事件
+                         var data = {};
+                         var body = layer.getChildFrame('body', index);
+                         var form = body.find("#novelUpdate").serializeArray();//获取指定id的表单
+                         $.each(form, function () {
+                             data[this.name] = this.value;
+                         });
+                         data = JSON.stringify(data);
+                         var content = {'novelJson': data};
+                         $.post('/goodsmanage/updategood.do', content, function (rec) {//得到数据提交到后端进行更新
+                             if (rec.code === 0) {
+                                 layer.alert(rec.msg, {icon: 6}, function (index) {
+                                     layer.close(index);
+                                 });
+                                 layui.use('table', function () {
+                                     var table = layui.table;
+                                     table.reload('test', {
+                                         url: '/goodsmanage/listgoods.do' //数据接口，更新成功后刷新数据表格
+                                     });
+                                 });
+                             } else {
+                                 layer.alert(rec.msg, {icon: 5}, function (index) {
+                                     layer.close(index);
+                                 });
+                             }
+                             layer.close(index);
+                         }, 'json');
+                         return false;
+                     }*/
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+                return false;
+            } else if (obj.event === 'edit') {
+                var index = layer.open({
+                    title: '修改商品信息',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    // btn: ['保存', '返回'],//弹出层按钮
+                    shadeClose: true,
+                    area: ['80%', '80%'],
+                    content: '/page/backGroundManage/goodsmanage/goodsedit.html',
+                    success: function (layero, index) {//弹出层打开后的回调函数
+                        var body = layer.getChildFrame('body', index);//获取弹出层的dom元素
+                        body.find("#goodsSN").val(data.goodsSN);
+                        body.find("#goodsid").val(data.id);
+                        body.find("#goodsName").val(data.goodsName);
+                        body.find("#goodsFormat").val(data.goodsFormat);
+                        body.find("#marketPrice").val(data.marketPrice);
+                        body.find("#realPrice").val(data.realPrice);
+                        if (data.state === 1) {
+                            body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true").css("color","green");
+                        } else {
+                            body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true").css("color","red");
+                        }
+                        form.render();
+                        body.find("#note").val(data.note);
+                        body.find("#num").val(data.num);
+                        body.find("#unit").val(data.unit);
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
+                    var id = data.id;
+                    $.ajax({
+                        url: "/goods/deletegood.do",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            "id": id
+                        },
+                        xhrFields: {
+                            // 发送 AJAX 请求时带上 cookie
+                            withCredentials: true
+                        },
+                        success: function (rec) {
+                            if (rec.code === 0) {
+                                layer.msg(rec.msg);
+                                var goodsName = $("#goodsName").val();
+                                var goodsSN = $("#goodsSN").val();
+                                var note = $("#note").val();
+                                table.reload('test', {
+                                    page: {
+                                        curr: 1
+                                    },
+                                    where: {
+                                        goodsName: goodsName,
+                                        goodsSN: goodsSN,
+                                        note: note
+                                    },
+                                    done: function (res, curr, count) {
+                                        bindTableToolbarFunction()
+                                    }
+                                })
+                            }
+                        }
+                    });
+                    // obj.del();
+                    layer.close(index);
+                });
+                return false;
+            }
+        });
+
+
+        // 监听搜索操作
+        $("#qy").on("click", function () {
+            var goodsName = $("#goodsName").val();
+            var goodsSN = $("#goodsSN").val();
+            var note = $("#note").val();
+            table.reload('test', {
+                page: {
+                    curr: 1
+                },
+                where: {
+                    goodsName: goodsName,
+                    goodsSN: goodsSN,
+                    note: note
+                },
+                done: function (res, curr, count) {
+                    bindTableToolbarFunction()
+                }
+            })
+        });
+
+
+        // 监听新增操作
+        $("#addGoods").on('click', function () {
+            var index = layer.open({
+                title: '添加商品信息',
+                type: 2,
+                shade: 0.2,
+                maxmin: true,
+                shadeClose: true,
+                area: ['100%', '100%'],
+                content: '/page/backGroundManage/goodsmanage/addGoods.html'
+            });
+            $(window).on("resize", function () {
+                layer.full(index);
+            });
+        });
+
+        function bindTableToolbarFunction() {
+            $("#addGoods").on('click', function () {
+                var index = layer.open({
+                    title: '添加商品信息',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/page/backGroundManage/goodsmanage/addGoods.html'
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            });
+        }
+    });
+</script>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add" id="addGoods"> 新增商品</button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <input type="button" class="layui-btn layui-btn-xs " lay-event="detail" value="查看"/>
+    <input type="button" class="layui-btn layui-btn-normal layui-btn-xs " lay-event="edit" value="编辑"/>
+    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger " lay-event="delete" value="删除"/>
+</script>
+</body>
+</html>

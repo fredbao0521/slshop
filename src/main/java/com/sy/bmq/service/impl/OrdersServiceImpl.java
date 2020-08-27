@@ -98,4 +98,9 @@ public class OrdersServiceImpl implements OrdersService {
         }
         return i+i1+i2;
     }
+
+    @Override
+    public List<OrderInfo> findAllOrder(Integer userId) throws Exception {
+        return ordersMapper.selectAllOrder(userId);
+    }
 }

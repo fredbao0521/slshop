@@ -98,7 +98,7 @@
             ,
             {
               "title": "订单明细",
-              "href": "/page/shoppingManage/orders.html",
+              "href": "/page/shoppingManage/orderList.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

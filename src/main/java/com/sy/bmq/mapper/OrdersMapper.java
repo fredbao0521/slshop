@@ -5,6 +5,7 @@ import com.sy.bmq.model.OrderGoods;
 import com.sy.bmq.model.OrderInfo;
 import com.sy.bmq.model.Shopcart;
 import org.apache.ibatis.annotations.*;
+import org.springframework.core.annotation.Order;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -50,4 +51,7 @@ public interface OrdersMapper extends Mapper<CartGoods> {
     @Insert("insert into order_goods(goodsId,goodsName,goodsPrice,goodsNum,createBy,createTime,lastUpdateTime,orderInfoId)" +
             "values(#{goodsId},#{goodsName},#{goodsPrice},#{goodsNum},#{createBy},now(),now(),#{orderInfoId})")
     int insertOrderGoods(OrderGoods orderGoods) throws Exception;
+
+    @Select("select * from order_info where userId = #{userId}")
+    List<OrderInfo> selectAllOrder(Integer userId) throws Exception;
 }

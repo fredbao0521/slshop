@@ -136,7 +136,19 @@ public class OrdersController {
         return result;
     }
 
-
+    @RequestMapping("/findallorders.do")
+    public BaseResult FindAllOrders(BaseResult result, HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+        try {
+            User user = userService.selectByUsername(remoteUser);
+            List<OrderInfo> allOrder = ordersService.findAllOrder(user.getId());
+            result.setData(allOrder);
+            result.setCode(BaseResult.CODE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 
 

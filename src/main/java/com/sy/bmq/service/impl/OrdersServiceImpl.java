@@ -1,11 +1,13 @@
 package com.sy.bmq.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.sy.bmq.mapper.GoodsMapper;
 import com.sy.bmq.mapper.OrdersMapper;
 import com.sy.bmq.model.CartGoods;
 import com.sy.bmq.model.OrderGoods;
 import com.sy.bmq.model.OrderInfo;
 import com.sy.bmq.model.Shopcart;
+import com.sy.bmq.model.base.BaseResult;
 import com.sy.bmq.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,5 +104,13 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<OrderInfo> findAllOrder(Integer userId) throws Exception {
         return ordersMapper.selectAllOrder(userId);
+    }
+
+    @Override
+    public List<OrderInfo> selectWithWhere(int pageNum,int pageSize,String orderCode, String createTime,Integer userId, BaseResult result) throws Exception {
+        List<OrderInfo> orderInfos = ordersMapper.selectWithWhere(orderCode, createTime, userId);
+        result.setCount(orderInfos.size());
+        PageHelper.startPage(pageNum, pageSize);
+        return ordersMapper.selectWithWhere(orderCode,createTime,userId);
     }
 }

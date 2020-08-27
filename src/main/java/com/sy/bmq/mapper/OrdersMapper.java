@@ -5,7 +5,6 @@ import com.sy.bmq.model.OrderGoods;
 import com.sy.bmq.model.OrderInfo;
 import com.sy.bmq.model.Shopcart;
 import org.apache.ibatis.annotations.*;
-import org.springframework.core.annotation.Order;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -54,4 +53,24 @@ public interface OrdersMapper extends Mapper<CartGoods> {
 
     @Select("select * from order_info where userId = #{userId}")
     List<OrderInfo> selectAllOrder(Integer userId) throws Exception;
+
+    @Select({"<script>" +
+            "SELECT " +
+            " * " +
+            " from order_info" +
+            "<where>",
+            "<if test=\'orderCode != null and orderCode != \"\"\'>"+
+                    "and orderCode like concat('%',#{orderCode},'%')"+
+                    "</if>" +
+                    "<if test=\'createTime != null and createTime != \"\"\'>"+
+                    "and createTime &gt; #{createTime}"+
+                    "</if>" +
+                    "<if test=\'userId != null and userId != \"\"\'>"+
+                    "and userId =#{userId}"+
+                    "</if>" +
+                    "</where></script>"
+    })
+    List<OrderInfo> selectWithWhere(@Param("orderCode") String orderCode,
+                                    @Param("createTime") String createTime,
+                                    @Param("userId") Integer userId) throws Exception;
 }

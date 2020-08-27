@@ -137,11 +137,13 @@ public class OrdersController {
     }
 
     @RequestMapping("/findallorders.do")
-    public BaseResult FindAllOrders(BaseResult result, HttpServletRequest request) {
+    public BaseResult FindAllOrders(int limit,int page,String orderCode,String createTime,BaseResult result, HttpServletRequest request) {
         String remoteUser = request.getRemoteUser();
         try {
             User user = userService.selectByUsername(remoteUser);
-            List<OrderInfo> allOrder = ordersService.findAllOrder(user.getId());
+            List<OrderInfo> allOrder = ordersService.selectWithWhere(page,limit,orderCode,createTime,user.getId(),result);
+            result.setPage(page);
+            result.setLimit(limit);
             result.setData(allOrder);
             result.setCode(BaseResult.CODE_SUCCESS);
         } catch (Exception e) {

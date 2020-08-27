@@ -34,7 +34,6 @@ public interface GoodsMapper extends Mapper<GoodsInfo> {
                     "</if>" +
                     "</where></script>"
     })
-//    List<GoodsInfo> selectWithWhere(GoodsInfo goodsInfo) throws Exception;
     List<GoodsInfo> selectWithWhere(@Param("goodsName") String goodsName,
                                     @Param("goodsSN") String goodsSN,
                                     @Param("note") String note) throws Exception;

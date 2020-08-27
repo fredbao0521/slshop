@@ -12,18 +12,15 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-
         <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+            <div class="layui-btn-container" style="position: absolute ;right: 45px">
+                <button class="layui-btn layui-btn-sm" lay-event="getCheckData" style="width: 150px">结算</button>
             </div>
         </script>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+        <table class="layui-hide" style="position: relative" id="test" lay-filter="test"></table>
 
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+        <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
 
@@ -37,100 +34,96 @@
             table = layui.table;
 
         table.render({
-            elem: '#currentTableId',
-            url: '/api/table.json',
-            toolbar: '#toolbarDemo',
-            defaultToolbar: ['filter'],
-            cols: [[
-                {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'username', width: 80, title: '用户名'},
-                {field: 'sex', width: 80, title: '性别', sort: true},
-                {field: 'city', width: 80, title: '城市'},
-                {field: 'sign', title: '签名', minWidth: 150},
-                {field: 'experience', width: 80, title: '积分', sort: true},
-                {field: 'score', width: 80, title: '评分', sort: true},
-                {field: 'classify', width: 80, title: '职业'},
-                {field: 'wealth', width: 135, title: '财富', sort: true},
-                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
-            ]],
-            limits: [10, 15, 20, 25, 50, 100],
-            limit: 15,
-            page: true,
-            skin: 'line'
+            elem: '#test'
+            , url: '/orders/findcargoods.do'
+            , toolbar: '#toolbarDemo'
+            , totalRow: true//开启合计行
+            , defaultToolbar: []
+            , cols: [[
+                {type: "checkbox", width: 100},
+                {type: 'numbers', title: "序号", align: 'center'},
+                {field: 'id', title: 'ID', align: 'center',hide:true}
+                , {field: 'goodsId', title: '商品编号',align: 'center', sort: true,hide:true}
+                , {field: 'goodsName', title: '商品名字', align: 'center'}
+                , {field: 'goodsPrice', title: '商品价格', align: 'center',sort: true}
+                , {field: 'goodsNum', title: '购买数量', align: 'center', sort: true, edit: 'text',style: 'outline: 1px solid #e6e6e6;outline-offset: -5px;'}
+                , {field: 'flag', title: '货物库存情况', align: 'center', totalRowText: '合计金额',templet: function (d) {
+                        if (d.flag === 0) {
+                            return '无货'
+                        } else {
+                            return '有货'
+                        }
+                    }}
+                , {field: 'total', title: '小计', align: 'center', sort: true, totalRow: true}
+                , {title: '操作', width: 150, toolbar: '#barDemo', aline: 'center'}
+            ]]  , skin: 'line'
+            /*  , done: function (res, curr, count) {//数据渲染完的回调。
+
+                  var rowNums = res.list.length;//获取行数
+
+                  var scoreTotal = this.elem.next().find('.layui-table-total td[data-field="score"] .layui-table-cell').text();//获取“评分”合计行的合计结果
+                  var scoreAvg = (scoreTotal / rowNums).toFixed(2).toString().concat('%');//计算平均分：总分除以行数，保留两位小数
+                  this.elem.next().find('.layui-table-total td[data-field="score"] .layui-table-cell').text(scoreAvg);//将计算结果复制给“评分”列的合计行
+
+                  $('th').css({'background-color': '#ccdeff', 'color': 'black', 'font-weight': 'bold'});
+                  var that = this.elem.next();
+
+  //为该数据表格添加样式，间隔行添加颜色
+                  res.list.forEach(function (item, index) {
+                      if (index % 2 == 0) {
+                          var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "#FFFFFF");
+                      } else {
+                          var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "#F4F6F9");
+                      }
+                  });
+              }*/
         });
 
-        // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
-
-            //执行搜索重载
-            table.reload('currentTableId', {
-                page: {
-                    curr: 1
-                }
-                , where: {
-                    searchParams: result
-                }
-            }, 'data');
-
-            return false;
-        });
-
-        /**
-         * toolbar监听事件
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'delete') {
+                layer.confirm('真的删除么', function (index) {
+                    $.ajax({
+                        url:"/orders/delcargoods.do",
+                        dataType:"json",
+                        data:{
+                            "id":data.id,
+                            "goodsId":data.goodsId,
+                            "goodsNum":data.goodsNum
+                        },type:"post",
+                        success:function (rec) {
+                            table.reload('test');
+                        }
+                    });
+                    layer.close(index);
                 });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
             }
         });
 
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    //
+                    var ids=[];
+                    data.forEach(function (u,i) {
+                        ids.push(u.id);
+                    });
+                    $.ajax({
+                        url:"/orders/createorder.do",
+                        dataType:"json",
+                        traditional:true,
+                        data:{
+                            "ids":ids
+                        },
+                        type:"post",
+                        success:function (rec) {
+                            table.reload('test');
+                        }
+                    });
+                    break;
             }
         });
 

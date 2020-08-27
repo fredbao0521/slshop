@@ -1,5 +1,6 @@
 package com.sy.bmq.mapper;
 
+import com.sy.bmq.model.CartGoods;
 import com.sy.bmq.model.GoodsInfo;
 import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
@@ -13,6 +14,9 @@ public interface GoodsMapper extends Mapper<GoodsInfo> {
 
     @Select("SELECT * FROM goods_info where id = #{id}")
     GoodsInfo selectById(Integer id) throws Exception;
+
+    @Select("SELECT * FROM cart_goods where cartId = #{cartId}")
+    List<CartGoods> selectByCartId(Integer cartId) throws Exception;
 
     @Select({"<script>" +
             "SELECT " +
@@ -61,4 +65,10 @@ public interface GoodsMapper extends Mapper<GoodsInfo> {
             "lastUpdateTime=now()" +
             "where id = #{id}")
     int updateGoodNum(Integer num, Integer id) throws Exception;
+
+    @Update("update goods_info set "+
+            "num = num + #{num}," +
+            "lastUpdateTime=now()" +
+            "where id = #{id}")
+    int updateGoodNumUp(Integer num, Integer id) throws Exception;
 }

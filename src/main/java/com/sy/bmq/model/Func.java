@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2020-08-24 12:26:26
  */
 @Entity
-@Table(name = "AUFUNCTION")
+@Table(name = "au_function")
 public class Func implements Serializable {
     private static final long serialVersionUID = -48745881964224755L;
     /**

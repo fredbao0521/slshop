@@ -1,6 +1,7 @@
 package com.sy.bmq.service;
 
 import com.github.pagehelper.PageInfo;
+import com.sy.bmq.model.CartGoods;
 import com.sy.bmq.model.GoodsInfo;
 import com.sy.bmq.model.base.BaseResult;
 
@@ -19,4 +20,6 @@ public interface GoodsService {
     int addGood(GoodsInfo goodsInfo) throws Exception;
 
     int updateGood(GoodsInfo goodsInfo) throws Exception;
+
+    List<CartGoods> selectByCartId(Integer cartId) throws Exception;
 }

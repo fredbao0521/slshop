@@ -40,8 +40,13 @@ public class CartGoods implements Serializable {
     */
     private Integer goodsNum;
     /**
+     * 商品总金额
+     */
+    private Double total;
+    /**
     * 购物车ID,关联购物车表
     */
+
     private Integer cartId;
     /**
     * 0表示无货,1表示有货
@@ -62,6 +67,13 @@ public class CartGoods implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
 
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 
     public Integer getId() {
         return id;

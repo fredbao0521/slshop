@@ -3,6 +3,7 @@ package com.sy.bmq.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sy.bmq.mapper.GoodsMapper;
+import com.sy.bmq.model.CartGoods;
 import com.sy.bmq.model.GoodsInfo;
 import com.sy.bmq.model.base.BaseResult;
 import com.sy.bmq.service.GoodsService;
@@ -54,5 +55,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
     public int updateGood(GoodsInfo goodsInfo) throws Exception {
         return goodsMapper.updateGood(goodsInfo);
+    }
+
+    @Override
+    public List<CartGoods> selectByCartId(Integer cartId) throws Exception {
+        return goodsMapper.selectByCartId(cartId);
     }
 }

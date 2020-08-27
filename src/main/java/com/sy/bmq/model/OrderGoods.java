@@ -40,8 +40,8 @@ public class OrderGoods implements Serializable {
     */
     private Integer goodsNum;
     /**
-    * 创建人
-    */
+     * 创建人
+     */
     private String createBy;
     /**
     * 创建时间

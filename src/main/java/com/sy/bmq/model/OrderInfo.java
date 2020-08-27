@@ -21,27 +21,27 @@ public class OrderInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 订单编号
     */
-    private String ordercode;
+    private String orderCode;
     /**
     * 订单总价
     */
-    private Object orderprice;
+    private Double orderPrice;
     /**
     * 订单时间
     */
-    private Date createtime;
+    private Date createTime;
     /**
     * 创建者
     */
-    private String createby;
+    private String createBy;
     /**
     * 修改时间
     */
-    private Date lastupdatetime;
+    private Date lastUpdateTime;
     /**
     * 1已支付,0失效订单,2未支付
     */
@@ -49,55 +49,55 @@ public class OrderInfo implements Serializable {
     /**
     * 关联用户表
     */
-    private Long userid;
+    private Integer userId;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getOrdercode() {
-        return ordercode;
+    public String getOrderCode() {
+        return orderCode;
     }
 
-    public void setOrdercode(String ordercode) {
-        this.ordercode = ordercode;
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
     }
 
-    public Object getOrderprice() {
-        return orderprice;
+    public Double getOrderPrice() {
+        return orderPrice;
     }
 
-    public void setOrderprice(Object orderprice) {
-        this.orderprice = orderprice;
+    public void setOrderPrice(Double orderPrice) {
+        this.orderPrice = orderPrice;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
-    public Date getLastupdatetime() {
-        return lastupdatetime;
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
-    public void setLastupdatetime(Date lastupdatetime) {
-        this.lastupdatetime = lastupdatetime;
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
     public Integer getStatus() {
@@ -108,12 +108,11 @@ public class OrderInfo implements Serializable {
         this.status = status;
     }
 
-    public Long getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
-
 }

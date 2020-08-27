@@ -364,4 +364,38 @@ typeCode =’CARD_TYPE’的 valueName
     public void setBankPicPath(String bankPicPath) {
         this.bankPicPath = bankPicPath;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", password2='" + password2 + '\'' +
+                ", realName='" + realName + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday=" + birthday +
+                ", cardType='" + cardType + '\'' +
+                ", cardTypeName='" + cardTypeName + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", country='" + country + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", createTime=" + createTime +
+                ", referId=" + referId +
+                ", referCode='" + referCode + '\'' +
+                ", roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", isStart=" + isStart +
+                ", lastUpdateTime=" + lastUpdateTime +
+                ", lastLoginTime=" + lastLoginTime +
+                ", bankAccount='" + bankAccount + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", accountHolder='" + accountHolder + '\'' +
+                ", idCardPicPath='" + idCardPicPath + '\'' +
+                ", bankPicPath='" + bankPicPath + '\'' +
+                '}';
+    }
 }

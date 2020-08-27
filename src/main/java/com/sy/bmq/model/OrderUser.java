@@ -21,83 +21,82 @@ public class OrderUser implements Serializable {
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 关联订单表
     */
-    private Long orderinfoid;
+    private Integer orderInfoId;
     /**
     * 会员类型
     */
-    private String rolename;
+    private String roleName;
     /**
     * 会员价格
     */
-    private Object roleprice;
+    private Double rolePrice;
     /**
     * 关联角色表
     */
-    private Long roleid;
+    private Integer roleId;
     
-    private String createby;
+    private String createBy;
     
-    private Date createdatetime;
+    private Date createDateTime;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getOrderinfoid() {
-        return orderinfoid;
+    public Integer getOrderInfoId() {
+        return orderInfoId;
     }
 
-    public void setOrderinfoid(Long orderinfoid) {
-        this.orderinfoid = orderinfoid;
+    public void setOrderInfoId(Integer orderInfoId) {
+        this.orderInfoId = orderInfoId;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Object getRoleprice() {
-        return roleprice;
+    public Double getRolePrice() {
+        return rolePrice;
     }
 
-    public void setRoleprice(Object roleprice) {
-        this.roleprice = roleprice;
+    public void setRolePrice(Double rolePrice) {
+        this.rolePrice = rolePrice;
     }
 
-    public Long getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Long roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
-    public Date getCreatedatetime() {
-        return createdatetime;
+    public Date getCreateDateTime() {
+        return createDateTime;
     }
 
-    public void setCreatedatetime(Date createdatetime) {
-        this.createdatetime = createdatetime;
+    public void setCreateDateTime(Date createDateTime) {
+        this.createDateTime = createDateTime;
     }
-
 }

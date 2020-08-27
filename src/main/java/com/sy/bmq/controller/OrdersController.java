@@ -1,10 +1,7 @@
 package com.sy.bmq.controller;
 
 
-import com.sy.bmq.model.CartGoods;
-import com.sy.bmq.model.GoodsInfo;
-import com.sy.bmq.model.Shopcart;
-import com.sy.bmq.model.User;
+import com.sy.bmq.model.*;
 import com.sy.bmq.model.base.BaseResult;
 import com.sy.bmq.service.GoodsService;
 import com.sy.bmq.service.OrdersService;
@@ -16,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/orders")
@@ -41,19 +43,22 @@ public class OrdersController {
             } else {
                 cartGoods.setFlag(1);
             }
-            Shopcart cart = ordersService.findCart(remoteUser);
-            if (cart == null) {
-                cart.setCreateBy(remoteUser);
-                cart.setTotalPrice(1000.00);
-                cart.setUserId(user.getId());
+            Shopcart shopcart = ordersService.findCart(remoteUser);
+            double total = cartGoods.getGoodsNum() * cartGoods.getGoodsPrice();
+            cartGoods.setTotal(total);
+            if (shopcart == null) {
+                shopcart.setCreateBy(remoteUser);
+                //先用固定金额填充
+                shopcart.setTotalPrice(0.00);
+                shopcart.setUserId(user.getId());
             } else {
-                cartGoods.setCartId(cart.getId());
+                cartGoods.setCartId(shopcart.getId());
             }
             int i = ordersService.addCartGood(cartGoods);
-            if (i>=2){
+            if (i >= 2) {
                 result.setCode(BaseResult.CODE_SUCCESS);
                 result.setMsg("加入购物车成功");
-            }else{
+            } else {
                 result.setCode(BaseResult.CODE_FAILED);
                 result.setMsg("加入购物车失败");
             }
@@ -62,5 +67,106 @@ public class OrdersController {
         }
         return result;
     }
+
+    @RequestMapping("/findcargoods.do")
+    public BaseResult FindCartGoods(BaseResult result, HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+
+        try {
+            User user = userService.selectByUsername(remoteUser);
+            List<CartGoods> cartGoods = goodsService.selectByCartId(user.getId());
+            result.setData(cartGoods);
+            result.setCode(BaseResult.CODE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping("/delcargoods.do")
+    public BaseResult DelCartGoods(CartGoods cartGoods,BaseResult result) {
+        try {
+            int i = ordersService.deleteCartGood(cartGoods);
+            if (i>=2){
+                result.setData(cartGoods);
+                result.setCode(BaseResult.CODE_SUCCESS);
+            }else {
+                result.setCode(BaseResult.CODE_FAILED);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    @RequestMapping("/createorder.do")
+    public BaseResult createOrder(Integer[] ids,BaseResult result,HttpServletRequest request) {
+        //生成订单号
+        String orderNumber = generateOrderNumber();
+        System.out.println("orderNumber====="+orderNumber);
+        //选择的购物车中的商品id列表
+        String id = "(";
+        for (int i = 0; i < ids.length; i++) {
+            if (i!=ids.length-1){
+                id =id+ids[i]+",";
+            }else {
+                id = id + ids[i]+")";
+            }
+        }
+        System.out.println("id====="+id);
+        String remoteUser = request.getRemoteUser();
+        User user = null;
+        try {
+            user = userService.selectByUsername(remoteUser);
+            System.out.println("user====="+user.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setOrderCode(orderNumber);
+        orderInfo.setUserId(user.getId());
+        System.out.println("orderInfo====="+orderInfo.toString());
+        try {
+            int i = ordersService.insertOrder(orderInfo,id,orderNumber,user.getUsername());
+            result.setCode(BaseResult.CODE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+    public static String generateOrderNumber() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String format = sdf.format(cal.getTime());
+        return format + getRandomNum(5);
+    }
+        /**
+         * 获取随机字符串
+         *
+         * @param num
+         * @return
+         */
+        public static String getRandomNum(Integer num) {
+            String base = "0123456789";
+            Random random = new Random();
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < num; i++) {
+                int number = random.nextInt(base.length());
+                sb.append(base.charAt(number));
+            }
+            return sb.toString();
+        }
+
 
 }

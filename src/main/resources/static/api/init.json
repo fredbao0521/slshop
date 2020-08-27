@@ -117,29 +117,28 @@
               "target": "_self"
             },
             {
-              "title": "汇款名细",
-              "href": "/page/bankManage/cash_detail.html",
+              "title": "基本账户",
+              "href": "/page/bankManage/account.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
             ,
             {
               "title": "申请提现",
-              "href": "/page/bankManage/cash_out.html",
+              "href": "/page/bankManage/form-step.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "提现明细",
-              "href": "a15.html",
+              "href": "/page/bankManage/cash_detail.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
-           
             ,
             {
-              "title": "账户查看",
-              "href": "/page/bankManage/account.html",
+              "title": "内部转账",
+              "href": "/page/bankManage/internal_transfer.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

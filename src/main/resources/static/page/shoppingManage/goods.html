@@ -47,11 +47,11 @@
             </div>
         </fieldset>
 
-      <!--  <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">加入购物车</button>
-            </div>
-        </script>-->
+        <!--  <script type="text/html" id="toolbarDemo">
+              <div class="layui-btn-container">
+                  <button class="layui-btn layui-btn-sm" lay-event="getCheckData">加入购物车</button>
+              </div>
+          </script>-->
 
         <table class="layui-hide" id="test" lay-filter="test"></table>
 
@@ -76,7 +76,8 @@
             defaultToolbar: ['filter'],
             cols: [[
                 {type: "checkbox", width: 100},
-                {field: 'id', title: 'ID', sort: true},
+                {type: 'numbers', title: "序号", align: 'center'},
+                {field: 'id', title: 'ID',hide:true},
                 {field: 'goodsSN', title: '商品编号', sort: true},
                 {field: 'goodsName', title: '商品名字'},
                 {field: 'goodsFormat', title: '商品规格'},
@@ -91,7 +92,7 @@
                     title: '购买数量',
                     style: 'outline: 1px solid #e6e6e6;outline-offset: -5px;'
                 }
-                ,{title:'操作', toolbar: '#barDemo'}
+                , {title: '操作', toolbar: '#barDemo'}
             ]],
             limits: [5, 10, 15, 20, 50],
             limit: 5,
@@ -116,27 +117,27 @@
         });
 
         //监听行工具事件
-        table.on('tool(test)', function(obj){
+        table.on('tool(test)', function (obj) {
             var data = obj.data;
             var num = data.num - data.goodsNum;
-            if (num<0){
+            if (num < 0) {
                 layer.msg("库存不够啦");
                 return false;
             }
-            if(obj.event === 'add'){
+            if (obj.event === 'add') {
                 $.ajax({
-                    url:"/orders/addcargoods.do",
-                    dataType:"json",
-                    type:"post",
-                    data:{
-                        "goodsId":data.id,
-                        "goodsName":data.goodsName,
-                        "goodsPrice":data.realPrice,
-                        "goodsNum":data.goodsNum
+                    url: "/orders/addcargoods.do",
+                    dataType: "json",
+                    type: "post",
+                    data: {
+                        "goodsId": data.id,
+                        "goodsName": data.goodsName,
+                        "goodsPrice": data.realPrice,
+                        "goodsNum": data.goodsNum
                     }, xhrFields: {
                         // 发送 AJAX 请求时带上 cookie
                         withCredentials: true
-                    },success:function (rec) {
+                    }, success: function (rec) {
                         if (rec.code === 0) {
                             layer.msg(rec.msg);
                             var goodsName = $("#goodsName").val();

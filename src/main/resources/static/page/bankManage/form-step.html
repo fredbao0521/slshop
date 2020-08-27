@@ -12,13 +12,6 @@
 </head>
 <body>
 <div class="layuimini-container">
-   <!-- <div class="layui-form-item">
-        <label class="layui-form-label" style="line-height: 5px">余额:</label>
-        <div class="layui-input-inline">
-            <span style="color: red" id="balance" ></span>(元)
-        </div>
-
-    </div>-->
     <div class="layuimini-main">
 
         <div class="layui-fluid">
@@ -29,11 +22,18 @@
                             <div>
                                 <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
                                     <div class="layui-form-item">
+                                        <label class="layui-form-label">账户余额:</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" id="balance" name="balance" autocomplete="off" class="layui-input" readonly>
+                                        </div>
+                                        <span style="color: red ;font-size: 12px;line-height: 3">*</span>
+                                    </div>
+                                    <div class="layui-form-item">
                                         <label class="layui-form-label">提现金额:</label>
                                         <div class="layui-input-inline">
                                             <input type="text" name="money" autocomplete="off" class="layui-input">
                                         </div>
-                                        <span style="color: red ;font-size: 12px;line-height: 3">提现金额不能大于余额*</span>
+                                        <span style="color: red ;font-size: 12px;line-height: 3">*</span>
                                     </div>
 
                                     <div class="layui-form-item">
@@ -57,7 +57,6 @@
                                         </div>
                                         <span style="color: red ;font-size: 12px;line-height: 3">*</span>
                                     </div>
-
 
 
                                     <div class="layui-form-item">
@@ -86,12 +85,15 @@
                                     </div>
                                 </form>
                             </div>
+
+
+
                             <div>
                                 <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">提现金额:</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" id="mon" autocomplete="off" class="layui-input">
+                                            <input type="text" id="mon" autocomplete="off" class="layui-input" readonly>
                                         </div>
 
                                     </div>
@@ -99,7 +101,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">银行所在地址及支行详细名称:</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" id="address1" autocomplete="off" class="layui-input">
+                                            <input type="text" id="address1" autocomplete="off" class="layui-input" readonly>
                                         </div>
 
                                     </div>
@@ -107,7 +109,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">选择银行</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" id="bank1" autocomplete="off" class="layui-input">
+                                            <input type="text" id="bank1" autocomplete="off" class="layui-input" readonly>
                                         </div>
 
                                     </div>
@@ -117,7 +119,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">银行开户名:</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" id="bankName1" autocomplete="off" class="layui-input">
+                                            <input type="text" id="bankName1" autocomplete="off" class="layui-input" readonly>
                                         </div>
 
                                     </div>
@@ -125,7 +127,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">银行卡号:</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" id="card1" autocomplete="off" class="layui-input">
+                                            <input type="text" id="card1" autocomplete="off" class="layui-input" readonly>
                                         </div>
 
 
@@ -134,7 +136,7 @@
                                         <div class="layui-input-block">
                                             <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                             <button class="layui-btn" lay-submit lay-filter="formStep2">
-                                                &emsp;确认入款&emsp;
+                                                &emsp;确认提现&emsp;
                                             </button>
                                         </div>
                                     </div>
@@ -147,10 +149,10 @@
                                     <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
                                         申请中......
                                     </div>
-                                    <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
+                                    <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时内到账</div>
                                 </div>
                                 <div style="text-align: center;margin-top: 50px;">
-                                    <button class="layui-btn next">再入一笔</button>
+                                    <button class="layui-btn next">再提现一笔</button>
                                 </div>
                             </div>
                         </div>
@@ -166,10 +168,9 @@
 <script src="/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 
 <script>
-
     layui.use([ 'form', 'step'], function () {
-        var $ = layui.jquery;
-            form = layui.form;
+        var $ = layui.jquery,
+            form = layui.form,
             step = layui.step;
 
         step.render({
@@ -187,60 +188,86 @@
             }]
         });
 
-
         $.ajax({
-            url:"/ua/findMoney.do",
-            type:"get",
+            url:"/bank/getbalance.do",
+            type:"post",
             async:false,
             dataType:"json",
             success:function (rec) {
                 if(rec.code===0){
-                    $("#balance").html(rec.data.balance);
-                    form.render()
+                    $("#balance").val(rec.data.balance);
+                    form.render();
                 }else {
-                    alert("汇款失败")
+                    layer.msg("账户余额过低")
                 }
 
             }
-        })
+        });
 
         form.on('submit(formStep)', function (data) {
-            step.next('#stepForm');
             var money = $("input[name='money']").val();
-            $("#mon").val(money);
-
             var address = $("input[name='address']").val();
-            $("#address1").val(address);
-
             var bankName = $("input[name='bankName']").val();
-            $("#bankName1").val(bankName);
-
             var type = $("#bank option:selected").val();
-            $("#bank1").val(type);
-
             var card = $("input[name='card']").val();
+            var bal = $("#balance").val();
+
+            if (money==""||money==0){
+                layer.msg("提现金额不能为空");
+                return false;
+            }
+            if (money-bal>0){
+                layer.msg("余额不足");
+                return false;
+            }
+            if (address==""||address==0){
+                layer.msg("银行所在地址及支行详细名称不能为空");
+                return false;
+            }
+            if (bankName==""||bankName==0){
+                layer.msg("银行不能为空");
+                return false;
+            }
+            if (type==""||type==0){
+                layer.msg("银行开户名不能为空");
+                return false;
+            }
+            if (card==""||card==0){
+                layer.msg("银行卡号不能为空");
+                return false;
+            }
+            $("#mon").val(money);
+            $("#address1").val(address);
+            $("#bankName1").val(bankName);
+            if (type==='1'){
+                $("#bank1").val("中国银行");
+            } else if (type ==='2'){
+                $("#bank1").val("交通银行");
+            } else if(type ==='3'){
+                $("#bank1").val("建设银行");
+            }
             $("#card1").val(card);
+
+            step.next('#stepForm');
             return false;
         });
-
         $('.pre').click(function () {
             step.pre('#stepForm');
-
         });
-
         $('.next').click(function () {
             step.next('#stepForm');
         });
+
+
         form.on('submit(formStep2)', function (data) {
-
-            var date = $("input[name='date']").val();
             var money = $("input[name='money']").val();
-            var type = $("#type option:selected").val();
-
+            var card = $("input[name='card']").val();
+            var type = $("#bank option:selected").val();
             $.ajax({
-                url:"/ua/modifyApply.do",
+                url:"/bank/cashout.do",
                 data:{
-                    balance:money
+                    "balance":money,
+                    "otherAcountId":card
                 },
                 type:"post",
                 async:false,
@@ -249,18 +276,12 @@
                     if(rec.code===0){
                         step.next('#stepForm');
                     }else {
-                        alert(rec.msg)
+                        layer.msg("提现失败")
                     }
-
                 }
             });
-
-
            return false;
-
         });
-
-
     })
 
 

@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -21,23 +22,24 @@ public class AccountDetail implements Serializable {
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 关联用户账户表
     */
-    private Long accountid;
+    private Integer accountId;
     /**
     * 记录入账或出账日期
     */
-    private Date accountdate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date accountDate;
     /**
     * 入账
     */
-    private Double moneyin;
+    private Double moneyIn;
     /**
     * 出账
     */
-    private Double moneyout;
+    private Double moneyOut;
     /**
     * 0充值,1提现,2消费,3收益
     */
@@ -45,47 +47,48 @@ public class AccountDetail implements Serializable {
     /**
     * 交易方账户
     */
-    private String otheracountid;
+    private String otherAcountId;
 
+    private Double balance;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getAccountid() {
-        return accountid;
+    public Integer getAccountId() {
+        return accountId;
     }
 
-    public void setAccountid(Long accountid) {
-        this.accountid = accountid;
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
-    public Date getAccountdate() {
-        return accountdate;
+    public Date getAccountDate() {
+        return accountDate;
     }
 
-    public void setAccountdate(Date accountdate) {
-        this.accountdate = accountdate;
+    public void setAccountDate(Date accountDate) {
+        this.accountDate = accountDate;
     }
 
-    public Double getMoneyin() {
-        return moneyin;
+    public Double getMoneyIn() {
+        return moneyIn;
     }
 
-    public void setMoneyin(Double moneyin) {
-        this.moneyin = moneyin;
+    public void setMoneyIn(Double moneyIn) {
+        this.moneyIn = moneyIn;
     }
 
-    public Double getMoneyout() {
-        return moneyout;
+    public Double getMoneyOut() {
+        return moneyOut;
     }
 
-    public void setMoneyout(Double moneyout) {
-        this.moneyout = moneyout;
+    public void setMoneyOut(Double moneyOut) {
+        this.moneyOut = moneyOut;
     }
 
     public Integer getType() {
@@ -96,12 +99,33 @@ public class AccountDetail implements Serializable {
         this.type = type;
     }
 
-    public String getOtheracountid() {
-        return otheracountid;
+    public String getOtherAcountId() {
+        return otherAcountId;
     }
 
-    public void setOtheracountid(String otheracountid) {
-        this.otheracountid = otheracountid;
+    public void setOtherAcountId(String otherAcountId) {
+        this.otherAcountId = otherAcountId;
     }
 
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountDetail{" +
+                "id=" + id +
+                ", accountId=" + accountId +
+                ", accountDate=" + accountDate +
+                ", moneyIn=" + moneyIn +
+                ", moneyOut=" + moneyOut +
+                ", type=" + type +
+                ", otherAcountId='" + otherAcountId + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }

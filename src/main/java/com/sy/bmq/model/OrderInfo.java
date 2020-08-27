@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -33,6 +34,7 @@ public class OrderInfo implements Serializable {
     /**
     * 订单时间
     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     /**
     * 创建者
@@ -41,6 +43,7 @@ public class OrderInfo implements Serializable {
     /**
     * 修改时间
     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdateTime;
     /**
     * 1已支付,0失效订单,2未支付

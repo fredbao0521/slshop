@@ -39,6 +39,7 @@ public interface OrdersMapper extends Mapper<CartGoods> {
 
     @Select("select * from cart_goods where id in ${ids}")
     List<CartGoods> findCartGoods(@Param("ids") String ids) throws Exception;
+
     /**
      * 以下是order订单的数据操作
      */
@@ -73,4 +74,10 @@ public interface OrdersMapper extends Mapper<CartGoods> {
     List<OrderInfo> selectWithWhere(@Param("orderCode") String orderCode,
                                     @Param("createTime") String createTime,
                                     @Param("userId") Integer userId) throws Exception;
+
+    @Delete("delete from order_info where id =#{id}")
+    int deleteOrder(Integer id) throws Exception;
+
+    @Delete("delete from order_goods where orderInfoId =#{orderInfoId}")
+    int deleteOrderGoods(String orderInfoId) throws Exception;
 }

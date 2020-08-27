@@ -23,4 +23,6 @@ public interface OrdersService {
     List<OrderInfo> findAllOrder(Integer userId) throws Exception;
 
     List<OrderInfo> selectWithWhere(int pageNum,int pageSize,String orderCode, String createTime,Integer userId, BaseResult result) throws Exception;
+
+    int deleteOrder(Integer id,Long orderCode) throws Exception;
 }

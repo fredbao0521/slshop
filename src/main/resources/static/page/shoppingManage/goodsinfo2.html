@@ -15,66 +15,23 @@
         <form class="layui-form" action="" id="novelUpdate">
 
             <div class="layui-form-item">
-                <label class="layui-form-label">商品名称：</label>
+                <label class="layui-form-label">订单编号：</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="goodsName" id="goodsName" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" name="orderCode" id="orderCode" autocomplete="off" class="layui-input" readonly>
                 </div>
-                <label class="layui-form-label">商品编号：</label>
+                <label class="layui-form-label">订单总价：</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="goodsSN" id="goodsSN" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" name="orderPrice" id="orderPrice" autocomplete="off" class="layui-input" readonly>
                 </div>
-            </div>
-
-            <div class="layui-form-item" style="display: none">
-                <label class="layui-form-label">id：</label>
+                <label class="layui-form-label">订单时间：</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="goodsid" id="goodsid" readonly>
+                    <input type="text" name="createTime" id="createTime" autocomplete="off" class="layui-input" readonly>
                 </div>
             </div>
-
-
             <div class="layui-form-item">
-                <label class="layui-form-label">市场价：</label>
+                <label class="layui-form-label">二级密码：</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="marketPrice" id="marketPrice" autocomplete="off" class="layui-input" readonly>
-                </div>
-                <label class="layui-form-label">优惠价：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="realPrice" id="realPrice" autocomplete="off" class="layui-input" readonly>
-                </div>
-            </div>
-
-
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">库存：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="num" id="num" autocomplete="off" class="layui-input" readonly>
-                </div>
-                <label class="layui-form-label">单位：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="unit" id="unit" autocomplete="off" class="layui-input" readonly>
-                </div>
-            </div>
-
-
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">状态：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="state" id="state" autocomplete="off" class="layui-input" readonly>
-                </div>
-                <label class="layui-form-label">商品规格：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="goodsFormat" id="goodsFormat" autocomplete="off" class="layui-input" readonly>
-                </div>
-            </div>
-
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">商品说明：</label>
-                <div class="layui-input-block">
-                    <input type="text" id="note" class="layui-input" name="note" readonly />
+                    <input type="password" name="password2" id="password2" autocomplete="off" class="layui-input">
                 </div>
             </div>
 <!--            <div class="layui-form-item">-->
@@ -90,7 +47,7 @@
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['form', 'layedit'], function () {
+    layui.use(['form'], function () {
         var form = layui.form
             , layer = layui.layer,
             layedit = layui.layedit;

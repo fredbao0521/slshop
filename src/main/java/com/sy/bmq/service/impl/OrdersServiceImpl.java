@@ -113,4 +113,13 @@ public class OrdersServiceImpl implements OrdersService {
         PageHelper.startPage(pageNum, pageSize);
         return ordersMapper.selectWithWhere(orderCode,createTime,userId);
     }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public int deleteOrder(Integer id, Long orderCode) throws Exception {
+        String s = Long.toString(orderCode);
+        int i = ordersMapper.deleteOrderGoods(s);
+        int i1 = ordersMapper.deleteOrder(id);
+        return i+i1;
+    }
 }

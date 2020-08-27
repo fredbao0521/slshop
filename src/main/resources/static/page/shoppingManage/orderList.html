@@ -69,10 +69,14 @@
             text: {none: '无数据'},
             cols: [[
                 {type: "checkbox", width: 100},
-                {field: 'id',title: 'ID', sort: true},
+                {field: 'id', title: 'ID', sort: true},
                 {field: 'orderCode', title: '订单编号'},
                 {field: 'orderPrice', title: '订单总价'},
-                {field: 'createTime', title: '订单时间',templet : "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {
+                    field: 'createTime',
+                    title: '订单时间',
+                    templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"
+                },
                 {
                     field: 'status', title: '订单状态', templet: function (d) {
                         if (d.status === 0) {
@@ -84,8 +88,8 @@
                         }
                     }
                 },
-                {field: 'createBy',width:100 ,title: '创建者'},
-                {title: '操作', toolbar: '#barDemo2', align: "center"}
+                {field: 'createBy', width: 100, title: '创建者'},
+                {title: '操作', toolbar: '#barDemo', align: "center"}
             ]],
             limits: [5, 10, 15, 20, 50],
             limit: 5,
@@ -104,9 +108,9 @@
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
-                    btn: ['返回'],//弹出层按钮
+                    btn: ['支付', '返回'],//弹出层按钮
                     shadeClose: true,
-                    area: ['80%', '50%'],
+                    area: ['60%', '30%'],
                     content: '/page/shoppingManage/goodsinfo2.html',
                     success: function (layero, index) {
                         var body = layer.getChildFrame('body', index);
@@ -114,6 +118,9 @@
                         body.find("#orderPrice").val(data.orderPrice);
                         body.find("#createTime").val(data.createTime);
                         form.render();
+                    },yes:function (index,layero) {
+                        layer.msg("支付成功");
+                        layer.close(index);
                     }
                 });
                 $(window).on("resize", function () {
@@ -123,12 +130,14 @@
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     var id = data.id;
+                    var orderCode1 = data.orderCode;
                     $.ajax({
-                        url: "/orders/deleteorder.do",
+                        url: "/orders/delorder.do",
                         type: "post",
                         dataType: "json",
                         data: {
-                            "id": id
+                            "id": id,
+                            "orderCode": orderCode1
                         },
                         xhrFields: {
                             // 发送 AJAX 请求时带上 cookie

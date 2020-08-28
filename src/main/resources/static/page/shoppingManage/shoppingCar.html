@@ -136,11 +136,39 @@
                                     body.find("#createTime").val(rec.data.createTime);
                                     form.render();
                                 },yes:function (index,layero) {
-                                    layer.msg("支付成功");
+                                    var body = layer.getChildFrame('body', index);
+                                    let val = body.find("#password2").val();
+                                    let orderCode = body.find("#orderCode").val();
+                                    $.ajax({
+                                        url: "/orders/payorder.do",
+                                        type: "post",
+                                        dataType: "json",
+                                        data: {
+                                            "password":val,
+                                            "orderCode":orderCode
+                                        },success: function (rec) {
+                                            if (rec.code === 0) {
+                                                layer.msg(rec.msg);
+                                                var orderCode = $("#orderCode").val();
+                                                var createTime = $("#createTime").val();
+                                                table.reload('test', {
+                                                    page: {
+                                                        curr: 1
+                                                    },
+                                                    where: {
+                                                        orderCode: orderCode,
+                                                        createTime: createTime
+                                                    }
+                                                })
+                                            }else {
+                                                layer.msg(rec.msg);
+                                            }
+                                        }
+                                    });
                                     layer.close(index);
                                 }
                             });
-                            table.reload('test');
+                            // table.reload('test');
                         }
                     });
                     break;

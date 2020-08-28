@@ -89,7 +89,7 @@
                     }
                 },
                 {field: 'createBy', width: 100, title: '创建者'},
-                {title: '操作', toolbar: '#barDemo', align: "center"}
+                {title: '操作', toolbar: '#barDemo',align:"center", templet: '#typeTpl'}
             ]],
             limits: [5, 10, 15, 20, 50],
             limit: 5,
@@ -119,7 +119,34 @@
                         body.find("#createTime").val(data.createTime);
                         form.render();
                     },yes:function (index,layero) {
-                        layer.msg("支付成功");
+                        var body = layer.getChildFrame('body', index);
+                        let val = body.find("#password2").val();
+                        $.ajax({
+                            url: "/orders/payorder.do",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                "password":val,
+                                "orderCode":data.orderCode
+                            },success: function (rec) {
+                                if (rec.code === 0) {
+                                    layer.msg(rec.msg);
+                                    var orderCode = $("#orderCode").val();
+                                    var createTime = $("#createTime").val();
+                                    table.reload('test', {
+                                        page: {
+                                            curr: 1
+                                        },
+                                        where: {
+                                            orderCode: orderCode,
+                                            createTime: createTime
+                                        }
+                                    })
+                                }else {
+                                    layer.msg(rec.msg);
+                                }
+                            }
+                        });
                         layer.close(index);
                     }
                 });
@@ -184,11 +211,10 @@
     });
 </script>
 <script type="text/html" id="barDemo">
-    <input type="button" class="layui-btn layui-btn-xs " lay-event="detail" value="支付"/>
-    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger " lay-event="delete" value="删除"/>
-</script>
-<script type="text/html" id="barDemo2">
-    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger " lay-event="delete" value="删除"/>
+    {{# if(d.status != 1){ }}
+    <input type="button" class="layui-btn layui-btn-xs " style="width: 60px" lay-event="detail" value="支付"/>
+    {{# }}}
+    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger " style="width: 60px" lay-event="delete" value="删除"/>
 </script>
 </body>
 </html>

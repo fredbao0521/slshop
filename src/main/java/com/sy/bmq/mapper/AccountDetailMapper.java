@@ -4,6 +4,7 @@ import com.sy.bmq.model.AccountDetail;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -50,4 +51,6 @@ public interface AccountDetailMapper extends Mapper<AccountDetail> {
     List<AccountDetail> selectWithWhere2(@Param("beginTime") String beginTime,
                                         @Param("endTime") String endTime,
                                         @Param("accountId") Integer accountId) throws Exception;
+
+
 }

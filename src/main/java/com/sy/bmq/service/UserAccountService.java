@@ -13,4 +13,6 @@ public interface UserAccountService {
     int cashOut(UserAccount userAccount, Double balance, String otherAcountId) throws Exception;
 
     int modifyOut(UserAccount userAccount, Double balance, Integer toId) throws Exception;
+
+    int payOrder(Double pay,UserAccount userAccount) throws Exception;
 }

@@ -14,4 +14,5 @@ public interface AccountDetailService {
 
     List<AccountDetail> selectWithWhere2(int pageNum, int pageSize, String beginTime, String endTime, Integer accountId, BaseResult result) throws Exception;
 
+
 }

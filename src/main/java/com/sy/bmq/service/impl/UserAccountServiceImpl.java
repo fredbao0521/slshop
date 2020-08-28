@@ -78,4 +78,22 @@ public class UserAccountServiceImpl implements UserAccountService {
         int i2 = accountDetailMapper.addAccountDetail(accountDetail);
         return i + i1+i2;
     }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+    public int payOrder(Double pay,UserAccount userAccount) throws Exception {
+        //扣款
+        int i =userAccountMapper.cashOut(userAccount);
+
+        AccountDetail accountDetail = new AccountDetail();
+        accountDetail.setMoneyOut(pay);
+        accountDetail.setMoneyIn(0.0);
+        accountDetail.setType(2);
+        accountDetail.setBalance(userAccount.getBalance());
+        accountDetail.setOtherAcountId("0");
+        accountDetail.setAccountId(userAccount.getId());
+        accountDetail.setState(1);
+        int i1 = accountDetailMapper.addAccountDetail(accountDetail);
+        return i + i1;
+    }
 }

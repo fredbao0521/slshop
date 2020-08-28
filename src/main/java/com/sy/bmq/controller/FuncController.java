@@ -35,7 +35,7 @@ public class FuncController {
     @RequestMapping("/add.do")
 //    @RequiresPermissions("/func/add.do")
     public BaseResult addFunc(Func func, HttpSession session) throws Exception{
-        func.setCreationtime(new Date());
+        func.setCreationTime(new Date());
         Integer save = service.save(func,(User)session.getAttribute("sessionUser"));
         BaseResult baseResult = new BaseResult();
         if(save!=null && save !=0){

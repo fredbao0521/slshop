@@ -86,4 +86,7 @@ public interface OrdersMapper extends Mapper<CartGoods> {
 
     @Delete("delete from order_goods where orderInfoId =#{orderInfoId}")
     int deleteOrderGoods(String orderInfoId) throws Exception;
+
+    @Update("update order_info set status=1,lastUpdateTime = now() where orderCode = #{orderCode}")
+    int updateOrder(String orderCode) throws Exception;
 }

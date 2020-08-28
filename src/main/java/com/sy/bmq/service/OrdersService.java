@@ -29,4 +29,6 @@ public interface OrdersService {
     int updateCart(Double total,Integer id) throws Exception;
 
     OrderInfo findByOrderCode(String orderCode) throws Exception;
+
+    int updateOrder(String orderCode) throws Exception;
 }

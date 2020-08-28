@@ -44,4 +44,6 @@ public class AccountDetailServiceImpl implements AccountDetailService {
         PageHelper.startPage(pageNum, pageSize);
         return accountDetailMapper.selectWithWhere2(beginTime, endTime, accountId);
     }
+
+
 }

@@ -3,9 +3,7 @@ package com.sy.bmq.controller;
 
 import com.sy.bmq.model.*;
 import com.sy.bmq.model.base.BaseResult;
-import com.sy.bmq.service.GoodsService;
-import com.sy.bmq.service.OrdersService;
-import com.sy.bmq.service.UserService;
+import com.sy.bmq.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,8 @@ public class OrdersController {
     private OrdersService ordersService;
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private UserAccountService userAccountService;
 
     /**
      * 商品添加购物车
@@ -234,6 +234,46 @@ public class OrdersController {
             e.printStackTrace();
         }
 
+        return result;
+    }
+
+
+    @RequestMapping("/payorder.do")
+    public BaseResult payOrder(String orderCode,String password,BaseResult result,HttpServletRequest request) {
+
+        System.out.println(orderCode);
+        System.out.println(password);
+        try {
+            //获取到订单信息
+            OrderInfo orderInfo = ordersService.findByOrderCode(orderCode);
+            //获取用户余额
+            String remoteUser = request.getRemoteUser();
+            User user = userService.selectByUsername(remoteUser);
+            if (!password.equals(user.getPassword2())){
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("支付失败");
+                return result;
+            }
+            UserAccount userAccount = userAccountService.selectByUid(user.getId());
+            double v = userAccount.getBalance() - orderInfo.getOrderPrice();
+            if (v>=0){
+                userAccount.setBalance(v);
+                int i = userAccountService.payOrder(orderInfo.getOrderPrice(), userAccount);
+                ordersService.updateOrder(orderCode);
+                if (i>0){
+                    result.setCode(BaseResult.CODE_SUCCESS);
+                    result.setMsg("支付成功");
+                }else {
+                    result.setCode(BaseResult.CODE_FAILED);
+                    result.setMsg("支付失败");
+                }
+            }else {
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("余额不足,支付失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

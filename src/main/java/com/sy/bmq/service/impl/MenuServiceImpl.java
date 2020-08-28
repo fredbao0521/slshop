@@ -41,15 +41,15 @@ public class MenuServiceImpl implements MenuService {
             int j = 0;
             j = i++;
             //父子关系
-            menu.setAuthority(func.getFunccode());
+            menu.setAuthority(func.getFuncCode());
             menu.setAuthorityId(func.getId());
-            menu.setAuthorityName(func.getFuncname());
-            menu.setCreateTime(func.getCreationtime());
+            menu.setAuthorityName(func.getFuncName());
+            menu.setCreateTime(func.getCreationTime());
             menu.setIsMenu(1);
-            menu.setMenuUrl(func.getFuncurl());
+            menu.setMenuUrl(func.getFuncUrl());
             menu.setOrderNumber(j);
             menu.setUpdateTime(new Date());
-            menu.setParentId(func.getParentid());
+            menu.setParentId(func.getParentId());
             //标识出选中的菜单
             for(Func checkedFunc:funcs2){
                 if(func.getId().intValue()==checkedFunc.getId().intValue()){

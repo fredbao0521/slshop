@@ -134,4 +134,10 @@ public class OrdersServiceImpl implements OrdersService {
     public OrderInfo findByOrderCode(String orderCode) throws Exception {
         return ordersMapper.selectByOrderCode(orderCode);
     }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public int updateOrder(String orderCode) throws Exception {
+        return ordersMapper.updateOrder(orderCode);
+    }
 }

@@ -21,41 +21,41 @@ public class Report2 implements Serializable {
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 销售额度
     */
-    private Double totalmoney;
+    private Double totalMoney;
     
-    private Date createtime;
+    private Date createTime;
     /**
     * 0会员销售,1商品销售
     */
     private Integer type;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Double getTotalmoney() {
-        return totalmoney;
+    public Double getTotalMoney() {
+        return totalMoney;
     }
 
-    public void setTotalmoney(Double totalmoney) {
-        this.totalmoney = totalmoney;
+    public void setTotalMoney(Double totalMoney) {
+        this.totalMoney = totalMoney;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Integer getType() {
@@ -65,5 +65,4 @@ public class Report2 implements Serializable {
     public void setType(Integer type) {
         this.type = type;
     }
-
 }

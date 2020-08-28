@@ -1,6 +1,6 @@
 package com.sy;
 
-import com.sy.bmq.realm.CasRealm;
+import com.sy.bmq.common.realm.CasRealm;
 import io.buji.pac4j.filter.CallbackFilter;
 import io.buji.pac4j.filter.LogoutFilter;
 import io.buji.pac4j.filter.SecurityFilter;

@@ -34,7 +34,7 @@ public class OrderInfo implements Serializable {
     /**
     * 订单时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     /**
     * 创建者
@@ -43,7 +43,7 @@ public class OrderInfo implements Serializable {
     /**
     * 修改时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastUpdateTime;
     /**
     * 1已支付,0失效订单,2未支付

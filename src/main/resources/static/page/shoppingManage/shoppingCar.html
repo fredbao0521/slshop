@@ -120,6 +120,26 @@
                         },
                         type:"post",
                         success:function (rec) {
+                            var index = layer.open({
+                                title: '支付信息',
+                                type: 2,
+                                shade: 0.2,
+                                maxmin: true,
+                                btn: ['支付', '返回'],//弹出层按钮
+                                shadeClose: true,
+                                area: ['60%', '30%'],
+                                content: '/page/shoppingManage/goodsinfo2.html',
+                                success: function (layero, index) {
+                                    var body = layer.getChildFrame('body', index);
+                                    body.find("#orderCode").val(rec.data.orderCode);
+                                    body.find("#orderPrice").val(rec.data.orderPrice);
+                                    body.find("#createTime").val(rec.data.createTime);
+                                    form.render();
+                                },yes:function (index,layero) {
+                                    layer.msg("支付成功");
+                                    layer.close(index);
+                                }
+                            });
                             table.reload('test');
                         }
                     });

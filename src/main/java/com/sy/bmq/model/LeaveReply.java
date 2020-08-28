@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -23,63 +24,63 @@ public class LeaveReply implements Serializable {
     */
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 留言ID（主表）
     */
-    private Long messageid;
+    private Integer messageId;
     /**
     * 回复内容
     */
-    private String replycontent;
+    private String replyContent;
     /**
     * 回复人
     */
-    private String createdby;
+    private String createdBy;
     /**
     * 回复时间
     */
-    private Date createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date createTime;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getMessageid() {
-        return messageid;
+    public Integer getMessageId() {
+        return messageId;
     }
 
-    public void setMessageid(Long messageid) {
-        this.messageid = messageid;
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
     }
 
-    public String getReplycontent() {
-        return replycontent;
+    public String getReplyContent() {
+        return replyContent;
     }
 
-    public void setReplycontent(String replycontent) {
-        this.replycontent = replycontent;
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
     }
 
-    public String getCreatedby() {
-        return createdby;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
-
 }

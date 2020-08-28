@@ -58,6 +58,9 @@ public interface OrdersMapper extends Mapper<CartGoods> {
     @Select("select * from order_info where userId = #{userId}")
     List<OrderInfo> selectAllOrder(Integer userId) throws Exception;
 
+    @Select("select * from order_info where orderCode = #{orderCode}")
+    OrderInfo selectByOrderCode(String orderCode) throws Exception;
+
     @Select({"<script>" +
             "SELECT " +
             " * " +

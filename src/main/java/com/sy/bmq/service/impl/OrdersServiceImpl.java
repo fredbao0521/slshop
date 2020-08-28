@@ -129,4 +129,9 @@ public class OrdersServiceImpl implements OrdersService {
     public int updateCart(Double total, Integer id) throws Exception {
         return ordersMapper.updateCart(total, id);
     }
+
+    @Override
+    public OrderInfo findByOrderCode(String orderCode) throws Exception {
+        return ordersMapper.selectByOrderCode(orderCode);
+    }
 }

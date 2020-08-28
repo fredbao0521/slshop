@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -23,23 +24,23 @@ public class LeaveMessage implements Serializable {
     */
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 留言用户code
     */
-    private String createdby;
+    private String createdBy;
     /**
     * 留言编码
     */
-    private String messagecode;
+    private String messageCode;
     /**
     * 留言标题
     */
-    private String messagetitle;
+    private String messageTitle;
     /**
     * 留言内容
     */
-    private String messagecontent;
+    private String messageContent;
     /**
     * 状态（1、已回复0、未回复）
     */
@@ -47,47 +48,47 @@ public class LeaveMessage implements Serializable {
     /**
     * 留言时间
     */
-    private Date createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date createTime;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCreatedby() {
-        return createdby;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
-    public String getMessagecode() {
-        return messagecode;
+    public String getMessageCode() {
+        return messageCode;
     }
 
-    public void setMessagecode(String messagecode) {
-        this.messagecode = messagecode;
+    public void setMessageCode(String messageCode) {
+        this.messageCode = messageCode;
     }
 
-    public String getMessagetitle() {
-        return messagetitle;
+    public String getMessageTitle() {
+        return messageTitle;
     }
 
-    public void setMessagetitle(String messagetitle) {
-        this.messagetitle = messagetitle;
+    public void setMessageTitle(String messageTitle) {
+        this.messageTitle = messageTitle;
     }
 
-    public String getMessagecontent() {
-        return messagecontent;
+    public String getMessageContent() {
+        return messageContent;
     }
 
-    public void setMessagecontent(String messagecontent) {
-        this.messagecontent = messagecontent;
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
     }
 
     public Integer getState() {
@@ -98,12 +99,11 @@ public class LeaveMessage implements Serializable {
         this.state = state;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
-
 }

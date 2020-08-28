@@ -48,7 +48,7 @@ public class User implements Serializable {
     /**
     * 生日
     */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date birthday;
     /**
     * 证件类型id,来源于数据字典表 data_dictionary 中
@@ -87,7 +87,7 @@ typeCode =’CARD_TYPE’的 valueName
     /**
     * 注册时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     /**
     * 推荐人id（默认为当前登录用户id）
@@ -112,12 +112,12 @@ typeCode =’CARD_TYPE’的 valueName
     /**
     * 最新更新时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastUpdateTime;
     /**
     * 最后登录时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastLoginTime;
     /**
     * 开户卡号

@@ -28,24 +28,24 @@ public class Role implements Serializable {
     /**
     * 角色编码
     */
-    private String rolecode;
+    private String roleCode;
     /**
     * 角色名称
     */
-    private String rolename;
+    private String roleName;
     /**
     * 创建日期
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createdate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date createDate;
     /**
     * 是否启用（0、未启用1、启用）
     */
-    private Integer isstart;
+    private Integer isStart;
     /**
     * 创建者
     */
-    private String createby;
+    private String createBy;
 
 
     public Integer getId() {
@@ -56,44 +56,43 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getRolecode() {
-        return rolecode;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setRolecode(String rolecode) {
-        this.rolecode = rolecode;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Date getCreatedate() {
-        return createdate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public Integer getIsstart() {
-        return isstart;
+    public Integer getIsStart() {
+        return isStart;
     }
 
-    public void setIsstart(Integer isstart) {
-        this.isstart = isstart;
+    public void setIsStart(Integer isStart) {
+        this.isStart = isStart;
     }
 
-    public String getCreateby() {
-        return createby;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setCreateby(String createby) {
-        this.createby = createby;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
-
 }

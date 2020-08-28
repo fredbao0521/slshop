@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -40,7 +41,8 @@ public class OrderUser implements Serializable {
     private Integer roleId;
     
     private String createBy;
-    
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createDateTime;
 
 

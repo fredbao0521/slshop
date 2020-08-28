@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Information implements Serializable {
     */
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 标题
     */
@@ -43,38 +44,40 @@ public class Information implements Serializable {
     /**
     * 发布时间
     */
-    private Date publishtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date publishTime;
     /**
     * 附件类型ID
     */
-    private Integer typeid;
+    private Integer typeId;
     /**
     * 附件类型NAME
     */
-    private String typename;
+    private String typeName;
     /**
     * 附件名称
     */
-    private String filename;
+    private String fileName;
     /**
     * 附件存放路径
     */
-    private String filepath;
+    private String filePath;
     /**
     * 附件大小
     */
-    private Object filesize;
+    private Double fileSize;
     /**
     * 上传时间
     */
-    private Date uploadtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date uploadTime;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -110,60 +113,59 @@ public class Information implements Serializable {
         this.publisher = publisher;
     }
 
-    public Date getPublishtime() {
-        return publishtime;
+    public Date getPublishTime() {
+        return publishTime;
     }
 
-    public void setPublishtime(Date publishtime) {
-        this.publishtime = publishtime;
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
     }
 
-    public Integer getTypeid() {
-        return typeid;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setTypeid(Integer typeid) {
-        this.typeid = typeid;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public String getTypename() {
-        return typename;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setTypename(String typename) {
-        this.typename = typename;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public String getFilepath() {
-        return filepath;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public Object getFilesize() {
-        return filesize;
+    public Double getFileSize() {
+        return fileSize;
     }
 
-    public void setFilesize(Object filesize) {
-        this.filesize = filesize;
+    public void setFileSize(Double fileSize) {
+        this.fileSize = fileSize;
     }
 
-    public Date getUploadtime() {
-        return uploadtime;
+    public Date getUploadTime() {
+        return uploadTime;
     }
 
-    public void setUploadtime(Date uploadtime) {
-        this.uploadtime = uploadtime;
+    public void setUploadTime(Date uploadTime) {
+        this.uploadTime = uploadTime;
     }
-
 }

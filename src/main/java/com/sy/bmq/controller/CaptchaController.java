@@ -1,6 +1,6 @@
 package com.sy.bmq.controller;
 
-import com.sy.bmq.util.ImageVerificationCode;
+import com.sy.bmq.common.util.ImageVerificationCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

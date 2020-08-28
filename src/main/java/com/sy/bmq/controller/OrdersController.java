@@ -174,6 +174,8 @@ public class OrdersController {
         System.out.println("orderInfo=====" + orderInfo.toString());
         try {
             int i = ordersService.insertOrder(orderInfo, id, orderNumber, user.getUsername());
+            OrderInfo byOrderCode = ordersService.findByOrderCode(orderNumber);
+            result.setData(byOrderCode);
             result.setCode(BaseResult.CODE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();

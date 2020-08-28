@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Affiche implements Serializable {
     */
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 标题
     */
@@ -39,22 +40,24 @@ public class Affiche implements Serializable {
     /**
     * 发布时间
     */
-    private Date publishtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date publishTime;
     /**
     * 生效时间
     */
-    private Date starttime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date startTime;
     /**
     * 失效时间
     */
-    private Date endtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date endTime;
 
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -82,28 +85,40 @@ public class Affiche implements Serializable {
         this.publisher = publisher;
     }
 
-    public Date getPublishtime() {
-        return publishtime;
+    public Date getPublishTime() {
+        return publishTime;
     }
 
-    public void setPublishtime(Date publishtime) {
-        this.publishtime = publishtime;
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
     }
 
-    public Date getStarttime() {
-        return starttime;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStarttime(Date starttime) {
-        this.starttime = starttime;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEndtime() {
-        return endtime;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEndtime(Date endtime) {
-        this.endtime = endtime;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
+    @Override
+    public String toString() {
+        return "Affiche{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", publishTime=" + publishTime +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
 }

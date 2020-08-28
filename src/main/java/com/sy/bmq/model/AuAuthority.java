@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -23,63 +24,75 @@ public class AuAuthority implements Serializable {
     */
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 角色ID
     */
-    private Long roleid;
+    private Integer roleId;
     /**
     * 功能ID
     */
-    private Long functionid;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Long functionId;
     /**
     * 创建时间
     */
-    private Date creationtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date creationTime;
     /**
     * 创建者
     */
-    private String createdby;
+    private String createdBy;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Long roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Long getFunctionid() {
-        return functionid;
+    public Long getFunctionId() {
+        return functionId;
     }
 
-    public void setFunctionid(Long functionid) {
-        this.functionid = functionid;
+    public void setFunctionId(Long functionId) {
+        this.functionId = functionId;
     }
 
-    public Date getCreationtime() {
-        return creationtime;
+    public Date getCreationTime() {
+        return creationTime;
     }
 
-    public void setCreationtime(Date creationtime) {
-        this.creationtime = creationtime;
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
     }
 
-    public String getCreatedby() {
-        return createdby;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
+    @Override
+    public String toString() {
+        return "AuAuthority{" +
+                "id=" + id +
+                ", roleId=" + roleId +
+                ", functionId=" + functionId +
+                ", creationTime=" + creationTime +
+                ", createdBy='" + createdBy + '\'' +
+                '}';
+    }
 }

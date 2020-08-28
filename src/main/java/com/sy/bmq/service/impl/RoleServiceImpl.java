@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.sy.bmq.mapper.RoleMapper;
 import com.sy.bmq.model.Role;
 import com.sy.bmq.service.RoleService;
-import com.sy.bmq.util.Constant;
+import com.sy.bmq.common.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

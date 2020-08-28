@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -27,21 +28,22 @@ public class Func implements Serializable {
     /**
     * 功能编码
     */
-    private String funccode;
+    private String funcCode;
     /**
     * 功能名称
     */
-    private String funcname;
+    private String funcName;
     /**
     * 功能URL
     */
-    private String funcurl;
+    private String funcUrl;
     
-    private Integer parentid;
+    private Integer parentId;
     /**
     * 创建时间
     */
-    private Date creationtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date creationTime;
 
 
     public Integer getId() {
@@ -52,44 +54,43 @@ public class Func implements Serializable {
         this.id = id;
     }
 
-    public String getFunccode() {
-        return funccode;
+    public String getFuncCode() {
+        return funcCode;
     }
 
-    public void setFunccode(String funccode) {
-        this.funccode = funccode;
+    public void setFuncCode(String funcCode) {
+        this.funcCode = funcCode;
     }
 
-    public String getFuncname() {
-        return funcname;
+    public String getFuncName() {
+        return funcName;
     }
 
-    public void setFuncname(String funcname) {
-        this.funcname = funcname;
+    public void setFuncName(String funcName) {
+        this.funcName = funcName;
     }
 
-    public String getFuncurl() {
-        return funcurl;
+    public String getFuncUrl() {
+        return funcUrl;
     }
 
-    public void setFuncurl(String funcurl) {
-        this.funcurl = funcurl;
+    public void setFuncUrl(String funcUrl) {
+        this.funcUrl = funcUrl;
     }
 
-    public Integer getParentid() {
-        return parentid;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
-    public Date getCreationtime() {
-        return creationtime;
+    public Date getCreationTime() {
+        return creationTime;
     }
 
-    public void setCreationtime(Date creationtime) {
-        this.creationtime = creationtime;
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
     }
-
 }

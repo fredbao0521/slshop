@@ -1,5 +1,6 @@
 package com.sy.bmq.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
@@ -21,61 +22,60 @@ public class Report implements Serializable {
 
     @Id
     @GeneratedValue(generator = "JDBC")
-    private Long id;
+    private Integer id;
     /**
     * 相应会员类型对应的人数
     */
-    private Integer usernum;
+    private Integer userNum;
     /**
     * 关联角色表
     */
-    private Long roleid;
+    private Integer roleId;
     /**
     * 会员类型
     */
-    private String rolename;
-    
-    private Date createtime;
+    private String roleName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date createTime;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getUsernum() {
-        return usernum;
+    public Integer getUserNum() {
+        return userNum;
     }
 
-    public void setUsernum(Integer usernum) {
-        this.usernum = usernum;
+    public void setUserNum(Integer userNum) {
+        this.userNum = userNum;
     }
 
-    public Long getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Long roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
-
 }

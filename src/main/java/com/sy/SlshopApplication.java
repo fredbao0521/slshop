@@ -19,7 +19,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 //引入子配置项
 @Import(value = {SpringShiroConfig.class,SpringEsConfig.class,CasConfig.class,ShiroConfig.class})
 //扫描ES包
-@EnableElasticsearchRepositories(basePackages= "com.sy.bmq.es")
+@EnableElasticsearchRepositories(basePackages= "com.sy.bmq.common.es")
 public class SlshopApplication {
 
     public static void main(String[] args) {

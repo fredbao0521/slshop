@@ -13,8 +13,8 @@ public interface OrdersMapper extends Mapper<CartGoods> {
     @Select("select shopcart.* from shopcart where shopcart.userId = (select au_user.id from au_user where au_user.username = #{username})")
     Shopcart findCart(String username) throws Exception;
 
-    @Insert("INSERT INTO shopcart(userId,totalPrice,createby,lastUpdateTime,createTime)" +
-            "values(#{userId},#{totalPrice},#{createby},now(),now())")
+    @Insert("INSERT INTO shopcart(userId,totalPrice,createBy,lastUpdateTime,createTime)" +
+            "values(#{userId},#{totalPrice},#{createBy},now(),now())")
     int creatCart(Shopcart shopcart) throws Exception;
 
     @Insert("INSERT INTO cart_goods(goodsId,goodsName,goodsPrice,goodsNum,cartId,flag,createBy,createTime,lastUpdateTime,total) " +
@@ -30,6 +30,9 @@ public interface OrdersMapper extends Mapper<CartGoods> {
                                    "total=#{total}" +
             "where id = #{id}")
     int updateCartGood(CartGoods cartGoods) throws Exception;
+
+    @Update("update shopcart set totalPrice=#{total},lastUpdateTime = now() where id = #{id}")
+    int updateCart(Double total,Integer id) throws Exception;
 
     @Delete("delete from cart_goods where id = #{id}")
     int deleteCartGood(CartGoods cartGoods) throws Exception;

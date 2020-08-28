@@ -10,5 +10,7 @@ public interface UserAccountService {
 
     int addMoney(UserAccount userAccount, AccountDetail accountDetail) throws Exception;
 
-    int cashOut(UserAccount userAccount,Double balance,String otherAcountId) throws Exception;
+    int cashOut(UserAccount userAccount, Double balance, String otherAcountId) throws Exception;
+
+    int modifyOut(UserAccount userAccount, Double balance, Integer toId) throws Exception;
 }

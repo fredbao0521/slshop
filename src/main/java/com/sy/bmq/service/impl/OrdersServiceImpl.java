@@ -29,6 +29,7 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersMapper ordersMapper;
 
     @Override
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
     public int creatCart(Shopcart shopcart) throws Exception {
         return ordersMapper.creatCart(shopcart);
     }
@@ -121,5 +122,11 @@ public class OrdersServiceImpl implements OrdersService {
         int i = ordersMapper.deleteOrderGoods(s);
         int i1 = ordersMapper.deleteOrder(id);
         return i+i1;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    public int updateCart(Double total, Integer id) throws Exception {
+        return ordersMapper.updateCart(total, id);
     }
 }

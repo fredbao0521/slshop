@@ -26,16 +26,16 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
-    public int addMoney(UserAccount userAccount,AccountDetail accountDetail) throws Exception {
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+    public int addMoney(UserAccount userAccount, AccountDetail accountDetail) throws Exception {
         int i = userAccountMapper.addMoney(userAccount);
         int i1 = accountDetailMapper.addAccountDetail(accountDetail);
-        return i+i1;
+        return i + i1;
     }
 
     @Override
-    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
-    public int cashOut(UserAccount userAccount,Double balance,String otherAcountId) throws Exception {
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+    public int cashOut(UserAccount userAccount, Double balance, String otherAcountId) throws Exception {
         double v = userAccount.getBalance() - balance;
         userAccount.setBalance(v);
         int i = userAccountMapper.cashOut(userAccount);
@@ -48,6 +48,34 @@ public class UserAccountServiceImpl implements UserAccountService {
         accountDetail.setOtherAcountId(otherAcountId);
         accountDetail.setAccountId(userAccount.getId());
         int i1 = accountDetailMapper.addAccountDetail(accountDetail);
-        return i+i1;
+        return i + i1;
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
+    public int modifyOut(UserAccount userAccount, Double balance, Integer toId) throws Exception {
+        //转出
+        double v = userAccount.getBalance() - balance;
+        if (v<0){
+            return 0;
+        }
+        userAccount.setBalance(v);
+        int i = userAccountMapper.cashOut(userAccount);
+        //转入
+        UserAccount toAccount = userAccountMapper.selectByUid(toId);
+        double v1 = toAccount.getBalance() + balance;
+        toAccount.setBalance(v1);
+        int i1 = userAccountMapper.cashOut(toAccount);
+        //写转账记录
+        AccountDetail accountDetail = new AccountDetail();
+        accountDetail.setMoneyOut(balance);
+        accountDetail.setMoneyIn(0.0);
+        accountDetail.setType(4);
+        accountDetail.setBalance(v);
+        accountDetail.setOtherAcountId("0");
+        accountDetail.setState(1);
+        accountDetail.setAccountId(userAccount.getId());
+        int i2 = accountDetailMapper.addAccountDetail(accountDetail);
+        return i + i1+i2;
     }
 }

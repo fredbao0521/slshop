@@ -31,13 +31,10 @@
         <div class="layui-input-inline">
             <input type="text" class="layui-input" name="date2" id="date2" placeholder="yyyy-MM-dd HH:mm:ss"
                    autocomplete="off">
-
         </div>
         <button type="button" id="search" class="layui-btn layui-btn-primary" lay-submit
                 lay-filter="data-search-btn"><i class="layui-icon"></i> 查询
         </button>
-    </div>
-
     </div>
 
 
@@ -48,7 +45,10 @@
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    layui.use('laydate', function () {
+    layui.use(['laydate','form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
         var laydate = layui.laydate;
 
         laydate.render({
@@ -61,13 +61,6 @@
             , type: 'datetime',
             format: 'yyyy-MM-dd HH:mm:ss'
         });
-
-    });
-
-    layui.use(['form', 'table'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table;
 
         table.render({
             id: 'userAccount',
@@ -89,6 +82,8 @@
                             return '消费'
                         } else if(d.type==3){
                             return '收益'
+                        } else if(d.type==4){
+                            return '转账'
                         }
                     }
                 },

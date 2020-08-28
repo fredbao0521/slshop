@@ -51,6 +51,8 @@ public class AccountDetail implements Serializable {
 
     private Double balance;
 
+    private Integer state;
+
     public Integer getId() {
         return id;
     }
@@ -115,6 +117,14 @@ public class AccountDetail implements Serializable {
         this.balance = balance;
     }
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "AccountDetail{" +
@@ -126,6 +136,7 @@ public class AccountDetail implements Serializable {
                 ", type=" + type +
                 ", otherAcountId='" + otherAcountId + '\'' +
                 ", balance=" + balance +
+                ", state=" + state +
                 '}';
     }
 }

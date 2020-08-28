@@ -52,17 +52,31 @@ public class OrdersController {
                 cartGoods.setFlag(1);
             }
             Shopcart shopcart = ordersService.findCart(remoteUser);
+            if (cartGoods.getGoodsNum()==null){
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("库存不足,加入购物车失败");
+                return result;
+            }
             double total = cartGoods.getGoodsNum() * cartGoods.getGoodsPrice();
             cartGoods.setTotal(total);
             if (shopcart == null) {
+                shopcart = new Shopcart();
                 shopcart.setCreateBy(remoteUser);
                 //先用固定金额填充
                 shopcart.setTotalPrice(0.00);
                 shopcart.setUserId(user.getId());
-            } else {
-                cartGoods.setCartId(shopcart.getId());
+                ordersService.creatCart(shopcart);
+
             }
+            shopcart = ordersService.findCart(remoteUser);
+            cartGoods.setCartId(shopcart.getId());
             int i = ordersService.addCartGood(cartGoods);
+            List<CartGoods> cartGoods1 = goodsService.selectByCartId(shopcart.getId());
+            Double cattotal = 0.0;
+            for (int j = 0; j < cartGoods1.size(); j++) {
+                cattotal += cartGoods1.get(j).getTotal();
+            }
+            ordersService.updateCart(cattotal, shopcart.getId());
             if (i >= 2) {
                 result.setCode(BaseResult.CODE_SUCCESS);
                 result.setMsg("加入购物车成功");
@@ -88,8 +102,9 @@ public class OrdersController {
         String remoteUser = request.getRemoteUser();
 
         try {
-            User user = userService.selectByUsername(remoteUser);
-            List<CartGoods> cartGoods = goodsService.selectByCartId(user.getId());
+//            User user = userService.selectByUsername(remoteUser);
+            Shopcart cart = ordersService.findCart(remoteUser);
+            List<CartGoods> cartGoods = goodsService.selectByCartId(cart.getId());
             result.setData(cartGoods);
             result.setCode(BaseResult.CODE_SUCCESS);
         } catch (Exception e) {

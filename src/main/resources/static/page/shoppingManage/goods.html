@@ -90,8 +90,7 @@
                     field: 'goodsNum',
                     edit: 'text',
                     title: '购买数量',
-                    style: 'outline: 1px solid #e6e6e6;outline-offset: -5px;'
-                }
+                    style: 'outline: 1px solid #e6e6e6;outline-offset: -5px;'}
                 , {title: '操作', toolbar: '#barDemo'}
             ]],
             limits: [5, 10, 15, 20, 50],
@@ -153,21 +152,13 @@
                                     note: note
                                 }
                             })
+                        }else {
+                            layer.msg(rec.msg);
                         }
                     }
                 })
             }
         });
-        /*//头工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-            }
-        });*/
     });
 </script>
 

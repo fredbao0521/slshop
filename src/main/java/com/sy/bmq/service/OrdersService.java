@@ -25,4 +25,6 @@ public interface OrdersService {
     List<OrderInfo> selectWithWhere(int pageNum,int pageSize,String orderCode, String createTime,Integer userId, BaseResult result) throws Exception;
 
     int deleteOrder(Integer id,Long orderCode) throws Exception;
+
+    int updateCart(Double total,Integer id) throws Exception;
 }

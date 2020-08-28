@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface AccountDetailMapper extends Mapper<AccountDetail> {
 
-    @Insert("insert into account_detail(accountId,accountDate,moneyIn,moneyOut,type,otherAcountId,balance) values(#{accountId},now(),#{moneyIn},#{moneyOut},#{type},#{otherAcountId},#{balance})")
+    @Insert("insert into account_detail(accountId,accountDate,moneyIn,moneyOut,type,otherAcountId,balance,state) values(#{accountId},now(),#{moneyIn},#{moneyOut},#{type},#{otherAcountId},#{balance},#{state})")
     int addAccountDetail(AccountDetail accountDetail) throws Exception;
 
     @Select({"<script>" +
@@ -28,6 +28,26 @@ public interface AccountDetailMapper extends Mapper<AccountDetail> {
             "</where></script>"
     })
     List<AccountDetail> selectWithWhere(@Param("beginTime") String beginTime,
+                                        @Param("endTime") String endTime,
+                                        @Param("accountId") Integer accountId) throws Exception;
+
+    @Select({"<script>" +
+            "SELECT " +
+            " * " +
+            " from account_detail" +
+            "<where>" +
+            "<if test=\'beginTime != null and beginTime != \"\" and endTime != null and endTime != \"\"\'>" +
+            "and accountDate between  #{beginTime} and  #{endTime}" +
+            "</if>" +
+            "<if test=\'accountId != null and accountId != \"\"\'>" +
+            " and accountId = #{accountId}" +
+            "</if>" +
+            "<if test=\'status != null and status != \"\"\'>" +
+            " and status = 1" +
+            "</if>" +
+            "</where></script>"
+    })
+    List<AccountDetail> selectWithWhere2(@Param("beginTime") String beginTime,
                                         @Param("endTime") String endTime,
                                         @Param("accountId") Integer accountId) throws Exception;
 }

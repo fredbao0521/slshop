@@ -36,4 +36,12 @@ public class AccountDetailServiceImpl implements AccountDetailService {
         PageHelper.startPage(pageNum, pageSize);
         return accountDetailMapper.selectWithWhere(beginTime, endTime, accountId);
     }
+
+    @Override
+    public List<AccountDetail> selectWithWhere2(int pageNum, int pageSize, String beginTime, String endTime, Integer accountId, BaseResult result) throws Exception {
+        List<AccountDetail> accountDetails = accountDetailMapper.selectWithWhere2(beginTime, endTime, accountId);
+        result.setCount(accountDetails.size());
+        PageHelper.startPage(pageNum, pageSize);
+        return accountDetailMapper.selectWithWhere2(beginTime, endTime, accountId);
+    }
 }

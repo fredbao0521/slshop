@@ -44,7 +44,7 @@
            "child": [
             {
               "title": "注册新会员",
-              "href": "/page/vip_form.html",
+              "href": "/page/AccountManage/vipregister.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -152,13 +152,13 @@
           "child": [
             {
               "title": "公告管理",
-              "href": "a17.html",
+              "href": "/page/messManage/notice.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "资讯管理",
-              "href": "a28.html",
+              "href": "/page/messManage/counsel.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -171,7 +171,7 @@
             ,
             {
               "title": "留言管理",
-              "href": "a48.html",
+              "href": "/page/messManage/leaveMessage.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

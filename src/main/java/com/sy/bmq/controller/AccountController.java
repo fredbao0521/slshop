@@ -31,6 +31,13 @@ public class AccountController {
     private AccountDetailService accountDetailService;
 
 
+    /**
+     * 个人账户充值汇款
+     * @param accountDetail
+     * @param result
+     * @param request
+     * @return
+     */
     @RequestMapping("/addmoney.do")
     public BaseResult addMoney(AccountDetail accountDetail, BaseResult result, HttpServletRequest request) {
         String remoteUser = request.getRemoteUser();
@@ -60,6 +67,16 @@ public class AccountController {
         return result;
     }
 
+    /**
+     * 显示个人账户交易信息
+     * @param limit
+     * @param page
+     * @param beginTime
+     * @param endTime
+     * @param result
+     * @param request
+     * @return
+     */
     @RequestMapping("/list.do")
     public BaseResult listAccountDetail(int limit, int page, String beginTime, String endTime, BaseResult result, HttpServletRequest request) {
         String remoteUser = request.getRemoteUser();
@@ -78,6 +95,12 @@ public class AccountController {
         return result;
     }
 
+    /**
+     * 获取当前账户余额
+     * @param result
+     * @param request
+     * @return
+     */
     @RequestMapping("/getbalance.do")
     public BaseResult getBalance(BaseResult result, HttpServletRequest request) {
         UserAccount userAccount = null;
@@ -97,6 +120,14 @@ public class AccountController {
         return result;
     }
 
+    /**
+     * 提现
+     * @param balance
+     * @param otherAcountId
+     * @param result
+     * @param request
+     * @return
+     */
     @RequestMapping("/cashout.do")
     public BaseResult cashOut(Double balance,String otherAcountId,BaseResult result, HttpServletRequest request) {
         String remoteUser = request.getRemoteUser();
@@ -110,6 +141,72 @@ public class AccountController {
             } else {
                 result.setCode(BaseResult.CODE_FAILED);
                 result.setMsg("提现失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * \当前账户提现操作记录
+     * @param limit
+     * @param page
+     * @param beginTime
+     * @param endTime
+     * @param result
+     * @param request
+     * @return
+     */
+    @RequestMapping("/cashoutlist.do")
+    public BaseResult cashOutList(int limit, int page, String beginTime, String endTime, BaseResult result, HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+        User user = null;
+        try {
+            user = userService.selectByUsername(remoteUser);
+            UserAccount userAccount = userAccountService.selectByUid(user.getId());
+            List<AccountDetail> accountDetails = accountDetailService.selectWithWhere2(page, limit, beginTime, endTime, userAccount.getId(), result);
+            result.setPage(page);
+            result.setLimit(limit);
+            result.setData(accountDetails);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setCode(BaseResult.CODE_SUCCESS);
+        return result;
+    }
+
+    /**
+     * 内部转账
+     * @param balance
+     * @param result
+     * @param request
+     * @return
+     */
+    @RequestMapping("/modifyOut.do")
+    public BaseResult modifyOut(Double balance,String toname,String password2,BaseResult result, HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+        try {
+            User user = userService.selectByUsername(remoteUser);
+            if (!password2.equals(user.getPassword2())){
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("二级密码错误");
+                return result;
+            }
+            User touser = userService.selectByUsername(toname);
+            if (touser==null){
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("目标账户错误");
+                return result;
+            }
+            UserAccount userAccount = userAccountService.selectByUid(user.getId());
+            int i = userAccountService.modifyOut(userAccount,balance,touser.getId());
+            if (i >= 3) {
+                result.setCode(BaseResult.CODE_SUCCESS);
+                result.setMsg("转账成功");
+            } else {
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("转账失败");
             }
         } catch (Exception e) {
             e.printStackTrace();

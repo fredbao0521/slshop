@@ -43,7 +43,6 @@
         var $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
-        //监听提交
 
         //自定义验证规则
         form.verify({
@@ -52,9 +51,9 @@
                     return "充值金额不能为0";
                 }
             }
-
         });
 
+        //监听提交
         form.on('submit(setting)', function (data) {
             $.ajax({
                 url: "/bank/addmoney.do",

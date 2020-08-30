@@ -41,14 +41,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" id="u53_input">用户名 :</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" autocomplete="off" class="layui-input">
+                                <input type="text" name="username"  class="layui-input" lay-verify="required" >
                             </div>
 
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">真实姓名:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="realName" autocomplete="off" class="layui-input">
+                                <input type="text" name="realName"  class="layui-input" lay-verify="required" >
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -71,7 +71,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">证件号码:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="idCard" autocomplete="off" class="layui-input">
+                                <input type="text" name="idCard"  class="layui-input" lay-verify="identity">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -80,14 +80,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">联系电话:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="moblie" autocomplete="off" class="layui-input">
+                                <input type="text" name="mobile"  class="layui-input" lay-verify="required|phone">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">移动电话:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="moblie" autocomplete="off" class="layui-input">
+                                <input type="text" name="mobile"  class="layui-input" lay-verify="required|phone">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -96,14 +96,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">电子邮件:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="email"  class="layui-input" lay-verify="email">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">邮政编码</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="postCode" autocomplete="off" class="layui-input">
+                                <input type="text" name="postCode"  class="layui-input" lay-verify="required">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -112,14 +112,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">密码:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="password" autocomplete="off" class="layui-input">
+                                <input type="password" name="password"  class="layui-input" lay-verify="required">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">推荐人 :</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="referCode" autocomplete="off" class="layui-input">
+                                <input type="text" name="referCode"  class="layui-input" lay-verify="required">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -137,7 +137,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">开户行  :</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="bankName" autocomplete="off" class="layui-input">
+                        <input type="text" name="bankName" class="layui-input" lay-verify="required">
                     </div>
                     <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                 </div>
@@ -147,14 +147,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">开户人 :</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="accountHolder" autocomplete="off" class="layui-input">
+                                <input type="text" name="accountHolder"  class="layui-input" lay-verify="required">
                             </div>
 
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">开户卡号:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="bankAccount" autocomplete="off" class="layui-input">
+                                <input type="text" name="bankAccount"  class="layui-input" lay-verify="required">
                             </div>
                         </div>
                     </div>
@@ -200,7 +200,6 @@
                 var $ = layui.jquery;
                 var layer = layui.layer;
                 var laydate = layui.laydate;
-                form.reader;
                 $.ajax({
                     url: "/user/login.do",
                     type: "post",
@@ -218,8 +217,8 @@
                                     $("input[name='realName']").val(data.realName)
                                    $("option[value="+data.cardTypeName+"]").prop("selected","true")
                                     $("input[name='idCard']").val(data.idCard)
-                                    $("input[name='phone']").val(data.phone)
-                                    $("input[name='moblie']").val(data.phone)
+                                    $("input[name='moblie']").val(data.moblie)
+                                    $("input[name='moblie']").val(data.moblie)
                                     $("input[name='email']").val(data.email)
                                     $("input[name='password']").val(data.password)
                                     $("input[name='postCode']").val(data.postCode)
@@ -228,15 +227,13 @@
                                     $("input[name='bankName']").val(data.bankName)
                                     $("input[name='accountHolder']").val(data.accountHolder)
                                     $("input[name='bankAccount']").val(data.bankAccount)
-                                    $("input[name='idphoto']").val(data.idphoto)
-                                    $("input[name='bankphoto']").val(data.bankphoto)
-                                    $("input[name='bankphoto']").val(data.bankphoto)
+                                    $("textarea[name='userAddress']").val(data.userAddress)
                                     form.render()
                                 }
 
                             }
                         })
-                        
+
                         $("#btn").click(function () {
                              var data1=  form.val("demo1")
                             $.ajax({
@@ -246,7 +243,7 @@
                                 datatype:"json",
                                 success:function (rec) {
                                     if (rec.code==0){
-                                        alert(1111)
+                                        alert("编辑成功")
                                     }
                                 }
 

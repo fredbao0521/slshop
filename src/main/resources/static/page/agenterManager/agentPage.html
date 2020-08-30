@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="/css/public.css" media="all">
-    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
 </head>
 <style>
     .layui-top-box {
@@ -88,7 +88,7 @@
 
 </div>
 </body>
-<script src="/js/layui/layui.js" charset="utf-8"></script>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form', 'table', `upload`, 'layer', 'jquery', 'laydate'], function () {
         var form = layui.form;
@@ -99,35 +99,41 @@
 
         // 获取登录用户
         $.ajax({
-            url: "/session.do",
-            type: "get",
+            url: "/user/login.do",
+            type: "post",
             dataType: "json",
             xhrFields: {
                 // 发送 AJAX 请求时带上 cookie
                 withCredentials: true
             },
             success: function (rec) {
-                $(`#id`).val(rec.data.id);
-
+                $(`#id`).val(rec.data);
+                console.log(rec.data)
                 table.render({
                     elem: '#userTable'
                     , id: 'userTable'
-                    , url: "/user/listStartAgent.do?id=" + $(`#id`).val() //数据接口
+                    , url: "/user/listStartAgent.do" //数据接口
                     , page: true //开启分页
                     , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-                    , limit: 2
-                    , limits: [1, 2, 3, 4, 5]
+                    , limit: 5
+                    , limits: [5, 10, 15, 20, 25]
                     , cols: [[ //表头
                         {title: '选择', type: 'radio'}
                         , {field: 'username', title: '用户名', align: 'center'}
                         , {field: 'id', title: 'ID', width: '15%', align: 'center', hide: true}
-                        , {field: 'rolename', title: '会员类型', align: 'center'}
-                        , {field: 'username', title: '推荐人姓名', align: 'center'}
+                        , {field: 'roleName', title: '会员类型', align: 'center'}
+                        , {field: 'referCode', title: '推荐人姓名', align: 'center'}
                         , {
-                            field: 'isstart', title: '状态（启用/禁用）', align: 'center',
-                            templet: '#typeTpl'
+                            field: 'isStart', title: '状态（启用/禁用）', align: 'center',
+                           templet: function (item) {
+                    if (item.isStart == 1) {
+                        return '√'
+                    } else if (item.isStart == 0) {
+                        return '×'
+                    }
+                }
                         }
-                        , {field: 'lastupdatetime', title: '最后修改时间', align: 'center'}
+                        , {field: 'lastUpdateTime', title: '最后修改时间', align: 'center'}
                     ]]
                     , done: function (res, curr, count) {
                         var that = this.elem.next();
@@ -135,9 +141,9 @@
                         res.data.forEach(function (item, index) {
                             //item表示每列显示的数据
                             if (index % 2 == 0) {
-                                var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "rgba(30,159,255,0.52)");
+                                var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']")
                             } else {
-                                var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "yellow");
+                                var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']")
                             }
 
                         })
@@ -148,50 +154,21 @@
 
         //头工具栏事件
         table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(com.sy.config.id);
+            var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-               /* case 'addUser':
+                /* case 'addUser':
                     location.href = "/html/userManagePage/userAdd.html";
                     break;*/
                 case 'updateUser':
                     var data = checkStatus.data;  //获取选中行数据
-                    if (data[0] != null) {
+                    alert(data.id)
+                    if (data!= null) {
                         // alert(data[0].id);
-                        location.href = "/html/agenterPage/userUpdate.html?id=" + data[0].id;
+                        location.href = "/usermanagement/userUpdate.html?id=" + data.id;
                     } else {
                         layer.msg("请先选择你要修改的用户！")
                     }
                     break;
-                case 'deleteUser':
-                    var data = checkStatus.data;
-                    if (data[0] != null) {
-                        // alert(data[0].id);
-                        layer.confirm('确定删除该用户吗？', function (index) {
-                            $.ajax({
-                                url: "/user/remove.do",
-                                data: {
-                                    "id": data[0].id
-                                },
-                                type: "get",
-                                dataType: "json",
-                                traditional: true,
-                                success: function (rec) {
-                                    if (rec.code == 0) {
-                                        layer.msg(rec.msg);
-                                        window.setTimeout(function () {
-                                            // window.history.back();
-                                            // location.href = "/html/user/user.html";
-                                            location.reload();
-                                        }, 1500)
-                                    } else {
-                                        layer.msg(rec.msg);
-                                    }
-                                }
-                            });
-                        });
-                    } else {
-                        layer.msg("请先选择你要删除的用户！")
-                    }
             }
         });
 
@@ -199,11 +176,10 @@
         $(document).on(`click`, `#selectUser`, function () {
             // 搜索条件
             var username = $(`input[name="username"]`).val();
+            alert(username)
             table.reload('userTable', {
-                method: 'get'
-                , where: {
-                    username: username,
-                    id: $(`#id`).val()
+                 where: {
+                    username: username
                 }
                 , page: {
                     curr: 1
@@ -214,25 +190,17 @@
 </script>
 <script type="text/html" id="toolbarDemo">
     <div style="display: flex;">
-        <div class="layui-btn-container">
+        <!--<div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="updateUser">修改</button>
-<!--            <button class="layui-btn layui-btn-sm" lay-event="deleteUser">删除</button>-->
-<!--            <button class="layui-btn layui-btn-sm" lay-event="addUser">新增</button>-->
-        </div>
+        </div>-->
         <div style="margin: auto" class="demoTable">
             搜索用户：
             <div class="layui-inline">
-                <input class="layui-input" name="username" id="username" autocomplete="off">
+                <input class="layui-input" name="username" id="username" >
             </div>
             <input type="button" class="layui-btn" id="selectUser" value="搜索">
         </div>
     </div>
 </script>
-<script type="text/html" id="typeTpl">
-    {{#  if(d.isstart ==1 ){ }}
-    <p>启用</p>
-    {{#  } else if(d.isstart ==2 ){ }}
-    <p>未启用</p>
-    {{#  } }}
-</script>
+
 </html>

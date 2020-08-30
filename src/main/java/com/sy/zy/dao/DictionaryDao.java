@@ -1,5 +1,6 @@
 package com.sy.zy.dao;
 
+
 import com.sy.bmq.model.DataDictionary;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -24,7 +25,13 @@ public interface DictionaryDao {
     Integer modify(DataDictionary dataDictionary)throws Exception;
 
 
-
+    /**
+     * 根据valueId和typecode来进重复性校验
+     * @param typeCode
+     * @param valueId
+     * @return
+     * @throws Exception
+     */
     @Select("select * from data_dictionary where valueId=#{valueId} and typeCode=#{typeCode}")
     DataDictionary find1(String typeCode, int valueId)throws Exception;
 

@@ -17,7 +17,7 @@
                     <div class="layui-inline">
                         <input type="text" name="username" autocomplete="off">
                         <button type="button" class="layui-btn layui-btn-primary"
-                                lay-filter="data-search-btn" id="btn"><i class="layui-icon" ></i> 搜 索
+                                 id="btn"><i class="layui-icon" ></i> 搜 索
                         </button>
                     </div>
                 </form>
@@ -47,119 +47,140 @@
         <script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
         <script src="/lib/layui/layui.js" charset="utf-8"></script>
         <script>
-            layui.use(['form', 'table'], function () {
+            var use = layui.use(['form', 'table'], function () {
                 var $ = layui.jquery,
                     form = layui.form,
                     table = layui.table;
 
-                table.render({
-                    elem: '#currentTableId',
-                    url: '/user/viplist.do?roleId=2',
-                    /*toolbar: '#toolbarDemo',*/
-                    defaultToolbar: ['filter', 'exports', 'print', {
-                        title: '提示',
-                        layEvent: 'LAYTABLE_TIPS',
-                        icon: 'layui-icon-tips'
-                    }],
-                    cols: [[
-                        {type: "checkbox", width: 50},
-                        {field: 'id', title: 'ID', sort: true,hide:true},
-                        {field: 'username', title: '用户名'},
-                        {field: 'realName', title: '真实名字', sort: true},
-                        {field: 'phone', title: '联系号码'},
-                        {field: 'referCode', title: '推荐人'},
-                        {field: 'createTime', title: '注册时间', sort: true},
-                        {fixed: 'right', width: 178, align: 'center', toolbar: '#currentTableBar'}
-                    ]],
-                    limits: [10, 15, 20, 25, 50, 100],
-                    limit: 5,
-                    page: true,
-                    skin: 'line'
-                });
 
-                // 监听搜索操作
-                $("#btn").click(function () {
-                    var str=$("input[name='username']").val()
+                    $.ajax({
+                        url:"/user/checked",
+                        type:"post",
+                        datatype:"json",
+                        success:function (rec) {
+                           if(rec.code!=0){
+                               layer.msg("不是管理员，不能访问该页面",function () {
+                                   location.href="/welcome.html?t=1"
+                               })
 
-                    //执行搜索重载(给定参数，重新加载当前页面)
-                    table.reload('currentTableId', {
-                        page: {
-                            curr: 1
+                           } else {
+                               init()
+                           }
                         }
-                        , where: {
-                            username: str
-                        }
-                    }, 'data');
-
-                    return false;
-                });
+                    })
 
 
-                    table.on('tool(currentTableFilter)', function (obj) {
-                        var data = obj.data;
-                        if (obj.event === 'edit') {
-                            var index = layer.open({
-                                title: '编辑用户',
-                                type: 2,
-                                shade: 0.2,
-                                maxmin: true,
-                                shadeClose: true,
-                                area: ['100%', '100%'],
-                                content: '/page/usermanagement/vipedit.html',
-                                success: function (layero, index) {
-                                    var body = layer.getChildFrame('body', index);
-                                    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
-                                    console.log(body.html()) //得到iframe页的body内容
-                                    body.find("input[name='username']").val(data.username)
-                                    body.find("input[name='realName']").val(data.realName)
-                                    body.find("input[name='cardTypeName']").val(data.cardTypeName)
-                                    body.find("input[name='idCard']").val(data.idCard)
-                                    body.find("input[name='phone']").val(data.phone)
-                                    body.find("input[name='moblie']").val(data.phone)
-                                    body.find("input[name='email']").val(data.email)
-                                    body.find("input[name='password']").val(data.password)
-                                    body.find("input[name='postCode']").val(data.postCode)
-                                    body.find("input[name='referCode']").val(data.referCode)
-                                    body.find("input[name='country']").val(data.country)
-                                    body.find("input[name='bankName']").val(data.bankName)
-                                    body.find("input[name='accountHolder']").val(data.accountHolder)
-                                    body.find("input[name='bankAccount']").val(data.bankAccount)
-                                    body.find("input[name='idphoto']").val(data.idphoto)
-                                    body.find("input[name='bankphoto']").val(data.bankphoto)
-                                    body.find("input[name='bankphoto']").val(data.bankphoto)
+           function init() {
+               table.render({
+                   elem: '#currentTableId',
+                   url: '/user/viplist.do?roleId=2',
+                   /*toolbar: '#toolbarDemo',*/
+                   defaultToolbar: ['filter', 'exports', 'print', {
+                       title: '提示',
+                       layEvent: 'LAYTABLE_TIPS',
+                       icon: 'layui-icon-tips'
+                   }],
+                   cols: [[
+                       {type: "checkbox", width: 50},
+                       {field: 'id', title: 'ID', sort: true, hide: true},
+                       {field: 'username', title: '用户名'},
+                       {field: 'realName', title: '真实名字', sort: true},
+                       {field: 'mobile', title: '联系号码'},
+                       {field: 'referCode', title: '推荐人'},
+                       {field: 'createTime', title: '注册时间', sort: true},
+                       {fixed: 'right', width: 178, align: 'center', toolbar: '#currentTableBar'}
+                   ]],
+                   limits: [10, 15, 20, 25, 50, 100],
+                   limit: 5,
+                   page: true,
+                   skin: 'line'
+               });
+
+               // 监听搜索操作
+               $("#btn").click(function () {
+                   var str = $("input[name='username']").val()
+                   //执行搜索重载(给定参数，重新加载当前页面)
+                   table.reload('currentTableId', {
+                       page: {
+                           curr: 1
+                       }
+                       , where: {
+                           username: str
+                       }
+                   }, 'data');
+
+                   return false;
+               });
+
+               function closelayer() {
+                   window.parent.location.reload();//刷新父页面
+                   var index = parent.layer.getFrameIndex(window.name);
+                   parent.layer.close(index);
+               }
 
 
+               table.on('tool(currentTableFilter)', function (obj) {
+                   var data = obj.data;
+                   if (obj.event === 'edit') {
+                       var index = layer.open({
+                           title: '编辑用户',
+                           type: 2,
+                           shade: 0.2,
+                           maxmin: true,
+                           shadeClose: true,
+                           area: ['100%', '100%'],
+                           content: '/page/usermanagement/edit.html',
+                           success: function (layero, index) {
+                               var body = layer.getChildFrame('body', index);
+                               var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                               console.log(body.html()) //得到iframe页的body内容
+                               body.find("input[name='username']").val(data.username)
 
+                               body.find("input[name='realName']").val(data.realName)
+                               body.find("option[value=" + data.cardTypeName + "]").prop("selected", "true")
+                               body.find("input[name='idCard']").val(data.idCard)
+                               body.find("input[name='mobile']").val(data.mobile)
+                               body.find("input[name='mobile']").val(data.mobile)
+                               body.find("input[name='email']").val(data.email)
+                               body.find("input[name='password']").val(data.password)
+                               body.find("input[name='postCode']").val(data.postCode)
+                               body.find("input[name='referCode']").val(data.referCode)
+                               body.find("option[value=" + data.country + "]").prop("selected", "true")
+                               body.find("input[name='bankName']").val(data.bankName)
+                               body.find("input[name='accountHolder']").val(data.accountHolder)
+                               body.find("input[name='bankAccount']").val(data.bankAccount)
+                               body.find("input[name='userAddress']").val(data.userAddress)
+                           }
+                       });
+                       $(window).on("resize", function () {
+                           layer.full(index);
+                       });
+                       return false;
+                       //window.location.href="/vipedit.html?id="+data.id
+                   } else if (obj.event === 'delete') {
+                       $.ajax({
+                           url: "/user/delete.do",
+                           datatype: "json",
+                           type: "post",
+                           data: {"id": data.id},
+                           success: function (rec) {
+                               if (confirm("是否删除")) {
+                                   if (rec.code == 0) {
+                                       closelayer()
+                                   } else {
+                                       alert("删除失败")
+                                   }
+                               }
 
+                           }
 
+                       })
 
-                                }
-                            });
-                            $(window).on("resize", function () {
-                                layer.full(index);
-                            });
-                            return false;
-                            //window.location.href="/vipedit.html?id="+data.id
-                        } else if (obj.event === 'delete') {
-                            $.ajax({
-                                url: "/user/delete.do",
-                                datatype: "json",
-                                type: "post",
-                                data: {"id": data.id},
-                                success: function (rec) {
-                                    if (rec.code == 0) {
-                                        alert("删除成功")
-                                        windows.location.href = "/viptable.html"
-                                    } else {
-                                        alert("删除失败")
-                                    }
-                                }
+                   }
+               });
 
-                            })
-
-                        }
-                    });
-                })
+           };
+            })
 
 
 

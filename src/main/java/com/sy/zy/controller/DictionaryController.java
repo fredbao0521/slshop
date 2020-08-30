@@ -66,25 +66,18 @@ public class DictionaryController {
         }
     }
 
+    //更新操作需要进行重复性校验
     @RequestMapping("/update.do")
     public BaseResult update(DataDictionary role) throws Exception {
         BaseResult baseResult = new BaseResult();
-        DataDictionary select =dictionaryService.find1(role.getTypeCode(),role.getValueId());
-        if (select==null){
-            Integer update = dictionaryService.update(role);
-            if (update > 0) {
-                baseResult.setCode(0);
-                return baseResult;
-            } else {
-                baseResult.setCode(1);
-                return baseResult;
-            }
-        }else {
-            baseResult.setMsg("failed");
+        Integer update = dictionaryService.update(role);
+        if (update > 0) {
+            baseResult.setCode(0);
+            return baseResult;
+        } else {
+            baseResult.setCode(1);
             return baseResult;
         }
-
-
     }
 
     @RequestMapping("/insert.do")

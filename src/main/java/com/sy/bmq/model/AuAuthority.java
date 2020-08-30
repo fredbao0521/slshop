@@ -20,27 +20,27 @@ import java.io.Serializable;
 public class AuAuthority implements Serializable {
     private static final long serialVersionUID = 954999781806881238L;
     /**
-    * 主键ID
-    */
+     * 主键ID
+     */
     @Id
     @GeneratedValue(generator = "JDBC")
     private Integer id;
     /**
-    * 角色ID
-    */
+     * 角色ID
+     */
     private Integer roleId;
     /**
-    * 功能ID
-    */
+     * 功能ID
+     */
     private  Integer functionId;
     /**
-    * 创建时间
-    */
+     * 创建时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date creationTime;
     /**
-    * 创建者
-    */
+     * 创建者
+     */
     private String createdBy;
 
 

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>首页三</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+        <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+        <link rel="stylesheet" href="/css/public.css" media="all">
+        <style>
+            .top-panel {
+                border: 1px solid #eceff9;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            .top-panel > .layui-card-body {
+                height: 60px;
+            }
+
+            .top-panel-number {
+                line-height: 60px;
+                font-size: 30px;
+                border-right: 1px solid #eceff9;
+            }
+
+            .top-panel-tips {
+                line-height: 30px;
+                font-size: 12px
+            }
+        </style>
+    </head>
+    <body>
+        <!--<div class="layuimini-container">-->
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-xs12 layui-col-md9">
+                <div id="echarts-records" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+            </div>
+           <!-- <div class="layui-col-xs12 layui-col-md3">
+                <div id="echarts-pies" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+            </div>-->
+        </div>
+
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-xs12 layui-col-md6">
+                <div id="echarts-dataset" style="background-color:#ffffff;min-height:300px;padding: 10px"></div>
+            </div>
+        </div>
+
+        </div>
+        <!--</div>-->
+        <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+        <script src="/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+        <script>
+            layui.use(['layer', 'echarts'], function () {
+                var $ = layui.jquery,
+                    layer = layui.layer,
+                    echarts = layui.echarts;
+
+
+                    /**
+                     * 报表功能
+                     */
+                    var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+                    var day = []
+                    var money1 = []
+
+
+                    $.ajax({
+                        url: "/award/select.do",
+                        type: "post",
+                        async: false,
+                        success: function (rec) {
+                            if (rec.code == 0) {
+                                var list = rec.data;
+                                for (var i = 0; i < list.length; i++) {
+                                   var moneyOut= list[i].moneyOut
+                                    var moneyIn=list[i].moneyIn
+                                    var award=moneyIn-moneyOut;
+                                   money1.push(award)
+                                    var date = new Date(list[i].accountDate)
+                                    var a = (date.getMonth()+ 1) + '-' +date.getDate()
+                                    day.push(a)
+                                }
+                            }
+                        }
+                    })
+
+
+                    echartsRecords.setOption({
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['奖励']
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                mark: {show: true},
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: day
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                splitArea: {show: true}
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '每日收入',
+                                type: 'bar',
+                                data: money1
+                            }
+                        ]
+                    });
+
+
+                    var rec = echarts.init(document.getElementById('echarts-dataset'), 'walden');
+
+                    var optionRecords = {
+                        title: {
+                            text: '每日提成'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'cross',
+                                label: {
+                                    backgroundColor: '#6a7985'
+                                }
+                            }
+                        },
+                        legend: {
+                            data: ['会员收入']
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: day
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '商品收入',
+                                type: 'line',
+                                stack: '总量',
+                                areaStyle: {},
+                                data: money1
+                            },
+
+                        ]
+                    };
+                    rec.setOption(optionRecords);
+
+                    /*$.ajax({
+                        url: "/role/selectall.do",
+                        type: "post",
+                        data: {page: 0, limit: 0},
+                        async:false,
+                        success: function (rec) {//等会
+                            var name = [];
+                            var count = [];
+                            var obj = new Object()
+                            if (rec.code === 0) {
+                                var arr = [];
+                                var list = rec.data;
+                                for (var i = 0; i < list.length; i++) {
+                                    var data = list[i];
+                                    name.push(data.roleName)
+                                    $.ajax({
+                                        url: "/role/selectcount.do",
+                                        type: "post",
+                                        data: {"roleName": data.roleName},
+                                        async:false,
+                                        success: function (res) {
+                                            console.log(res.data)
+                                            if (res.code === 0) {
+                                                //obj.name = res.data;
+                                                //obj.value = res.count
+                                                //list.push(obj)
+
+                                                obj = {value:res.count,name:res.data};
+                                                arr.push(obj);
+                                            }
+                                        }
+                                    })
+                                }
+                                var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden');
+                                var optionPies = {
+                                    title: {
+                                        text: '指标名称-玫瑰图',
+                                        left: 'center'
+                                    },
+                                    tooltip: {
+                                        trigger: 'item',
+                                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                                    },
+                                    legend: {
+                                        orient: 'vertical',
+                                        left: 'left',
+                                        data: name
+                                    },
+                                    series: [
+                                        {
+                                            name: '访问来源',
+                                            type: 'pie',
+                                            radius: '55%',
+                                            center: ['50%', '60%'],
+                                            roseType: 'radius',
+                                            data: arr,//换电脑吧  破电脑也太慢了  //解决了  async：false
+                                            emphasis: {
+                                                itemStyle: {
+                                                    shadowBlur: 10,
+                                                    shadowOffsetX: 0,
+                                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                }
+                                            }
+                                        }
+                                    ]
+                                };
+                                echartsPies.setOption(optionPies);
+                            }
+                        }
+                    })*/
+
+                    // echarts 窗口缩放自适应
+                    window.onresize = function () {
+                        echartsRecords.resize();
+                    }
+            });
+        </script>
+    </body>
+</html>

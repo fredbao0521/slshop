@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
         if(e instanceof UnauthorizedException){
             baseResult.setCode(BaseResult.CODE_FAILED);
             baseResult.setMsg("你没有权限，请联系管理员！");
+            baseResult.setCode(2);
             return baseResult;
         }
         baseResult.setCode(BaseResult.CODE_FAILED);

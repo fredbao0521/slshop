@@ -86,7 +86,12 @@ public class FuncController {
         return baseResult;
     }
 
-
+    /***
+     * 删除同时需要删除authority表中数据
+     * @param func
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/delete.do")
     @RequiresPermissions("/func/delete.do")
     public BaseResult delete(Func func) throws Exception {
@@ -103,8 +108,5 @@ public class FuncController {
             baseResult.setCode(BaseResult.CODE_FAILED);
         }
         return baseResult;
-
     }
-
-
 }

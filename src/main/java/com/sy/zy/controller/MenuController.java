@@ -3,6 +3,7 @@ package com.sy.zy.controller;
 
 import com.sy.bmq.model.Menu;
 import com.sy.bmq.model.base.BaseResult;
+import com.sy.zy.service.FuncService;
 import com.sy.zy.service.MenuService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class MenuController {
 
     @Autowired
     private MenuService service;
+    @Autowired
+    private FuncService funcService;
 
     //需要管理员权限
     @RequiresPermissions("/menu/find.do")
@@ -38,24 +41,34 @@ public class MenuController {
     @RequiresPermissions("/menu/modify.do")
     @RequestMapping("/modify.do")
     public BaseResult modifyMenus(Integer roleId, String str, HttpSession session) throws Exception{
-        String[] split = str.split("&");
-        Integer[] funcId=new Integer[split.length];
-        System.out.println(split+"121");
-        for (int i =0; i <split.length ; i++) {
-            String[] split1 = split[i].split("=");
-            int i1 = Integer.parseInt(split1[1]);
-            funcId[i]=i1;
-        }
-        String user = (String) session.getAttribute("sessionUser");
-        Integer integer = service.modifyFuncByRole(roleId, funcId,user);
         BaseResult baseResult = new BaseResult();
-        if(integer!=null && integer>0){
-            baseResult.setCode(BaseResult.CODE_SUCCESS);
+        //判断前端是否传了funcid到后端，如果传了，先删除后添加，如果没传只删除
+        if (!str.isEmpty()){
+            String[] split = str.split("&");
+            Integer[] funcId=new Integer[split.length];
+            System.out.println(split+"121");
+            for (int i =0; i <split.length ; i++) {
+                String[] split1 = split[i].split("=");
+                int i1 = Integer.parseInt(split1[1]);
+                funcId[i]=i1;
+            }
+            String user = (String) session.getAttribute("sessionUser");
+            Integer integer = service.modifyFuncByRole(roleId, funcId,user);
+
+            if(integer!=null && integer>0){
+                baseResult.setCode(BaseResult.CODE_SUCCESS);
+                baseResult.setMsg(BaseResult.MSG_SUCCESS);
+            }else{
+                baseResult.setCode(BaseResult.CODE_FAILED);
+                baseResult.setMsg(BaseResult.MSG_FAILED);
+            }
+            return baseResult;
+        }else {
+            Integer integer = funcService.removeFuncByRoleId(roleId);
             baseResult.setMsg(BaseResult.MSG_SUCCESS);
-        }else{
-            baseResult.setCode(BaseResult.CODE_FAILED);
-            baseResult.setMsg(BaseResult.MSG_FAILED);
+            baseResult.setCode(BaseResult.CODE_SUCCESS);
+            return  baseResult;
         }
-        return baseResult;
+
     }
 }

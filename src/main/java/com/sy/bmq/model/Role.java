@@ -20,31 +20,31 @@ import java.util.Date;
 public class Role implements Serializable {
     private static final long serialVersionUID = -94509230782670901L;
     /**
-    * 主键ID
-    */
+     * 主键ID
+     */
     @Id
     @GeneratedValue(generator = "JDBC")
     private Integer id;
     /**
-    * 角色编码
-    */
+     * 角色编码
+     */
     private String roleCode;
     /**
-    * 角色名称
-    */
+     * 角色名称
+     */
     private String roleName;
     /**
-    * 创建日期
-    */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+     * 创建日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
     private Date createDate;
     /**
-    * 是否启用（0、未启用1、启用）
-    */
+     * 是否启用（0、未启用1、启用）
+     */
     private Integer isStart;
     /**
-    * 创建者
-    */
+     * 创建者
+     */
     private String createBy;
 
 

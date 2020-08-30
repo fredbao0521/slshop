@@ -52,7 +52,7 @@
     </div>
 </body>
 </html>
-            <script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+
             <script src="/lib/layui/layui.js" charset="utf-8"></script>
             <script>
                 layui.use(['form', 'table'], function () {
@@ -98,7 +98,9 @@
                                 if (rec.code == 0) {
                                     alert("添加成功")
                                     closelayer()
-                                }else if(rec.msg==("failed")){
+                                }else if(rec.code==1){
+                                   alert("添加失败")
+                                }else if(rec.msg=="failed"){
                                     alert("该编码已存在，请重新添加")
                                 }
                             }

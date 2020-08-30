@@ -39,7 +39,6 @@
 
                 <script type="text/html" id="currentTableBar">
                     <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-                    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
                 </script>
 
             </div>
@@ -51,48 +50,65 @@
                 var $ = layui.jquery,
                     form = layui.form,
                     table = layui.table;
+                $.ajax({
+                    url:"/user/checked",
+                    type:"post",
+                    datatype:"json",
+                    success:function (rec) {
+                        if(rec.code!=0){
+                            layer.msg("不是管理员，不能访问该页面",function () {
+                                location.href="/welcome.html?t=1"
+                            })
 
-                table.render({
-                    elem: '#currentTableId',
-                    url: '/user/select.do',
-                    /*toolbar: '#toolbarDemo',*/
-                    defaultToolbar: ['filter', 'exports', 'print', {
-                        title: '提示',
-                        layEvent: 'LAYTABLE_TIPS',
-                        icon: 'layui-icon-tips'
-                    }],
-                    cols: [[
-                        {type: "checkbox", width: 50},
-                        {field: 'id', title: 'ID', sort: true},
-                        {field: 'username', title: '用户名'},
-                        {field: 'realName', title: '真实名字', sort: true},
-                        {field: 'phone', title: '联系号码'},
-                        {field: 'referCode', title: '推荐人'},
-                        {field: 'createTime', title: '注册时间', sort: true},
-                        {fixed: 'right', width: 178, align: 'center', toolbar: '#currentTableBar'}
-                    ]],
-                    limits: [10, 15, 20, 25, 50, 100],
-                    limit: 5,
-                    page: true,
-                    skin: 'line'
-                });
-
-                // 监听搜索操作
-                $("#btn").click(function () {
-                    var str=$("input[name='username']").val()
-
-                    //执行搜索重载(给定参数，重新加载当前页面)
-                    table.reload('currentTableId', {
-                        page: {
-                            curr: 1
+                        } else {
+                            init()
                         }
-                        , where: {
-                            username: str
-                        }
-                    }, 'data');
+                    }
+                })
 
-                    return false;
-                });
+                function init() {
+                    table.render({
+                        elem: '#currentTableId',
+                        url: '/user/select.do',
+                        /*toolbar: '#toolbarDemo',*/
+                        defaultToolbar: ['filter', 'exports', 'print', {
+                            title: '提示',
+                            layEvent: 'LAYTABLE_TIPS',
+                            icon: 'layui-icon-tips'
+                        }],
+                        cols: [[
+                            {type: "checkbox", width: 50},
+                            {field: 'id', title: 'ID', sort: true},
+                            {field: 'username', title: '用户名'},
+                            {field: 'realName', title: '真实名字', sort: true},
+                            {field: 'mobile', title: '联系号码'},
+                            {field: 'referCode', title: '推荐人'},
+                            {field: 'createTime', title: '注册时间', sort: true},
+                            {fixed: 'right', width: 178, align: 'center', toolbar: '#currentTableBar'}
+                        ]],
+                        limits: [10, 15, 20, 25, 50, 100],
+                        limit: 5,
+                        page: true,
+                        skin: 'line'
+                    });
+
+                    // 监听搜索操作
+                    $("#btn").click(function () {
+                        var str = $("input[name='username']").val()
+                        alert(str)
+
+                        //执行搜索重载(给定参数，重新加载当前页面)
+                        table.reload('currentTableId', {
+                            page: {
+                                curr: 1
+                            }
+                            , where: {
+                                username: str
+                            }
+                        }, 'data');
+
+                        return false;
+                    });
 
 
                     table.on('tool(currentTableFilter)', function (obj) {
@@ -105,7 +121,7 @@
                                 maxmin: true,
                                 shadeClose: true,
                                 area: ['100%', '100%'],
-                                content: '/page/usermanagement/vipedit.html',
+                                content: '/page/usermanagement/edit.html',
                                 success: function (layero, index) {
                                     var body = layer.getChildFrame('body', index);
                                     var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
@@ -114,8 +130,8 @@
                                     body.find("input[name='realName']").val(data.realName)
                                     body.find("input[name='cardTypeName']").val(data.cardTypeName)
                                     body.find("input[name='idCard']").val(data.idCard)
-                                    body.find("input[name='phone']").val(data.phone)
-                                    body.find("input[name='moblie']").val(data.phone)
+                                    body.find("input[name='mobile']").val(data.mobile)
+                                    body.find("input[name='mobile']").val(data.mobile)
                                     body.find("input[name='email']").val(data.email)
                                     body.find("input[name='password']").val(data.password)
                                     body.find("input[name='postCode']").val(data.postCode)
@@ -124,14 +140,7 @@
                                     body.find("input[name='bankName']").val(data.bankName)
                                     body.find("input[name='accountHolder']").val(data.accountHolder)
                                     body.find("input[name='bankAccount']").val(data.bankAccount)
-                                    body.find("input[name='idphoto']").val(data.idphoto)
-                                    body.find("input[name='bankphoto']").val(data.bankphoto)
-                                    body.find("input[name='bankphoto']").val(data.bankphoto)
-
-
-
-
-
+                                    body.find("input[name='userAddress']").val(data.userAddress)
 
                                 }
                             });
@@ -159,6 +168,7 @@
 
                         }
                     });
+                }
                 })
 
 

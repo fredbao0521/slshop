@@ -2,6 +2,7 @@ package com.sy.bmq.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,21 +25,20 @@ public class Report implements Serializable {
     @GeneratedValue(generator = "JDBC")
     private Integer id;
     /**
-    * 相应会员类型对应的人数
-    */
+     * 相应会员类型对应的人数
+     */
     private Integer userNum;
     /**
-    * 关联角色表
-    */
+     * 关联角色表
+     */
     private Integer roleId;
     /**
-    * 会员类型
-    */
+     * 会员类型
+     */
     private String roleName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
-
     public Integer getId() {
         return id;
     }

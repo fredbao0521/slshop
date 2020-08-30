@@ -1,11 +1,11 @@
 package com.sy.zy.service;
 
+
 import com.github.pagehelper.PageInfo;
 import com.sy.bmq.model.Func;
 import com.sy.bmq.model.User;
 
 import java.util.List;
-
 
 public interface FuncService {
 

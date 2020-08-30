@@ -1,8 +1,8 @@
 package com.sy.zy.service;
 
 import com.github.pagehelper.PageHelper;
-import com.sy.zy.dao.RoleDao;
 import com.sy.bmq.model.Role;
+import com.sy.zy.dao.RoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class RoleServiceImpl implements  RoleService {
+public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleDao roleDao;
 

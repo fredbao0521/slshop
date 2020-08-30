@@ -16,7 +16,7 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-       		<form class="layui-form" action="">
+       		<form class="layui-form" action="" lay-filter="menu_edit">
        			<input type="hidden" name="parentId" value=""/>
        			<input type="hidden" name="id" value=""/>
 	            <div class="layui-form-item">
@@ -101,13 +101,17 @@
 
 		//表单数据校验及提交
 		$("#btn").click(function () {
+
+
+			console.log(form.val("menu_edit"));
+			console.log($(".layui-form").serialize());
 			//通过ajax提交数据
 			$.ajax({
 				url:"/func/modify.do",
 				type:"post",
 				data: $(".layui-form").serialize(),
 				success:function (rec) {
-					if(rec.code===0){
+					if(rec.code==0){
 						closelayer()
 					}else {
 						alert("修改失败")

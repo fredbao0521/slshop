@@ -64,12 +64,32 @@ public interface AfficheMapper extends Mapper<Affiche> {
     @Select("select * from leave_message ")
     List<LeaveMessage> findAllMess() throws Exception;
 
+
+    /**
+     * 新增留言
+     * @param leaveMessage
+     * @return
+     * @throws Exception
+     */
     @Insert("insert into leave_message(createdBy,messageCode,messageTitle,messageContent,state,createTime) values(#{createdBy},#{messageCode},#{messageTitle},#{messageContent},0,now())")
     int saveMess(LeaveMessage leaveMessage) throws Exception;
 
+    /**
+     * 根据ID删除留言
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Delete("delete from leave_message where id = #{id}")
     int removeById(Integer id) throws Exception;
 
+
+    /**
+     * 新增留言回复
+     * @param leaveReply
+     * @return
+     * @throws Exception
+     */
     @Insert("insert into leave_reply(messageId,replyContent,createdBy,createTime) values(#{messageId},#{replyContent},#{createdBy},now())")
     int saveMessage(LeaveReply leaveReply) throws Exception;
 

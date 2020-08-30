@@ -1,7 +1,7 @@
 package com.sy.zy.service;
 
-import com.sy.zy.dao.AuthDao;
 import com.sy.bmq.model.AuAuthority;
+import com.sy.zy.dao.AuthDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

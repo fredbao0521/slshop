@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CasConfig {
 
-    @Value(value = "http://localhost:8080/cas")
+    @Value(value = "http://192.168.100.230:8080/cas")
     private String casServerUrl;
-    @Value(value = "http://localhost:9998")
+    @Value(value = "http://192.168.100.230:9998")
     private String projectUrl;
     @Value(value = "casClient")
     private String clientName;

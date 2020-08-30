@@ -41,14 +41,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" id="u53_input">用户名 :</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" autocomplete="off" class="layui-input">
+                                <input type="text" name="username"  class="layui-input" lay-verify="required">
                             </div>
 
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">真实姓名:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="realName" autocomplete="off" class="layui-input">
+                                <input type="text" name="realName"  class="layui-input" lay-verify="required">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -58,7 +58,7 @@
                             <label class="layui-form-label">证件类型:</label>
                             <div class="layui-input-inline">
                                 <select lay-verify="required" lay-filter="industry" name="cardTypeName"
-                                        id="cardTypeName">
+                                        id="cardTypeName" >
                                     <option value=""></option>
                                     <!--<option value="身份证">身份证</option>
                                     <option value="驾驶证">驾驶证</option>
@@ -67,11 +67,12 @@
                                 </select>
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
+                            <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">证件号码:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="idCard" autocomplete="off" class="layui-input">
+                                <input type="text" name="idCard"  class="layui-input" lay-verify="identity">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -80,14 +81,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">联系电话:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="moblie" autocomplete="off" class="layui-input">
+                                <input type="text" name="moblie"  class="layui-input" lay-verify="required|phone">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">移动电话:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="moblie" autocomplete="off" class="layui-input">
+                                <input type="text" name="moblie"  class="layui-input" lay-verify="required|phone">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -96,14 +97,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">电子邮件</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="email"  class="layui-input" lay-verify="email">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">邮政编码</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="postCode" autocomplete="off" class="layui-input">
+                                <input type="text" name="postCode"  class="layui-input" lay-verify="required">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -112,14 +113,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">密码:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="password" autocomplete="off" class="layui-input">
+                                <input type="password" name="password"  class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">推荐人 :</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="referCode" autocomplete="off" class="layui-input">
+                                <input type="text" name="referCode"  class="layui-input" lay-verify="required">
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                         </div>
@@ -137,7 +138,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">开户行  :</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="bankName" autocomplete="off" class="layui-input">
+                        <input type="text" name="bankName"  class="layui-input" lay-verify="required">
                     </div>
                     <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
                 </div>
@@ -147,14 +148,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">开户人 :</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="accountHolder" autocomplete="off" class="layui-input">
+                                <input type="text" name="accountHolder"  class="layui-input" lay-verify="required">
                             </div>
 
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">开户卡号:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="bankAccount" autocomplete="off" class="layui-input">
+                                <input type="text" name="bankAccount"  class="layui-input" lay-verify="required">
                             </div>
                         </div>
                     </div>
@@ -184,7 +185,8 @@
 
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button type="button" id="btn">立即提交</button>
+                            <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
                 </form>
@@ -192,7 +194,7 @@
         </div>
 
         <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-        <script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<!--        <script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>-->
 
         <script>
 
@@ -230,27 +232,95 @@
                     error:function () {
                         alert("error")
                     }
-                });
+                })
 
-                $("#btn").on("click", function () {
+                //创建一个编辑器
+                //var editIndex = layedit.build('LAY_demo_editor');
 
-                    $.ajax({
-                        url: "/user/add.do",
-                        type: "post",
-                        data: form.val("demo11"),
-                        async: false,
-                        success: function (rec) {
-                            if (rec.code == 0) {
-                                alert("添加成功")
-                            }else if (rec.code == 1){
-                                alert("添加失败")
-                            }else if(rec.msg==("failed")){
-                                alert("该用户已存在，请重新输入")
-                            }
+                //自定义验证规则
+                form.verify({
+                    title: function (value) {
+                        if (value.length < 5) {
+                           alert('标题至少得5个字符啊') ;
                         }
-                    })
+                    }
+                    , pass: [
+                        /^[\S]{6,12}$/
+                        , '密码必须6到12位，且不能出现空格'
+                    ]
+                    , content: function (value) {
+                        layedit.sync(editIndex);
+                    }
                 });
-                form.render();
+                form.on('submit(formSubmit)', function (data) {
+
+           /*        var username = $("input[name='username']").val();
+                   var realName = $("input[name='realName']").val();
+                   var cardType = $("input[name='cardTypeName']").val();
+                   var idCard = $("input[name='idCard']").val();
+                   var phone = $("input[name='phone']").val();
+                   var moblie = $("input[name='moblie']").val();
+                   var email = $("input[name='email']").val();
+                   var password = $("input[name='password']").val();
+                   var postCode = $("input[name='postCode']").val();
+                   var referCode = $("input[name='referCode']").val();  //推荐人   写死的是领进门的名字
+                   var country = $("select[name='country']").val();
+                   var bankName = $("input[name='bankName']").val();
+                   var accountHolder = $("input[name='accountHolder']").val();
+                   var bankAccount = $("input[name='bankAccount']").val();
+                   var idphoto = $("input[name='idphoto']").val();
+                   var bankphoto = $("input[name='bankphoto']").val();
+                   var userAddress = $("textarea[name='userAddress']").val();
+                   /!*获取图片文件*!/
+                   var formData = new FormData;
+                   formData.append("username", username)
+                   formData.append("realName", realName)
+                   formData.append("cardTypeName", cardType)
+                   formData.append("idCard", idCard)
+                   formData.append("moblie", moblie)
+                   formData.append("email", email)
+                   formData.append("postCode", postCode)
+                   formData.append("referCode", referCode)
+                   formData.append("country", country)
+                   formData.append("bankName", bankName)
+                   formData.append("accountHolder", accountHolder)
+                   formData.append("bankAccount", bankAccount)
+                   formData.append("idCardPicPath", idphoto)
+                   formData.append("bankPicPath", bankphoto)
+                   formData.append("userAddress", userAddress)
+                   formData.append("password", password)*/
+
+                 /*  $.ajax({
+                       url: "/user/add.do",
+                       type: "post",
+                       data: formData,
+                       datatype: "json",
+                       contentType: false,
+                       processData: false,
+                       async: false,
+                       success: function (rec) {
+                           if (rec.code == 0) {
+                               alert("添加成功")
+                           }
+                       }
+                   })*/
+                   $.ajax({
+                       url: "/user/add.do",
+                       type: "post",
+                       data: data.field,
+                       async: false,
+                       success: function (rec) {
+                           if (rec.code == 0) {
+                               alert("添加成功")
+                           }else if (rec.code == 1){
+                               alert("添加失败")
+                           }else if(rec.msg==("failed")){
+                               alert("该用户已存在，请重新输入")
+                           }
+                       }
+                   })
+               })
+               form.reader;
             })
 
         </script>

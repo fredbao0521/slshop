@@ -83,7 +83,7 @@ typeCode =’CARD_TYPE’的 valueName
     /**
     * 邮编
     */
-    private String postcode;
+    private String postCode;
     /**
     * 注册时间
     */
@@ -253,14 +253,6 @@ typeCode =’CARD_TYPE’的 valueName
         this.userAddress = userAddress;
     }
 
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -365,6 +357,14 @@ typeCode =’CARD_TYPE’的 valueName
         this.bankPicPath = bankPicPath;
     }
 
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -382,7 +382,7 @@ typeCode =’CARD_TYPE’的 valueName
                 ", mobile='" + mobile + '\'' +
                 ", email='" + email + '\'' +
                 ", userAddress='" + userAddress + '\'' +
-                ", postcode='" + postcode + '\'' +
+                ", postCode='" + postCode + '\'' +
                 ", createTime=" + createTime +
                 ", referId=" + referId +
                 ", referCode='" + referCode + '\'' +

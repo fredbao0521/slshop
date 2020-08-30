@@ -133,13 +133,13 @@
 		                {field: 'id', width: 80, align: 'center', title: 'ID'},
 		                {
 		                    field: 'isMenu', width: 80, align: 'center', templet: function (d) {
-		                        if (d.isMenu == 1) {
-		                            return '<span class="layui-badge layui-bg-gray">按钮</span>';
+		                        if (d.parentId == 1) {
+		                            return '<span class="layui-badge layui-bg-gray">菜单</span>';
 		                        }
 		                        if (d.parentId == -1) {
 		                            return '<span class="layui-badge layui-bg-blue">目录</span>';
 		                        } else {
-		                            return '<span class="layui-badge-rim">菜单</span>';
+		                            return '<span class="layui-badge-rim">按钮</span>';
 		                        }
 		                    }, title: "类型"
 		                },
@@ -171,7 +171,7 @@
                   var funcId = data[i].id;
                   str+="&funcId="+funcId;
               }
-              console.log(str)
+
 
 
 
@@ -215,6 +215,12 @@
             var data = obj.data;
             var layEvent = obj.event;
 
+            function closelayer(){
+                window.parent.location.reload();//刷新父页面
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            }
+
             if (layEvent === 'del') {
                 if(confirm("是否删除")){
                     $.ajax({
@@ -223,7 +229,7 @@
                         data:{"id":data.id},
                         success:function (rec) {
                             if(rec.code===0){
-                                alert("删除成功")
+                                closelayer()
                             }else {
                                 alert("删除失败")
                             }
@@ -231,7 +237,6 @@
                     })
                 }
             } else if (layEvent === 'edit') {
-
                 layer.open({
                     type:2,
                     area: ['800px', '600px'],
@@ -249,9 +254,8 @@
             	layer.open({
             		type:2,
             		area: ['800px', '600px'],
-  					content: '/page/backGroundManage/menu_add.html?id='+data.parentId,
-  					cancel: function(index, layero){ 
-
+  					content: '/page/backGroundManage/menu_add.html?id='+data.id,
+  					cancel: function(index, layero){
 						  window.location.reload();
 					}    
 				});

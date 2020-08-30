@@ -7,6 +7,12 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface AuthDao  {
+    /**
+     * 根据roleid进行查询
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Select("select * from au_authority where roleId=#{roleId}")
     List<AuAuthority> find(int id)throws Exception;
 

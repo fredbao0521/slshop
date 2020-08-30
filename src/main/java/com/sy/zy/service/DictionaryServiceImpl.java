@@ -1,8 +1,9 @@
 package com.sy.zy.service;
 
+
 import com.github.pagehelper.PageHelper;
-import com.sy.zy.dao.DictionaryDao;
 import com.sy.bmq.model.DataDictionary;
+import com.sy.zy.dao.DictionaryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -24,7 +25,7 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
-    public List<DataDictionary> select(Integer limit,Integer page) throws Exception {
+    public List<DataDictionary> select(Integer limit, Integer page) throws Exception {
         if (limit!=null){
             PageHelper.startPage(page,limit);
         }

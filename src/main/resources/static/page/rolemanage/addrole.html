@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+
         <script src="/lib/layui/layui.js" charset="utf-8"></script>
         <script>
             layui.use(['form', 'table'], function () {
@@ -84,10 +84,10 @@
                 }
                 $("#uprole").click(function () {
 
-                    let isStart = $("input[name='isStart']").val() ;
+                    let isStart = $("input[name='isStart']:checked").val() ;
                     let roleCode = $("input[name='roleCode']").val() ;
                     let roleName = $("input[name='roleName']").val() ;
-                    closelayer();
+
                     $.ajax({
                         url: "/role/insert.do",
                         type: "post",
@@ -95,6 +95,7 @@
                         success: function (rec) {
                             if (rec.code == 0) {
                                 alert("添加成功")
+                                closelayer();
                             }
                         }
                     })

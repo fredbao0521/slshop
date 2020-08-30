@@ -29,13 +29,13 @@
             },
             {
               "title": "代理商审核",
-              "href": "/page/agenterManager/agentExamPage.html",
+              "href": "/page/agenterManager/agentable.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
              {
                "title": "推荐奖励",
-               "href": "/page/agenterManager/awardPage.html",
+               "href": "/page/agenterManager/echart.html",
                "icon": "fa fa-tachometer",
                "target": "_self"
              }
@@ -83,12 +83,6 @@
             {
               "title": "报单购货",
               "href": "/page/shoppingManage/buyVip.html",
-              "icon": "fa fa-tachometer",
-              "target": "_self"
-            },
-            {
-              "title": "确认激活",
-              "href": "/page/shoppingManage/confirm.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

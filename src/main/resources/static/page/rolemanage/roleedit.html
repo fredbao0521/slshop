@@ -47,6 +47,7 @@
     </div>
 </body>
 </html>
+
             <script src="/lib/layui/layui.js" charset="utf-8"></script>
             <script>
                 layui.use(['form', 'table'], function () {
@@ -80,10 +81,10 @@
                     }
 
                     $("#uprole").click(function () {
-                       let isStart = $("input[name='isStart']").val() ;
+                       let isStart = $("input[name='isStart']:checked").val() ;
                        let roleCode = $("input[name='roleCode']").val() ;
                        let roleName = $("input[name='roleName']").val() ;
-
+                       let id = $("input[name='id']").val() ;
                         $.ajax({
                             url: "/role/update.do" + location.search,
                             type: "post",
@@ -92,10 +93,14 @@
                                 closelayer()
                             }
                         })
-                    });
+                    })
                     $("#out").click(function () {
                        window.location.href = "/page/rolemanage/roletable.html"
                     })
+
+
                 })
+
+
             </script>
 

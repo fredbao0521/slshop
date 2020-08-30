@@ -1,6 +1,7 @@
 package com.sy.zy.service;
 
 import com.github.pagehelper.PageHelper;
+import com.sy.bmq.model.base.BaseResult;
 import com.sy.zy.dao.UserDao;
 import com.sy.bmq.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,23 @@ public class UserSeriveImpl implements UserService {
     @Override
     public Integer selectCount(String roleName) throws Exception {
         return userDao.selectCount(roleName);
+    }
+
+    @Override
+    public Integer updateone(Integer id) throws Exception {
+        return userDao.updateone(id);
+    }
+
+    @Override
+    public User selectByUsername(String username) throws Exception {
+        return userDao.selectByUsername(username);
+    }
+
+    @Override
+    public List<User> selectWithWhere(int pageNum, int pageSize, User user,BaseResult result) throws Exception {
+        List<User> accountDetails = userDao.find(user);
+        result.setCount(accountDetails.size());
+        PageHelper.startPage(pageNum, pageSize);
+        return userDao.find(user);
     }
 }

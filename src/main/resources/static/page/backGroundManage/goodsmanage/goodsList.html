@@ -125,35 +125,6 @@
                         body.find("#unit").val(data.unit);
                         form.render();
                     }
-                    /* , yes: function (index, layero) {//点击“确认”按钮后触发的事件
-                         var data = {};
-                         var body = layer.getChildFrame('body', index);
-                         var form = body.find("#novelUpdate").serializeArray();//获取指定id的表单
-                         $.each(form, function () {
-                             data[this.name] = this.value;
-                         });
-                         data = JSON.stringify(data);
-                         var content = {'novelJson': data};
-                         $.post('/goodsmanage/updategood.do', content, function (rec) {//得到数据提交到后端进行更新
-                             if (rec.code === 0) {
-                                 layer.alert(rec.msg, {icon: 6}, function (index) {
-                                     layer.close(index);
-                                 });
-                                 layui.use('table', function () {
-                                     var table = layui.table;
-                                     table.reload('test', {
-                                         url: '/goodsmanage/listgoods.do' //数据接口，更新成功后刷新数据表格
-                                     });
-                                 });
-                             } else {
-                                 layer.alert(rec.msg, {icon: 5}, function (index) {
-                                     layer.close(index);
-                                 });
-                             }
-                             layer.close(index);
-                         }, 'json');
-                         return false;
-                     }*/
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -178,7 +149,7 @@
                         body.find("#goodsFormat").val(data.goodsFormat);
                         body.find("#marketPrice").val(data.marketPrice);
                         body.find("#realPrice").val(data.realPrice);
-                        if (data.state === 1) {
+                        if (data.state == 1) {
                             body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true").css("color","green");
                         } else {
                             body.find("input[name='state'][value=" + data.state + "]").prop("checked", "true").css("color","red");

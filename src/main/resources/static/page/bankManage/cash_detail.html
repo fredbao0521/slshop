@@ -38,12 +38,6 @@
 
     <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
-        <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">提交</button>
-                </div>
-
-    </div>
 </form>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 <script>
@@ -67,15 +61,14 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/bank/list.do',
+            url: '/bank/list3.do',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter'],
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'id', title: 'ID', sort: true},
                 {field: 'accountDate', title: '日期'},
-                {field: 'moneyIn', title: '入账金额(元)'},
-                {field: 'moneyOut', title: '出账金额(元)'},
+                {field: 'moneyOut', title: '提现金额(元)'},
                 {field: 'otherAcountId', title: '目标卡号',templet: function (d) {
                         if (d.otherAcountId == "0") {
                             return ''
@@ -84,11 +77,13 @@
                         }
                     }},
                 {
-                    field: 'status', title: '提现状态', templet: function (d) {
-                        if (d.status == 1) {
-                            return '已完成'
-                        } else{
-                            return '未完成'
+                    field: 'state', title: '提现状态', templet: function (d) {
+                        if (d.state == 1) {
+                            return '已完成';
+                        } else if (d.state == 0) {
+                            return '待审核';
+                        }else {
+                            return '失效';
                         }
                     }
                 },
@@ -104,7 +99,7 @@
             // 搜索条件
             var beginTime = $(`input[name="date1"]`).val();
             var endTime = $(`input[name="date2"]`).val();
-            table.reload('userAccount', {
+            table.reload('currentTableId', {
                 method: 'post'
                 , page: {
                     curr: 1

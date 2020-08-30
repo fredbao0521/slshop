@@ -18,4 +18,6 @@ public interface UserAccountMapper extends Mapper<AccountDetail> {
 
     @Update("update user_account set balance = #{balance},lastUpdateTime = now() where userId = #{userId}")
     int cashOut(UserAccount userAccount) throws Exception;
+
+
 }

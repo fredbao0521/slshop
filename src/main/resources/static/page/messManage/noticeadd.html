@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form" action="" id="novelAdd">
+            <div class="layui-form-item">
+                <label class="layui-form-label">公告标题：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="title" id="title" lay-verify="required" placeholder="请输入"
+                            class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公告开始时间：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="startTime" id="startTime" lay-verify="required"
+                           placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">公告结束时间：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="endTime" id="endTime" lay-verify="required"
+                           placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">公告内容：</label>
+                <div class="layui-input-block">
+                    <textarea id="contents"  lay-verify="contents" style="display:none;" name="contents"></textarea>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="saveGood">创建</button>
+                    <button type="reset" class="layui-btn layui-btn-primary" id="return">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use(['form','laydate','layedit'], function () {
+        var form = layui.form
+            , layer = layui.layer,
+            layedit = layui.layedit,
+            laydate = layui.laydate;
+        var $ = layui.$;
+
+        //建立编辑器
+        var contents = layedit.build('contents', {
+            height: 100 //设置编辑器高度
+        });
+
+        laydate.render({
+            elem: '#startTime'
+            , type: 'datetime',
+            format: 'yyyy-MM-dd HH:mm:ss'
+        });
+
+        laydate.render({
+            elem: '#endTime'
+            , type: 'datetime',
+            format: 'yyyy-MM-dd HH:mm:ss'
+        });
+
+
+        function closelayer() {
+            window.parent.location.reload();//刷新父页面
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+
+        //监听提交
+        form.on('submit(saveGood)', function (data) {
+            var title = $("input[name=title]").val();
+            var startTime = $("input[name=startTime]").val();
+            var endTime = $("input[name=endTime]").val();
+            form.verify({
+                contents:function (values) {
+                    console.log(values);
+                    return layedit.sync(index);
+                }
+            });
+            let contentxx = layedit.getContent(contents);
+            if (title == null || title == "") {
+                layer.msg("公告标题不能为空");
+                return false;
+            }
+            if (startTime == null || startTime == "") {
+                layer.msg("开始时间不能为空");
+                return false;
+            }
+            if (endTime == null || endTime == "") {
+                layer.msg("结束时间不能为空");
+                return false;
+            }
+            if (endTime < startTime) {
+                layer.msg("结束时间不能早于开始时间");
+                return false;
+            }
+            if (contentxx == null || contentxx == "") {
+                layer.msg("发布内容不能为空");
+                return false;
+            }
+            $.ajax({
+                url: "/affiche/save.do",
+                dataType: "json",
+                data: {
+                    "title": $("#title").val(),
+                    "content": layedit.getContent(contents),
+                    "startTime": $("#startTime").val(),
+                    "endTime": $("#endTime").val()
+                },
+                type: "post",
+                success: function (rec) {
+                    if (rec.code == 0) {
+                        layer.msg("发布公告成功");
+                    } else {
+                        layer.msg("发布公告失败");
+                    }
+                   closelayer();
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * @since 2020-08-24 12:26:26
  */
 @Entity
-@Table(name = "LEAVEMESSAGE")
+@Table(name = "leave_message")
 public class LeaveMessage implements Serializable {
     private static final long serialVersionUID = -31777751088305230L;
     /**

@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication(scanBasePackages = "com.sy")
 //扫描mapper接口(使用TkMapper组件)
-@MapperScan(value = "com.sy.bmq.mapper")
+@MapperScan({"com.sy.zy.dao","com.sy.bmq.mapper"})
 //容器启动优先级(可以不加)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 //开启注解事务(可以不加)

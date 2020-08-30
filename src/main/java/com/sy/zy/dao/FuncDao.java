@@ -1,16 +1,14 @@
-package com.sy.bmq.mapper;
+package com.sy.zy.dao;
+
 
 import com.sy.bmq.model.Func;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Date;
 import java.util.List;
 
-public interface FuncMapper extends Mapper<Func> {
+public interface FuncDao extends Mapper<Func> {
 
     /**
      * 按roleId查询所有func
@@ -18,8 +16,13 @@ public interface FuncMapper extends Mapper<Func> {
      * @return
      * @throws Exception
      */
-    @Select("SELECT * FROM au_function WHERE id IN (SELECT functionid FROM au_authority WHERE roleid = #{roleid}) order by id asc")
+    @Select("SELECT * FROM au_function WHERE id IN (SELECT functionId FROM au_authority WHERE roleId = #{roleId}) order by id asc")
     List<Func> selectByRoleId(Integer id) throws Exception;
+
+
+
+    @Select("select * from au_function where id=#{id}")
+    Func findone(Integer id)throws Exception;
 
     /**
      * 根据角色删除权限
@@ -43,4 +46,16 @@ public interface FuncMapper extends Mapper<Func> {
             @Param("funcId") Integer funcId,
             @Param("creationTime") Date creationTime,
             @Param("createdBy") String createdBy) throws Exception;
+
+
+    @Update("update au_function set funcUrl=#{funcUrl},funcCode=#{funcCode},funcName=#{funcName},creationTime=#{creationTime} where id=#{id}")
+    Integer modify(Func func)throws Exception;
+
+
+
+
+
+    @Delete("delete  from au_function where id=#{id}")
+    Integer removeOne(Integer id)throws Exception;
+
 }

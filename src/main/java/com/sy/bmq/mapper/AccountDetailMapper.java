@@ -43,14 +43,38 @@ public interface AccountDetailMapper extends Mapper<AccountDetail> {
             "<if test=\'accountId != null and accountId != \"\"\'>" +
             " and accountId = #{accountId}" +
             "</if>" +
-            "<if test=\'status != null and status != \"\"\'>" +
-            " and status = 1" +
+            "<if test=\'type != null and type != \"\"\'>" +
+            " and type = 1" +
             "</if>" +
             "</where></script>"
     })
     List<AccountDetail> selectWithWhere2(@Param("beginTime") String beginTime,
                                         @Param("endTime") String endTime,
-                                        @Param("accountId") Integer accountId) throws Exception;
+                                        @Param("accountId") Integer accountId,
+                                         @Param("type") Integer  type) throws Exception;
 
+    @Select({"<script>" +
+            "SELECT " +
+            " * " +
+            " from account_detail" +
+            "<where>" +
+            "<if test=\'beginTime != null and beginTime != \"\" and endTime != null and endTime != \"\"\'>" +
+            "and accountDate between  #{beginTime} and  #{endTime}" +
+            "</if>" +
+            "<if test=\'type != null and type != \"\"\'>" +
+            " and type = 1" +
+            "</if>" +
+            "</where></script>"
+    })
+    List<AccountDetail> selectWithWhere3(@Param("beginTime") String beginTime,
+                                         @Param("endTime") String endTime,
+                                         @Param("type") Integer  type) throws Exception;
+
+
+    @Update("update account_detail set state = #{state} where id = #{id}")
+    int pass(Integer id, Integer state) throws Exception;
+
+    @Select("select * from account_detail where accountId = #{id} and type = 2")
+    List<AccountDetail> findPay(Integer id) throws Exception;
 
 }

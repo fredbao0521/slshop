@@ -52,6 +52,7 @@ public class AccountController {
             accountDetail.setMoneyOut(0.0);
             accountDetail.setBalance(balance);
             accountDetail.setType(0);
+            accountDetail.setState(1);
             accountDetail.setOtherAcountId(user.getBankAccount());
             i = userAccountService.addMoney(userAccount, accountDetail);
         } catch (Exception e) {
@@ -83,8 +84,62 @@ public class AccountController {
         User user = null;
         try {
             user = userService.selectByUsername(remoteUser);
+            System.out.println("user====="+user.toString());
             UserAccount userAccount = userAccountService.selectByUid(user.getId());
             List<AccountDetail> accountDetails = accountDetailService.selectWithWhere(page, limit, beginTime, endTime, userAccount.getId(), result);
+            result.setPage(page);
+            result.setLimit(limit);
+            result.setData(accountDetails);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setCode(BaseResult.CODE_SUCCESS);
+        return result;
+    }
+
+    /**
+     * 显示个人账户提现信息
+     * @param limit
+     * @param page
+     * @param beginTime
+     * @param endTime
+     * @param result
+     * @param request
+     * @return
+     */
+    @RequestMapping("/list3.do")
+    public BaseResult listAccountDetail2(int limit, int page, String beginTime, String endTime, BaseResult result, HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+        User user = null;
+        try {
+            user = userService.selectByUsername(remoteUser);
+            System.out.println("user====="+user.toString());
+            UserAccount userAccount = userAccountService.selectByUid(user.getId());
+            List<AccountDetail> accountDetails = accountDetailService.selectWithWhere2(page, limit, beginTime, endTime, userAccount.getId(), result);
+            result.setPage(page);
+            result.setLimit(limit);
+            result.setData(accountDetails);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setCode(BaseResult.CODE_SUCCESS);
+        return result;
+    }
+
+    /**
+     * 显示个人账户交易信息
+     * @param limit
+     * @param page
+     * @param beginTime
+     * @param endTime
+     * @param result
+     * @return
+     */
+    @RequestMapping("/list2.do")
+    public BaseResult listAccountDetail2(int limit, int page, String beginTime, String endTime, BaseResult result) {
+        try {
+
+            List<AccountDetail> accountDetails = accountDetailService.selectWithWhere3(page, limit, beginTime, endTime, result);
             result.setPage(page);
             result.setLimit(limit);
             result.setData(accountDetails);
@@ -210,6 +265,28 @@ public class AccountController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 提现
+     * @param id
+     * @param status
+     * @return
+     */
+    @RequestMapping("/pass.do")
+    public BaseResult pass(Integer id,Integer status,BaseResult result) {
+        int pass = 0;
+        try {
+            pass= accountDetailService.pass(id, status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (pass>0){
+            result.setCode(BaseResult.CODE_SUCCESS);
+        }else {
+            result.setCode(BaseResult.CODE_FAILED);
         }
         return result;
     }

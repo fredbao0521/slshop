@@ -1,8 +1,8 @@
-package com.sy.bmq.service;
+package com.sy.zy.service;
+
 
 
 import com.sy.bmq.model.Menu;
-
 
 import java.util.List;
 

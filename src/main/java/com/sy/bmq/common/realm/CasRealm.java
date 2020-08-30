@@ -1,5 +1,11 @@
 package com.sy.bmq.common.realm;
 
+import com.sy.bmq.model.AuAuthority;
+import com.sy.bmq.model.Func;
+import com.sy.bmq.model.User;
+import com.sy.zy.service.AuthService;
+import com.sy.zy.service.FuncService;
+import com.sy.zy.service.UserService ;
 import io.buji.pac4j.realm.Pac4jRealm;
 import io.buji.pac4j.subject.Pac4jPrincipal;
 import io.buji.pac4j.token.Pac4jToken;
@@ -18,9 +24,14 @@ import javax.sql.DataSource;
 import java.util.List;
 
 public class CasRealm extends Pac4jRealm {
-
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private AuthService authService;
+    @Autowired
+    private FuncService funcService;
     /**
      * 认证,使用CAS返回ticket认证
      * @param authenticationToken
@@ -51,14 +62,29 @@ public class CasRealm extends Pac4jRealm {
 
         System.out.println("======>doGetAuthorizationInfo");
         SimpleAuthorizationInfo authInfo = new SimpleAuthorizationInfo();
-        authInfo.addStringPermission("user:select");
         Pac4jPrincipal principal = (Pac4jPrincipal)this.getAvailablePrincipal(principals);
+        User user=new User();
+        user.setUsername(principal.getProfile().getId());
+        try {
+            List<User> users = userService.selectAll(user);
+            User user1 = users.get(0);
+            List<AuAuthority> auAuthorities = authService.find(user1.getRoleId());
+            for (AuAuthority a:auAuthorities) {
+                List<Func> byRoleId = funcService.findByRoleId(a.getFunctionId());
+                for (Func f:byRoleId) {
+                    authInfo.addStringPermission(f.getFuncUrl());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("----------------------"+principal.getProfile().getId());
         try {
             System.out.println(dataSource.getConnection());
         }catch (Exception e){
             e.printStackTrace();
-        }return authInfo;
+        }
+        return authInfo;
 
     }
 }

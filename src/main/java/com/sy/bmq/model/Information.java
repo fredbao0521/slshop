@@ -2,6 +2,7 @@ package com.sy.bmq.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +45,8 @@ public class Information implements Serializable {
     /**
     * 发布时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date publishTime;
     /**
     * 附件类型ID
@@ -65,11 +67,12 @@ public class Information implements Serializable {
     /**
     * 附件大小
     */
-    private Double fileSize;
+    private Long fileSize;
     /**
     * 上传时间
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date uploadTime;
 
 
@@ -153,11 +156,11 @@ public class Information implements Serializable {
         this.filePath = filePath;
     }
 
-    public Double getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Double fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
 

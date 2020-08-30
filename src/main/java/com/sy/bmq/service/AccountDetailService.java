@@ -14,5 +14,9 @@ public interface AccountDetailService {
 
     List<AccountDetail> selectWithWhere2(int pageNum, int pageSize, String beginTime, String endTime, Integer accountId, BaseResult result) throws Exception;
 
+    List<AccountDetail> selectWithWhere3(int pageNum, int pageSize, String beginTime, String endTime, BaseResult result) throws Exception;
 
+    int pass(Integer id, Integer state) throws Exception;
+
+    List<AccountDetail> findPay(Integer id) throws Exception;
 }

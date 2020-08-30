@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2020-08-24 12:26:26
  */
 @Entity
-@Table(name = "LEAVEREPLY")
+@Table(name = "leave_reply")
 public class LeaveReply implements Serializable {
     private static final long serialVersionUID = -70239406581618864L;
     /**
@@ -82,5 +82,16 @@ public class LeaveReply implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "LeaveReply{" +
+                "id=" + id +
+                ", messageId=" + messageId +
+                ", replyContent='" + replyContent + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

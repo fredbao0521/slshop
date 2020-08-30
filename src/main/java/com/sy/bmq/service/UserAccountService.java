@@ -15,4 +15,6 @@ public interface UserAccountService {
     int modifyOut(UserAccount userAccount, Double balance, Integer toId) throws Exception;
 
     int payOrder(Double pay,UserAccount userAccount) throws Exception;
+
+    int byVip(String username,String roleName,Double balance,String password2) throws Exception;
 }

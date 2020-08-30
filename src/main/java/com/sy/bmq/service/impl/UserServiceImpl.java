@@ -1,6 +1,7 @@
 package com.sy.bmq.service.impl;
 
 import com.sy.bmq.mapper.UserMapper;
+import com.sy.bmq.model.Role;
 import com.sy.bmq.model.User;
 import com.sy.bmq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectByUsername(String username) throws Exception {
         return mapper.selectByUsername(username);
+    }
+
+    /**
+     * 更新自己的会员状态
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int updateUser(User user) throws Exception {
+        return mapper.updateUser(user);
+    }
+
+    @Override
+    public User selectByReferCode(String referCode) throws Exception {
+        return mapper.selectByReferCode(referCode);
     }
 }

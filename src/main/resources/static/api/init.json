@@ -17,22 +17,28 @@
       "child": [
         {
           "title": "代理商管理",
-          "href": "c.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
           "target": "_self",
            "child": [
             {
               "title": "代理商明细",
-              "href": "a1.html",
+              "href": "/page/agenterManager/agentPage.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "代理商审核",
-              "href": "a2.html",
+              "href": "/page/agenterManager/agentExamPage.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
-            }
+            },
+             {
+               "title": "推荐奖励",
+               "href": "/page/agenterManager/awardPage.html",
+               "icon": "fa fa-tachometer",
+               "target": "_self"
+             }
           
           ]
         },
@@ -42,25 +48,30 @@
           "icon": "fa fa-window-maximize",
           "target": "_self",
            "child": [
-            {
-              "title": "注册新会员",
-              "href": "/page/AccountManage/vipregister.html",
-              "icon": "fa fa-tachometer",
-              "target": "_self"
-            },
-            {
-              "title": "修改资料",
-              "href": "/page/form.html",
-              "icon": "fa fa-tachometer",
-              "target": "_self"
-            }
-            ,
-            {
-              "title": "修改密码",
-              "href": "/page/user-password.html",
-              "icon": "fa fa-tachometer",
-              "target": "_self"
-            }
+             {
+               "title": "注册新会员",
+               "href": "page/usermanagement/vipregister.html",
+               "icon": "fa fa-tachometer",
+               "target": "_self"
+             },
+             {
+               "title": "注册会员",
+               "href": "/page/usermanagement/viptable.html",
+               "icon": "fa fa-tachometer",
+               "target": "_self"
+             },
+             {
+               "title": "正式会员",
+               "href": "/page/usermanagement/viplist.html",
+               "icon": "fa fa-tachometer",
+               "target": "_self"
+             },
+             {
+               "title": "修改资料",
+               "href": "page/usermanagement/vipedit.html",
+               "icon": "fa fa-tachometer",
+               "target": "_self"
+             }
           ]
         },
         {
@@ -134,6 +145,12 @@
               "href": "/page/bankManage/cash_detail.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
+            },
+            {
+              "title": "提现管理",
+              "href": "/page/bankManage/cash_manage.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
             }
             ,
             {
@@ -164,7 +181,7 @@
             },
             {
               "title": "下载中心",
-              "href": "a38.html",
+              "href": "/page/messManage/counselDownload.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -185,26 +202,26 @@
           "child": [
             {
               "title": "角色管理",
-              "href": "/page/table.html",
+              "href": "/page/rolemanage/roletable.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "权限管理",
-              "href": "/page/menu.html",
+              "href": "/page/backGroundManage/menu.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "数据字典",
-              "href": "a63.html",
+              "href": "/page/rolemanage/dictionary.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
-            ,
+          ,
             {
               "title": "报表管理",
-              "href": "a54.html",
+              "href": "/page/backGroundManage/welcome.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

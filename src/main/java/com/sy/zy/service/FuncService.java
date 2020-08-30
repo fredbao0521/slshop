@@ -1,4 +1,4 @@
-package com.sy.bmq.service;
+package com.sy.zy.service;
 
 import com.github.pagehelper.PageInfo;
 import com.sy.bmq.model.Func;
@@ -6,11 +6,14 @@ import com.sy.bmq.model.User;
 
 import java.util.List;
 
+
 public interface FuncService {
 
     Integer save(Func func, User user) throws Exception;
 
     Integer removeById(Integer id) throws Exception;
+
+    Integer removeOne(Integer id)throws Exception;
 
     Integer modify(Func func) throws Exception;
 
@@ -45,5 +48,8 @@ public interface FuncService {
             Integer[] funcIds,
             String createdBy) throws Exception;
 
+
+    /*查询单个*/
+    Func findone(Integer id)throws Exception;
 
 }

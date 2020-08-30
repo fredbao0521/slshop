@@ -1,11 +1,10 @@
-package com.sy.bmq.service.impl;
+package com.sy.zy.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sy.bmq.mapper.FuncMapper;
+import com.sy.zy.dao.FuncDao;
 import com.sy.bmq.model.Func;
 import com.sy.bmq.model.User;
-import com.sy.bmq.service.FuncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -21,7 +20,7 @@ import java.util.List;
 public class FuncServiceImpl implements FuncService {
 
     @Autowired
-    private FuncMapper mapper;
+    private FuncDao mapper;
 
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
     @Override
@@ -42,7 +41,7 @@ public class FuncServiceImpl implements FuncService {
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
     @Override
     public Integer modify(Func func) throws Exception {
-        return mapper.updateByPrimaryKeySelective(func);
+        return mapper.modify(func);
     }
 
     @Override
@@ -84,6 +83,14 @@ public class FuncServiceImpl implements FuncService {
         }
         return i;
     }
+    @Override
+    public Func findone(Integer id) throws Exception {
+        return mapper.findone(id);
+    }
 
-
+    @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
+    @Override
+    public Integer removeOne(Integer id) throws Exception {
+        return mapper.removeOne(id);
+    }
 }

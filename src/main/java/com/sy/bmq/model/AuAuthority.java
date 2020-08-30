@@ -32,8 +32,7 @@ public class AuAuthority implements Serializable {
     /**
     * 功能ID
     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Long functionId;
+    private  Integer functionId;
     /**
     * 创建时间
     */
@@ -61,11 +60,11 @@ public class AuAuthority implements Serializable {
         this.roleId = roleId;
     }
 
-    public Long getFunctionId() {
+    public Integer getFunctionId() {
         return functionId;
     }
 
-    public void setFunctionId(Long functionId) {
+    public void setFunctionId(Integer functionId) {
         this.functionId = functionId;
     }
 

@@ -1,10 +1,8 @@
-package com.sy.bmq.service.impl;
+package com.sy.zy.service;
 
 import com.github.pagehelper.PageInfo;
 import com.sy.bmq.model.Func;
 import com.sy.bmq.model.Menu;
-import com.sy.bmq.service.FuncService;
-import com.sy.bmq.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -65,6 +63,8 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
     @Override
     public Integer modifyFuncByRole(Integer roleId, Integer[] funcId,String createBy) throws Exception {
+        System.out.println(roleId);
+        System.out.println(funcId);
         //1.先根据roleId删除权限
         Integer remove = funcService.removeFuncByRoleId(roleId);
         //2.再根据roleId增加权限

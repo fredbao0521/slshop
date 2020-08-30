@@ -4,6 +4,7 @@ package com.sy.bmq.controller;
 import com.sy.bmq.model.*;
 import com.sy.bmq.model.base.BaseResult;
 import com.sy.bmq.service.*;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -30,6 +28,8 @@ public class OrdersController {
     private GoodsService goodsService;
     @Autowired
     private UserAccountService userAccountService;
+    @Autowired
+    private AccountDetailService accountDetailService;
 
     /**
      * 商品添加购物车
@@ -275,6 +275,93 @@ public class OrdersController {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 会员购买时获取用户信息
+     * @param result
+     * @param request
+     * @return
+     */
+    @RequestMapping("/findUser.do")
+    public BaseResult findUser(BaseResult result,HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+        List list = new ArrayList();
+        list.add(remoteUser);
+        List<AccountDetail> accountDetails = null;
+        try {
+            User user = userService.selectByUsername(remoteUser);
+            UserAccount userAccount = userAccountService.selectByUid(user.getId());
+            list.add(userAccount.getBalance());
+            accountDetails = accountDetailService.findPay(userAccount.getId());
+            double totalPay = 0.0;
+            for (int i = 0; i < accountDetails.size(); i++) {
+                totalPay += accountDetails.get(i).getMoneyOut();
+            }
+            list.add(totalPay);
+            list.add(user.getRoleName());
+            result.setData(list);
+            result.setCode(BaseResult.CODE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 购买会员
+     * @param username
+     * @param balance
+     * @param roleName
+     * @param password2
+     * @param result
+     * @return
+     */
+    @RequestMapping("/buyVip.do")
+    public BaseResult buyVip(String username, Double totalPay,Double balance, String roleName, String password2, BaseResult result) {
+        System.out.println(username+"===============username");
+        System.out.println(totalPay+"===============totalPay");
+        System.out.println(balance+"===============balance");
+        System.out.println(roleName+"===============roleName");
+        System.out.println(password2+"===============password2");
+            Double pay = 0.0;
+        try {
+            User user = userService.selectByUsername(username);
+            if (!user.getPassword2().equals(password2)){
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("二级密码错误");
+                return result;
+            }
+            if (totalPay>=5000 && user.getRoleName().equals("注册会员")){
+                pay = 1000.0;
+            }else if (totalPay>=15000 && user.getRoleName().equals("黄金会员")){
+                pay = 3000.0;
+            }else if (totalPay>=50000 && user.getRoleName().equals("铂金会员")){
+                pay = 8000.0;
+            }else {
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("不符合要求,无法提升会员等级");
+                return result;
+            }
+            if (balance<pay){
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("账户余额不足");
+                return result;
+            }
+           int i = userAccountService.byVip(username, roleName, pay, password2);
+            if (i>=5){
+                result.setCode(BaseResult.CODE_SUCCESS);
+                result.setMsg("购买成功");
+                return result;
+            }else {
+                result.setCode(BaseResult.CODE_FAILED);
+                result.setMsg("购买失败");
+                return result;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

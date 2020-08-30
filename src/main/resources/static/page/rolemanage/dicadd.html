@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+</head>
+<body>
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+                <input type="hidden" id="id">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="typeCode" required lay-verify="required" placeholder="请输入内容"
+                               autocomplete="off" class="layui-input" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="typeName" required lay-verify="required" placeholder="请输入内容"
+                               autocomplete="off" class="layui-input" >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">编码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="valueId" required lay-verify="required" placeholder="请输入内容"
+                               autocomplete="off" class="layui-input" >
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数据值</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="valueName" required lay-verify="required" placeholder="请输入内容"
+                               autocomplete="off" class="layui-input" >
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="button" id="uprole1" class="layui-btn" value="保存" >
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
+            <script src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+            <script src="/lib/layui/layui.js" charset="utf-8"></script>
+            <script>
+                layui.use(['form', 'table'], function () {
+                    var $ = layui.jquery,
+                        form = layui.form,
+                        table = layui.table;
+
+                    //自定义验证规则
+                    form.verify({
+                        title: function (value) {
+                            if (value.length < 5) {
+                                return '标题至少得5个字符啊';
+                            }
+                        }
+                        , pass: [
+                            /^[\S]{6,12}$/
+                            , '密码必须6到12位，且不能出现空格'
+                        ]
+                        , content: function (value) {
+                           return '内容不能为空'
+                        }
+                    });
+
+
+                    function closelayer(){
+                        window.parent.location.reload();//刷新父页面
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    }
+
+                    $("#uprole1").click(function () {
+                       var typeCode = $("input[name='typeCode']").val() ;
+                       var typeName = $("input[name='typeName']").val() ;
+                       var valueId = $("input[name='valueId']").val() ;
+                       var valueName = $("input[name='valueName']").val() ;
+                        $.ajax({
+                            url: "/dic/insert.do",
+                            type: "post",
+                            data: {"typeCode":typeCode,"typeName":typeName,"valueId":valueId,"valueName":valueName},
+                            datatype:"json",
+                            asycn:true,
+                            success: function (rec) {
+                                if (rec.code == 0) {
+                                    alert("添加成功")
+                                    closelayer()
+                                }else if(rec.msg==("failed")){
+                                    alert("该编码已存在，请重新添加")
+                                }
+                            }
+                        })
+                    })
+
+                })
+
+            </script>
+

@@ -6,45 +6,32 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/public.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form" action="">
+        <form class="layui-form" action="" lay-filter="demo11">
             <div class="layui-form-item">
                 <label class="layui-form-label" style="line-height: 5px">当前余额：</label>
-                <div class="layui-input-block">
-                    <span style="padding: 20px">3800.00</span><span>元</span>
+                <div class="layui-input-inline">
+                    <input type="text" name="balance" id="balance" autocomplete="off" class="layui-input" readonly>
+<!--                    <span style="padding: 20px" id="balance"></span><span>元</span>-->
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">总消费金额：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="totalPay" id="totalPay" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <input type="text" name="roleName" id="roleName"  class="layui-input" style="display: none">
             <div class="layui-form-item">
                 <label class="layui-form-label">报单会员名</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="username" lay-verify="required" lay-reqtext="会员名是必填项，岂能为空？"
-                           placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">收货地址：</label>
-                <div class="layui-input-block">
-                    <input type="text" name="username" lay-verify="required" lay-reqtext="收货地址是必填项，岂能为空？"
-                           placeholder="请输入" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <!-- <div class="layui-form-item">
-                 <label class="layui-form-label">快递类型：</label>
-                 <div class="layui-input-inline">
-                     <input type="text" name="username" lay-verify="required" lay-reqtext="快递类型是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input">
-                 </div>
-             </div>-->
-            <div class="layui-form-item">
-                <label class="layui-form-label">邮编：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="postCode" lay-verify="required" lay-reqtext="邮编是必填项，岂能为空？"
-                           placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="username" id="username" lay-verify="required" autocomplete="off"
+                           class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -64,8 +51,8 @@
                 <div class="layui-input-inline" style="line-height: 20px">
                     <table>
                         <tr>
-                            <td>消费金额：</td>
-                            <td>4600</td>
+                            <td>需要达到消费金额：</td>
+                            <td>5000</td>
                             <td>元</td>
                         </tr>
                         <tr>
@@ -74,7 +61,7 @@
                         </tr>
                         <tr>
                             <td>综合服务费：</td>
-                            <td>690</td>
+                            <td>1000</td>
                             <td>元</td>
                         </tr>
                     </table>
@@ -82,8 +69,8 @@
                 <div class="layui-input-inline" style="line-height: 20px">
                     <table>
                         <tr>
-                            <td>消费金额：</td>
-                            <td>14600</td>
+                            <td>需要达到消费金额：</td>
+                            <td>15000</td>
                             <td>元</td>
                         </tr>
                         <tr>
@@ -92,7 +79,7 @@
                         </tr>
                         <tr>
                             <td>综合服务费：</td>
-                            <td>1500</td>
+                            <td>3000</td>
                             <td>元</td>
                         </tr>
                     </table>
@@ -100,8 +87,8 @@
                 <div class="layui-input-inline" style="line-height: 20px">
                     <table>
                         <tr>
-                            <td>消费金额：</td>
-                            <td>28800</td>
+                            <td>需要达到消费金额：</td>
+                            <td>50000</td>
                             <td>元</td>
                         </tr>
                         <tr>
@@ -110,87 +97,95 @@
                         </tr>
                         <tr>
                             <td>综合服务费：</td>
-                            <td>2800</td>
+                            <td class="pay">8000</td>
                             <td>元</td>
                         </tr>
                     </table>
                 </div>
             </div>
+             <div class="layui-form-item">
+                 <label class="layui-form-label">二级密码：</label>
+                 <div class="layui-input-inline">
+                     <input type="password" name="password2" id="password2" lay-verify="required" lay-reqtext="二级密码不能为空" placeholder="请输入" autocomplete="off" class="layui-input">
+                 </div>
+             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
-        var form = layui.form
-            , layer = layui.layer
-            , layedit = layui.layedit
-            , laydate = layui.laydate;
-
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
-        });
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function (value) {
-                if (value.length < 5) {
-                    return '标题至少得5个字符啊';
+    layui.use(['form', 'layer', 'jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        //查询用户名与用户余额
+        $.ajax({
+            url: "/orders/findUser.do",
+            type: "post",
+            datatype: "json",
+            limit: null
+            , success: function (rec) {
+                if (rec.code == 0) {
+                    $("#balance").val(rec.data[1]);
+                    $("#username").val(rec.data[0]);
+                    $("#totalPay").val(rec.data[2]);
+                    $("#roleName").val(rec.data[3]);
+                    form.render();
+                } else {
+                    alert("failed")
                 }
             }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , content: function (value) {
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
 
         //监听提交
-        form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+        form.on('submit(setting)', function (data) {
+            console.log(data);
+            // if ((parseInt(totalPay)>=parseInt('5000') && roleName.equal("注册会员"))) {
+            //     pay = 1000;
+            // }else if ((parseInt(totalPay)>= parseInt('15000') && roleName.equal("黄金会员") )) {
+            //     pay = 3000;
+            // }else if ((parseInt(totalPay)>=parseInt('50000') && roleName.equal("铂金会员")) ) {
+            //     pay = 8000;
+            // }else {
+            //     layer.msg("会员等级提升失败");
+            //     return false;
+            // }
+            // if (pay-balance>0){
+            //     layer.msg("账户余额不足");
+            //     return false;
+            // }
+            $.ajax({
+                url: "/orders/buyVip.do",
+                type: "post",
+                dataType: "json",
+                data: {
+                    'username': data.field.username,
+                    'balance': data.field.balance,
+                    'roleName': data.field.vip,
+                    'totalPay': data.field.totalPay,
+                    'password2': data.field.password2
+                }, success: function (rec) {
+                    if (rec.code == 0) {
+                        layer.msg(rec.msg);
+                    } else {
+                        layer.msg(rec.msg);
+                    }
+                }
+            });
+            // layer.close(index);
+            form.render();
             return false;
         });
-
-        //表单初始赋值
-        form.val('example', {
-            "username": "贤心" // "name": "value"
-            , "password": "123456"
-            , "interest": 1
-            , "like[write]": true //复选框选中状态
-            , "close": true //开关状态
-            , "sex": "女"
-            , "desc": "我爱 layui"
-        })
-
-
     });
+
+
 </script>
 
 </body>

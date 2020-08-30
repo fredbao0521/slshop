@@ -38,7 +38,10 @@
             , url: '/orders/findcargoods.do'
             , toolbar: '#toolbarDemo'
             , totalRow: true//开启合计行
-            , defaultToolbar: []
+            , defaultToolbar: [],
+            text: {
+                none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+            }
             , cols: [[
                 {type: "checkbox", width: 100},
                 {type: 'numbers', title: "序号", align: 'center'},
@@ -57,26 +60,7 @@
                 , {field: 'total', title: '小计', align: 'center', sort: true, totalRow: true}
                 , {title: '操作', width: 150, toolbar: '#barDemo', aline: 'center'}
             ]]  , skin: 'line'
-            /*  , done: function (res, curr, count) {//数据渲染完的回调。
 
-                  var rowNums = res.list.length;//获取行数
-
-                  var scoreTotal = this.elem.next().find('.layui-table-total td[data-field="score"] .layui-table-cell').text();//获取“评分”合计行的合计结果
-                  var scoreAvg = (scoreTotal / rowNums).toFixed(2).toString().concat('%');//计算平均分：总分除以行数，保留两位小数
-                  this.elem.next().find('.layui-table-total td[data-field="score"] .layui-table-cell').text(scoreAvg);//将计算结果复制给“评分”列的合计行
-
-                  $('th').css({'background-color': '#ccdeff', 'color': 'black', 'font-weight': 'bold'});
-                  var that = this.elem.next();
-
-  //为该数据表格添加样式，间隔行添加颜色
-                  res.list.forEach(function (item, index) {
-                      if (index % 2 == 0) {
-                          var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "#FFFFFF");
-                      } else {
-                          var tr = that.find(".layui-table-box tbody tr[data-index='" + index + "']").css("background-color", "#F4F6F9");
-                      }
-                  });
-              }*/
         });
 
         table.on('tool(test)', function (obj) {
